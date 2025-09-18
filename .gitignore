@@ -1,0 +1,10 @@
+venv/
+datasets/
+processed/
+storages/
+*.txt
+.env
+**/__pycache__/
+*.pth
+visrag/
+unused/
