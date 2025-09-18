@@ -31,24 +31,24 @@ source .venv/bin/activate
 Installing Dependencies
 ```
 uv pip install torch
-uv pip install torchvision
+uv pip install 'git+https://github.com/facebookresearch/detectron2.git' --no-build-isolation
+uv pip install pymupdf
 uv pip install transformers
-uv pip install accelerate
 uv pip install openai
 uv pip install faiss-gpu
-uv pip install opencv-python
-uv pip install pymupdf
 uv pip install timm
 uv pip install shapely
 uv pip install qwen_vl_utils
 uv pip install scipy
 uv pip install sentence-transformers
-uv pip install numpy==1.26.4
-uv pip install 'git+https://github.com/facebookresearch/detectron2.git' --no-build-isolation
-uv pip install sentencepiece
 uv pip install PyPDF2
 uv pip install gdown
+uv pip install opencv-python
+uv pip install numpy==1.26.4
 ```
+
+<!-- uv pip install torchvision
+uv pip install accelerate -->
 
 ### Layout model checkpoint
 Microsoft's DIT model (Document Image Transformer) is used for layout extraction: https://github.com/microsoft/unilm/tree/master/dit
