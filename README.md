@@ -72,6 +72,7 @@ Download the TAT-DQA Dataset from Google Drive
 Make a tatdqa/ folder and download the following:
 
 Dataset: gdown https://drive.google.com/uc?id=1iqe5r-qgQZLhGtM4G6LkNp9S6OCwOF2L (unzip this after downloading)
+
 QA Answer Pairs: gdown https://drive.google.com/uc?id=1ZQjjIC0BB14l6t9b1Ryq0t-CNAP6iC2J
 
 Make sure Dataset and Answer Pairs are in datasets/tatdqa/test and datasets/tatdqa/
