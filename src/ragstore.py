@@ -164,7 +164,7 @@ class Ragstore:
 
     def build_index_per_file(self):
 
-        # Step 1: Preprocess pdfs into pagesa
+        # Step 1: Preprocess PDFs into staging dir
         staging_dir = os.path.join(self.data_dir, "test")
         os.makedirs(staging_dir, exist_ok=True)
 
@@ -176,27 +176,35 @@ class Ragstore:
         for f in tqdm(files, desc="Preprocessing PDFs"):
             src_path = os.path.join(self.data_dir, f)
             dst_path = os.path.join(staging_dir, f)
-
             with open(src_path, "rb") as src, open(dst_path, "wb") as dst:
                 dst.write(src.read())
 
-        # Step 2: Build index from preprocessed PDFs
+        # Step 2: Build index per page
         files = [
             f for f in os.listdir(staging_dir)
             if f.lower().endswith('.pdf') and os.path.isfile(os.path.join(staging_dir, f))
         ]
 
         for f in tqdm(files, desc="Building indices"):
+            pdf_path = os.path.join(staging_dir, f)
             raw_name = f[:-4]
-            emb_dim = self.embedder.get_dims()
-            index = VectorStore(emb_dim)
-            output_data, output_meta, output_emb = self.process_one_file(file_path=os.path.join(staging_dir, f), file_name=f)
-            for d, m, e in zip(output_data, output_meta, output_emb):
+
+            reader = PdfReader(pdf_path)
+
+            output_data, output_meta, output_emb = self.process_one_file(
+                file_path=pdf_path, file_name=f
+            )
+
+            for page_idx, (d, m, e) in enumerate(zip(output_data, output_meta, output_emb)):
+                emb_dim = self.embedder.get_dims()
+                index = VectorStore(emb_dim)
                 index.add(e, d, m)
 
-            save_path = os.path.join(self.save_dir, raw_name)
-            os.makedirs(save_path, exist_ok=True)
-            index.save(os.path.join(save_path, "docstore"))
+                # Add page suffix (_p0, _p1, ...)
+                page_name = f"{raw_name}_p{page_idx}"
+                save_path = os.path.join(self.save_dir, page_name)
+                os.makedirs(save_path, exist_ok=True)
+                index.save(os.path.join(save_path, "docstore"))
 
 
     # def build_index_per_file(self):
