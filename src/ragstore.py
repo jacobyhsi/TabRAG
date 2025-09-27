@@ -1,5 +1,4 @@
 import os
-from PyPDF2 import PdfReader, PdfWriter
 from tqdm import tqdm
 
 from src.layout import LayoutProcessor
@@ -189,8 +188,6 @@ class Ragstore:
             pdf_path = os.path.join(staging_dir, f)
             raw_name = f[:-4]
 
-            reader = PdfReader(pdf_path)
-
             output_data, output_meta, output_emb = self.process_one_file(
                 file_path=pdf_path, file_name=f
             )
@@ -200,8 +197,8 @@ class Ragstore:
                 index = VectorStore(emb_dim)
                 index.add(e, d, m)
 
-                # Add page suffix (_p0, _p1, ...)
-                page_name = f"{raw_name}_p{page_idx}"
+                # Add page suffix (_p1, _p2, ...)
+                page_name = f"{raw_name}_p{page_idx+1}"
                 save_path = os.path.join(self.save_dir, page_name)
                 os.makedirs(save_path, exist_ok=True)
                 index.save(os.path.join(save_path, "docstore"))

@@ -1,11 +1,4 @@
 import re
-# def output_sanitizer(text):
-#     # leading <think> tags from Qwen3
-#     text = re.sub(r'^<think>.*?</think>\s*', '', text, flags=re.DOTALL)
-#     # leading new lines
-#     text = text.lstrip('\n')
-    
-#     return text
 
 def normalize_answer(s: str) -> str:
     # lower + trim + collapse spaces

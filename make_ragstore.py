@@ -16,7 +16,7 @@ warnings.filterwarnings("ignore")
 # -----------------------------
 # Model setup
 # -----------------------------
-llm = VLLMLLMClient('Qwen/Qwen3-14B', ip='146.169.1.68', port='6000')
+llm = VLLMLLMClient('Qwen/Qwen3-14B', ip='146.169.1.68', port='1707')
 vlm = VLLMVLMClient('Qwen/Qwen2.5-VL-32B-Instruct', ip='146.169.1.69', port='1708')
 
 # Alternative clients if needed

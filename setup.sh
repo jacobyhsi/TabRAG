@@ -12,6 +12,7 @@ source venv/bin/activate
 
 # Install UV packages
 uv pip install vllm
+uv pip install accelerate # for huggingface
 uv pip install pandas
 uv pip install numpy
 uv pip install deprecated
