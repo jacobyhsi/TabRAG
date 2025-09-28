@@ -85,7 +85,7 @@ tar -xvf fintabnet.tar.gz
 MP-DocVQA:
 ```
 wget https://datasets.cvc.uab.es/rrc/DocVQA/Task4/images.tar.gz --no-check-certificate
-tar -xvf fintabnet.tar.gz
+tar -xvf images.tar.gz
 ```
 
 ### Run

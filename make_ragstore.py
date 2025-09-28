@@ -16,7 +16,7 @@ warnings.filterwarnings("ignore")
 # -----------------------------
 # Model setup
 # -----------------------------
-llm = VLLMLLMClient('Qwen/Qwen3-14B', ip='146.169.1.68', port='1707')
+llm = VLLMLLMClient('Qwen/Qwen3-14B', ip='146.169.1.69', port='1707')
 vlm = VLLMVLMClient('Qwen/Qwen2.5-VL-32B-Instruct', ip='146.169.1.69', port='1708')
 
 # Alternative clients if needed
@@ -32,7 +32,6 @@ lp = LayoutProcessor()
 # Base directory setup (general)
 # -----------------------------
 # base_dir = "datasets/fintabnet/expts"
-# base_dir = "datasets/tatdqa/test"
 base_dir = "datasets/tatdqa/test"
 # base_dir = "datasets/mp-docvqa/jjvg0027"
 # base_dir = "datasets/mp-docvqa/images_test" # for holding
