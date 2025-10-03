@@ -7,14 +7,6 @@ from src.embedder import SentenceTransformerEmbedder
 from src.vector_store import VectorStore
 from src.utils import normalize_answer
 
-def preprocess_mpdocvqa(json_path):
-    with open(json_path, 'r') as f:
-        data = json.load(f)
-    
-    print(data.keys())
-    data = data['data']
-    print(data)
-
 # def eval_TATDQA(gt_path, dataset_dir, storage_dir, llm, emb, metric):
 #     with open(gt_path, 'r') as f:
 #         gt = json.load(f)
@@ -103,7 +95,7 @@ def preprocess_mpdocvqa(json_path):
 #     return results
 
 
-def eval_TATDQA(gt_path, dataset_dir, storage_dir, llm, emb, metric):
+def eval_TATDQA(gt_path, storage_dir, llm, emb, metric):
     with open(gt_path, 'r') as f:
         gt = json.load(f)
 
@@ -113,7 +105,6 @@ def eval_TATDQA(gt_path, dataset_dir, storage_dir, llm, emb, metric):
     for doc in gt:
         doc_doc = doc['doc']
         doc_id = doc['doc']['uid']
-        doc_src = doc['doc']['source']
         page = doc_doc.get("page")
 
         folder_name = f"{doc_id}_p{page}" if page is not None else doc_id
@@ -161,9 +152,82 @@ def eval_TATDQA(gt_path, dataset_dir, storage_dir, llm, emb, metric):
                     print("incorrect!")
                 print(f'Current Accuracy: {correct/total} | # correct: {correct}, # total: {total}')
 
-          
     results = {}
     results['accuracy'] = correct / total
+    return results
+
+def eval_MPDOCVQA(gt_path, storage_dir, llm, emb, metric):
+    with open(gt_path, 'r') as f:
+        gt = json.load(f)
+
+    correct = 0 
+    total = 0
+    mistakes = []
+
+    # The ground truth is a list of QA items under the "data" key.
+    for qa_item in gt['data']:
+        doc_id = qa_item['doc_id']
+        
+        # The page containing the answer is specified by `answer_page_idx`.
+        answer_page_idx = qa_item['answer_page_idx']
+        
+        # Skip if page_ids list is missing or the index is invalid.
+        if not qa_item.get('page_ids') or answer_page_idx >= len(qa_item['page_ids']):
+            continue
+            
+        page_id = qa_item['page_ids'][answer_page_idx]
+        
+        # Construct the path to the index based on the new structure:
+        # e.g., .../mpdocvqa/{doc_id}/{page_id}/
+        storage_path = os.path.join(storage_dir, doc_id, page_id)
+
+        if not os.path.isdir(storage_path):
+            continue
+
+        docstore_path = os.path.join(storage_path, "docstore")
+
+        # The index files are located directly in the storage_path.
+        # No "docstore" subdirectory is used in this structure.
+        index = VectorStore.load(docstore_path)
+
+        # Extract question and the list of possible answers.
+        q_q = qa_item['question']
+        q_a = qa_item['answers']
+
+        # This item is valid for evaluation, so increment the total count.
+        total += 1
+
+        q_embed = emb.encode([q_q]).astype("float32")
+
+        # QA interaction
+        if metric == 'acc' or metric is None:
+            retr = index.search(q_embed, k=1)
+            system_prompt = "You are a helpful assistant. Use the information from the documents below to answer the question."
+            user_prompt = f"/no_think {retr[0]['text']} \n Question: {q_q} \n Answer: "
+
+            raw_response = llm.generate(system_prompt, user_prompt)
+
+            print(f'\nResponse: {raw_response} \nGround Truth: {q_a}')
+
+            normalized_response = normalize_answer(raw_response)
+
+            # Ensure ground truth answers are normalized for comparison.
+            q_a = [normalize_answer(str(ans)) for ans in q_a]
+
+            # The answer is correct if the response contains ANY of the valid answers.
+            if any(ans in normalized_response for ans in q_a):
+                correct += 1
+                print("correct!")
+            else:
+                mistakes.append((q_q, q_a, raw_response))
+                print("incorrect!")
+            
+            print(f'Current Accuracy: {correct/total:.4f} | # correct: {correct}, # total: {total}')
+
+    results = {}
+    results['accuracy'] = correct / total if total > 0 else 0.0
+    results['mistakes'] = mistakes
+    
     return results
 
 def main(args):
@@ -174,21 +238,19 @@ def main(args):
     # llm = None
     embedder = SentenceTransformerEmbedder('Qwen/Qwen3-Embedding-8B')
     # embedder = None
-    if (dataset == 'MP-DocVQA'):
-        if (args.dataset_path is None):
-            print('MP-DocVQA: Missing --dataset_path argument')
-            exit()
-        preprocess_mpdocvqa(args.dataset_path)
+    if (dataset == 'mpdocvqa'):
+        gt_path = f'datasets/mpdocvqa/val.json'
+        storage_dir =  f'storages/mpdocvqa'
+        result = eval_MPDOCVQA(gt_path, storage_dir, llm, embedder, metric)
     if (dataset == 'tatdqa'):
         gt_path = f'datasets/tatdqa/tatdqa_dataset_test_gold.json'
-        dataset_dir = f'datasets/tatdqa/test'
         storage_dir =  f'storages/tatdqa'
-        result = eval_TATDQA(gt_path, dataset_dir, storage_dir, llm, embedder, metric)
+        result = eval_TATDQA(gt_path, storage_dir, llm, embedder, metric)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Run Evaluation Pipeline')
     parser.add_argument('--model', type=str, default='tabrag', help='model to use')
-    parser.add_argument('--dataset', type=str, default='tatdqa', help='dataset to evaluate on')
+    parser.add_argument('--dataset', type=str, default='mpdocvqa', help='dataset to evaluate on')
     parser.add_argument('--metric', type=str, default='acc', help='metric to eval on: acc, mrr10, ndcg10')
     args = parser.parse_args()
     main(args)
