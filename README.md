@@ -1,4 +1,24 @@
-# Setup Instructions
+# TabRAG: Tabular Document Retrieval via Structured Language Representations
+<div align="center">
+<div>
+    <a href="https://jacobyhsi.github.io/" target="_blank">Jacob Si</a><sup>*</sup> | 
+    <a href="https://mikequ1.github.io/" target="_blank">Mike Qu</a><sup>*</sup> | 
+    <a href="https://www.linkedin.com/in/michelle-lee-9a796712b/" target="_blank">Michelle Lee</a> | 
+    <a href="http://yingzhenli.net/home/en/" target="_blank">Yingzhen Li</a>
+</div>
+<br>
+<div>
+    Imperial College London
+</div>
+<br>
+</div>
+
+<p align="center">
+<a href=""><img src="https://img.shields.io/badge/arXiv-2505.18495-b31b1b.svg?logo=arxiv&logoColor=red" alt="TabRAG on arXiv"/></a>
+<a href="https://github.com/jacobyhsi/VUD/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License"></a>
+</p>
+
+## Setup Instructions
 
 ### Setting up environments
 ```
@@ -79,12 +99,6 @@ QA Answer Pairs: gdown https://drive.google.com/uc?id=1ZQjjIC0BB14l6t9b1Ryq0t-CN
 
 Make sure Dataset and Answer Pairs are in datasets/tatdqa/test and datasets/tatdqa/
 
-FintabNet:
-```
-wget https://dax-cdn.cdn.appdomain.cloud/dax-fintabnet/1.0.0/fintabnet.tar.gz
-tar -xvf fintabnet.tar.gz
-```
-
 MP-DocVQA:
 ```
 wget https://datasets.cvc.uab.es/rrc/DocVQA/Task4/images.tar.gz --no-check-certificate
@@ -102,6 +116,12 @@ pip install arxiv
 # open python shell: python
 from huggingface_hub import snapshot_download
 snapshot_download(repo_id="google/spiqa", repo_type="dataset", local_dir='.') ### Mention the local directory path
+```
+
+FinTabNet:
+```
+wget https://dax-cdn.cdn.appdomain.cloud/dax-fintabnet/1.0.0/fintabnet.tar.gz
+tar -xvf fintabnet.tar.gz
 ```
 
 ### Run
