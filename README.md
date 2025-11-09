@@ -21,6 +21,9 @@
 ## Setup Instructions
 
 ### Setting up environments
+
+Using Conda:
+
 ```
 conda create --name tabrag python=3.10
 conda activate tabrag
@@ -46,6 +49,8 @@ pip install pypdf
 pip install vllm
 pip install arxiv
 ```
+
+Using UV:
 
 ```
 uv venv --python 3.10
