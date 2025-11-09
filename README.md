@@ -106,3 +106,90 @@ tar -xvf fintabnet.tar.gz
 ```
 python make_ragstore.py
 ```
+
+### Installing Tesseract OCR and pytesseract on Linux
+This guide explains how to install Tesseract OCR and use it in Python via pytesseract, either by installing with `sudo` (system installation) or by building from source when you don’t have administrative privileges such as on shared HPC or Bitbucket environments.
+
+#### Option 1: System installation(sudo required)
+1. Install Python OCR dependencies inside your project environment
+```bash
+pip install pytesseract Pillow
+```
+
+2. Install Tesseract
+```bash
+sudo apt update
+sudo apt install tesseract-ocr libtesseract-dev
+```
+
+3. Verify installation
+```bash
+tesseract --version
+```
+
+#### Option 2: Build from Source (no sudo required)
+1. Install Python OCR dependencies inside your project environment
+```bash
+pip install pytesseract Pillow
+```
+
+2. Create a build directory
+```bash
+mkdir -p $HOME/tesseract_build
+cd $HOME/tesseract_build
+```
+
+3. Download 
+
+Tesseract Source
+```bash
+git clone https://github.com/tesseract-ocr/tesseract.git
+```
+
+Leptonica Source
+```bash
+git clone https://github.com/DanBloomberg/leptonica.git
+```
+
+4. Build & install locally
+```bash
+cd $HOME/tesseract_build/leptonica
+./autobuild
+./configure --prefix=$HOME/tesseract_build/install
+make -j$(nproc)
+make install
+
+cd ../tesseract
+./autogen.sh
+LIBLEPT_HEADERSDIR=$HOME/tesseract_build/install/include ./configure \
+  --prefix=$HOME/tesseract_build/install \
+  --with-extra-libraries=$HOME/tesseract_build/install/lib
+make -j$(nproc)
+make install
+```
+
+5. Verify installation
+```bash
+$HOME/tesseract_build/install/bin/tesseract --version
+```
+
+6. Set environment variable for running any OCR script
+```bash
+export PATH=$HOME/tesseract_build/install/bin:$PATH
+export LD_LIBRARY_PATH=$HOME/tesseract_build/install/lib:$LD_LIBRARY_PATH
+export TESSDATA_PREFIX=$HOME/tesseract_build/install/share/tessdata
+
+which tesseract
+tesseract --version
+```
+
+7. Download language data for tesseract to perform OCR
+```bash
+mkdir -p $HOME/tesseract_build/install/share/tessdata
+cd $HOME/tesseract_build/install/share/tessdata
+wget https://github.com/tesseract-ocr/tessdata_best/raw/main/eng.traineddata
+```
+
+Reference:
+
+Official build guide: https://tesseract-ocr.github.io/tessdoc/Compiling.html
