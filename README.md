@@ -2,8 +2,8 @@
 
 ### Setting up environments
 ```
-conda create --name searag python=3.10
-conda activate searag
+conda create --name tabrag python=3.10
+conda activate tabrag
 ```
 Installing Dependencies
 ```
@@ -18,10 +18,13 @@ pip install pymupdf
 pip install timm
 pip install shapely
 pip install qwen_vl_utils
-uv pip install scipy
-uv pip install sentence-transformers
+pip install scipy
+pip install sentence-transformers
 pip install numpy==1.26.4
 pip install 'git+https://github.com/facebookresearch/detectron2.git'
+pip install pypdf
+pip install vllm
+pip install arxiv
 ```
 
 ```
@@ -44,10 +47,10 @@ uv pip install sentence-transformers
 uv pip install gdown
 uv pip install opencv-python
 uv pip install numpy==1.26.4
+uv pip install pypdf
+uv pip install vllm
+uv pip install arxiv
 ```
-
-<!-- uv pip install torchvision
-uv pip install accelerate -->
 
 ### Layout model checkpoint
 Microsoft's DIT model (Document Image Transformer) is used for layout extraction: https://github.com/microsoft/unilm/tree/master/dit
@@ -86,6 +89,19 @@ MP-DocVQA:
 ```
 wget https://datasets.cvc.uab.es/rrc/DocVQA/Task4/images.tar.gz --no-check-certificate
 tar -xvf images.tar.gz
+python process_mpdocvqa.py # get documents with tables
+python filter_mpdocvqa.py # select 500 pages based on qa:pages ratio
+python indent_mpdocvqa.py # visibility of val.json
+```
+
+SPIQA:
+```
+# mkdir/cd into datasets/SPIQA
+pip install arxiv
+
+# open python shell: python
+from huggingface_hub import snapshot_download
+snapshot_download(repo_id="google/spiqa", repo_type="dataset", local_dir='.') ### Mention the local directory path
 ```
 
 ### Run

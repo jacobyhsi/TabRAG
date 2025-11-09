@@ -1,11 +1,13 @@
+import re
+import math
 import requests
 import base64
+
 from openai import OpenAI
 from transformers import Qwen2_5_VLForConditionalGeneration, AutoModelForCausalLM, AutoTokenizer, AutoProcessor
 from qwen_vl_utils import process_vision_info
 from io import BytesIO
 from PIL import Image
-import re
 
 from abc import ABC, abstractmethod
 
@@ -117,7 +119,7 @@ class HFVLMClient(BaseVLMEngine):
     def __init__(self, model):
         super().__init__()
         self.vlm = Qwen2_5_VLForConditionalGeneration.from_pretrained(
-            model, torch_dtype="auto", device_map="auto"
+            model, dtype="auto", device_map="auto"
         )
         self.vlm_processor = AutoProcessor.from_pretrained(model)
 
@@ -152,7 +154,7 @@ class HFLLMClient(BaseLLMEngine):
     def __init__(self, model):
         super().__init__()
         self.llm = AutoModelForCausalLM.from_pretrained(
-            model, torch_dtype="auto", device_map="auto"
+            model, dtype="auto", device_map="auto"
         )
         self.tokenizer = AutoTokenizer.from_pretrained(model)
 
@@ -169,3 +171,60 @@ class HFLLMClient(BaseLLMEngine):
         outputs = [out[len(inp):] for inp, out in zip(inputs.input_ids, outputs)]
         response = self.tokenizer.batch_decode(outputs, skip_special_tokens=True)
         return response[0]
+
+class L3ScoreVLLMLLMClient(BaseLLMEngine):
+    def __init__(self, model, ip, port):
+        super().__init__()
+        self.model = model
+        self.temperature = 1.0
+        self.client = OpenAI(
+            api_key="EMPTY",
+            base_url=f"http://{ip}:{port}/v1"
+        )
+
+    def generate(self, question: str, gt_answer: str, candidate_answer: str):
+        # --- L3Score Calculation Logic ---
+        # 1. Construct the specific prompt for L3Score evaluation
+        prompt = (
+            f"/no_think\n"
+            f"You are given a question, ground-truth answer, and a candidate answer.\n\n"
+            f"Question: {question}\n"
+            f"Ground-truth answer: {gt_answer}\n"
+            f"Candidate answer: {candidate_answer}\n\n"
+            f"Is the semantic meaning of the ground-truth and candidate answers similar?\n"
+            f"Answer in one word Yes or No. DO NOT OUTPUT ANYTHING ELSE!"
+        )
+
+        # 2. Call the API with logprobs enabled
+        response = self.client.chat.completions.create(
+            model=self.model,
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=10,
+            temperature=self.temperature,
+            logprobs=True,      # Request log probabilities
+            top_logprobs=10     # Get the top 10 most likely tokens
+        )
+
+        # 3. Process the log probabilities from the response
+        label_keys = ["Yes", "No"]
+        label_logprobs = {}
+        if response.choices[0].logprobs:
+            # Iterate through each token position in the response
+            for token_info in response.choices[0].logprobs.content:
+                # Check the top logprob options for that token
+                for top_logprob in token_info.top_logprobs:
+                    stripped_token = top_logprob.token.strip()
+                    if stripped_token in label_keys:
+                        logprob = top_logprob.logprob
+                        # Keep the highest logprob if a token ("Yes" or "No") appears more than once
+                        if (stripped_token not in label_logprobs) or (logprob > label_logprobs[stripped_token]):
+                            label_logprobs[stripped_token] = logprob
+
+        # 4. Normalize the probabilities to calculate the L3Score
+        exp_probs = {token: math.exp(logprob) for token, logprob in label_logprobs.items()}
+        total_prob = sum(exp_probs.values())
+        normalized_probs = {token: (prob / total_prob) for token, prob in exp_probs.items()} if total_prob > 0 else {}
+        
+        l3score = normalized_probs.get("Yes", 0.0)
+
+        return l3score, normalized_probs
