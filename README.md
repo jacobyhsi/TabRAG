@@ -15,7 +15,7 @@
 
 <p align="center">
 <a href=""><img src="https://img.shields.io/badge/arXiv-2505.18495-b31b1b.svg?logo=arxiv&logoColor=red" alt="TabRAG arXiv"/></a>
-<a href=""><img src="https://img.shields.io/badge/License-CC%20BY--NC%204.0-blue.svg" alt="TabRAG License"/></a>
+<a href="https://github.com/jacobyhsi/TabRAG/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-CC%20BY--NC%204.0-blue.svg" alt="TabRAG License"/></a>
 </p>
 
 ## Installation
