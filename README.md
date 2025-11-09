@@ -65,7 +65,7 @@ mkdir datasets
 cd datasets
 ```
 
-**TatDQA**:
+**TAT-DQA**:
 
 Download the TAT-DQA Dataset from Google Drive
 
