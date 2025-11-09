@@ -18,11 +18,11 @@
 <a href="https://github.com/jacobyhsi/VUD/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License"></a>
 </p>
 
-## Setup Instructions
+## Installation
 
-### Setting up environments
+The following delineates the installation instructions. Clone this repository and navigate to it in your terminal. Create an environment using a preferred package manager.
 
-Using Conda:
+Note: can replace with `uv`.
 
 ```
 conda create --name tabrag python=3.10
@@ -31,50 +31,22 @@ conda activate tabrag
 Installing Dependencies
 ```
 pip install torch
-pip install torchvision
+pip install 'git+https://github.com/facebookresearch/detectron2.git' --no-build-isolation
+pip install pymupdf
 pip install transformers
-pip install accelerate
 pip install openai
 pip install faiss-gpu
-pip install opencv-python
-pip install pymupdf
 pip install timm
 pip install shapely
 pip install qwen_vl_utils
 pip install scipy
 pip install sentence-transformers
+pip install gdown
+pip install opencv-python
 pip install numpy==1.26.4
-pip install 'git+https://github.com/facebookresearch/detectron2.git'
 pip install pypdf
 pip install vllm
 pip install arxiv
-```
-
-Using UV:
-
-```
-uv venv --python 3.10
-source .venv/bin/activate
-```
-Installing Dependencies
-```
-uv pip install torch
-uv pip install 'git+https://github.com/facebookresearch/detectron2.git' --no-build-isolation
-uv pip install pymupdf
-uv pip install transformers
-uv pip install openai
-uv pip install faiss-gpu
-uv pip install timm
-uv pip install shapely
-uv pip install qwen_vl_utils
-uv pip install scipy
-uv pip install sentence-transformers
-uv pip install gdown
-uv pip install opencv-python
-uv pip install numpy==1.26.4
-uv pip install pypdf
-uv pip install vllm
-uv pip install arxiv
 ```
 
 ### Layout model checkpoint
@@ -84,6 +56,7 @@ Download this checkpoint:
 https://mail2sysueducn-my.sharepoint.com/:u:/g/personal/huangyp28_mail2_sysu_edu_cn/ESKnk2I_O09Em52V1xb2Ux0BrO_Z-7cuzL3H1KQRxipb7Q?e=iqTfGc
 
 Move it to the project directory
+
 ### Datasets
 Create a datasets/ folder
 
@@ -92,7 +65,7 @@ mkdir datasets
 cd datasets
 ```
 
-TatDQA:
+**TatDQA**:
 
 Download the TAT-DQA Dataset from Google Drive
 
@@ -104,7 +77,7 @@ QA Answer Pairs: gdown https://drive.google.com/uc?id=1ZQjjIC0BB14l6t9b1Ryq0t-CN
 
 Make sure Dataset and Answer Pairs are in datasets/tatdqa/test and datasets/tatdqa/
 
-MP-DocVQA:
+**MP-DocVQA**:
 ```
 wget https://datasets.cvc.uab.es/rrc/DocVQA/Task4/images.tar.gz --no-check-certificate
 tar -xvf images.tar.gz
@@ -113,7 +86,7 @@ python filter_mpdocvqa.py # select 500 pages based on qa:pages ratio
 python indent_mpdocvqa.py # visibility of val.json
 ```
 
-SPIQA:
+**SPIQA**:
 ```
 # mkdir/cd into datasets/SPIQA
 pip install arxiv
@@ -123,7 +96,7 @@ from huggingface_hub import snapshot_download
 snapshot_download(repo_id="google/spiqa", repo_type="dataset", local_dir='.') ### Mention the local directory path
 ```
 
-FinTabNet:
+**FinTabNet**:
 ```
 wget https://dax-cdn.cdn.appdomain.cloud/dax-fintabnet/1.0.0/fintabnet.tar.gz
 tar -xvf fintabnet.tar.gz
