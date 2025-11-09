@@ -1,14 +1,14 @@
 # TabRAG: Tabular Document Retrieval via Structured Language Representations
 <div align="center">
 <div>
-    <a href="https://jacobyhsi.github.io/" target="_blank">Jacob Si</a><sup>*</sup> | 
-    <a href="https://mikequ1.github.io/" target="_blank">Mike Qu</a><sup>*</sup> | 
-    <a href="https://www.linkedin.com/in/michelle-lee-9a796712b/" target="_blank">Michelle Lee</a> | 
-    <a href="http://yingzhenli.net/home/en/" target="_blank">Yingzhen Li</a>
+    <a href="https://jacobyhsi.github.io/" target="_blank">Jacob Si</a><sup>*1</sup> | 
+    <a href="https://mikequ1.github.io/" target="_blank">Mike Qu</a><sup>2*</sup> | 
+    <a href="https://www.linkedin.com/in/michelle-lee-9a796712b/" target="_blank">Michelle Lee</a><sup>1</sup> | 
+    <a href="http://yingzhenli.net/home/en/" target="_blank">Yingzhen Li</a><sup>1</sup>
 </div>
 <br>
 <div>
-    Imperial College London
+    <sup>1</sup>Imperial College London <sup>2</sup>Columbia University
 </div>
 <br>
 </div>
