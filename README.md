@@ -105,4 +105,6 @@ snapshot_download(repo_id="google/spiqa", repo_type="dataset", local_dir='.') ##
 ```
 
 ### Run
+```
 python make_ragstore.py
+```
