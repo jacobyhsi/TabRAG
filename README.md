@@ -49,85 +49,10 @@ pip install vllm
 pip install arxiv
 ```
 
-### Layout model checkpoint
-Microsoft's DIT model (Document Image Transformer) is used for layout extraction: https://github.com/microsoft/unilm/tree/master/dit
+### Installing Tesseract OCR and pytesseract
+This guide explains how to install Tesseract OCR and use it in Python via pytesseract by building from source.
 
-Download this checkpoint: 
-https://mail2sysueducn-my.sharepoint.com/:u:/g/personal/huangyp28_mail2_sysu_edu_cn/ESKnk2I_O09Em52V1xb2Ux0BrO_Z-7cuzL3H1KQRxipb7Q?e=iqTfGc
-
-Move it to the project directory
-
-### Datasets
-Create a datasets/ folder
-
-```
-mkdir datasets
-cd datasets
-```
-
-**TAT-DQA**:
-
-Download the TAT-DQA Dataset from Google Drive
-
-Make a tatdqa/ folder and download the following:
-
-Dataset: gdown https://drive.google.com/uc?id=1iqe5r-qgQZLhGtM4G6LkNp9S6OCwOF2L (unzip this after downloading)
-
-QA Answer Pairs: gdown https://drive.google.com/uc?id=1ZQjjIC0BB14l6t9b1Ryq0t-CNAP6iC2J
-
-Make sure Dataset and Answer Pairs are in datasets/tatdqa/test and datasets/tatdqa/
-
-**MP-DocVQA**:
-```
-wget https://datasets.cvc.uab.es/rrc/DocVQA/Task4/images.tar.gz --no-check-certificate
-tar -xvf images.tar.gz
-python process_mpdocvqa.py # get documents with tables
-python filter_mpdocvqa.py # select 500 pages based on qa:pages ratio
-python indent_mpdocvqa.py # visibility of val.json
-```
-
-**SPIQA**:
-```
-# mkdir/cd into datasets/SPIQA
-pip install arxiv
-
-# open python shell: python
-from huggingface_hub import snapshot_download
-snapshot_download(repo_id="google/spiqa", repo_type="dataset", local_dir='.') ### Mention the local directory path
-```
-
-**FinTabNet**:
-```
-wget https://dax-cdn.cdn.appdomain.cloud/dax-fintabnet/1.0.0/fintabnet.tar.gz
-tar -xvf fintabnet.tar.gz
-```
-
-### Run
-```
-python make_ragstore.py
-```
-
-### Installing Tesseract OCR and pytesseract on Linux
-This guide explains how to install Tesseract OCR and use it in Python via pytesseract, either by installing with `sudo` (system installation) or by building from source when you don’t have administrative privileges such as on shared HPC or Bitbucket environments.
-
-#### Option 1: System installation(sudo required)
-1. Install Python OCR dependencies inside your project environment
-```bash
-pip install pytesseract Pillow
-```
-
-2. Install Tesseract
-```bash
-sudo apt update
-sudo apt install tesseract-ocr libtesseract-dev
-```
-
-3. Verify installation
-```bash
-tesseract --version
-```
-
-#### Option 2: Build from Source (no sudo required)
+#### Build from Source
 1. Install Python OCR dependencies inside your project environment
 ```bash
 pip install pytesseract Pillow
@@ -193,3 +118,61 @@ wget https://github.com/tesseract-ocr/tessdata_best/raw/main/eng.traineddata
 Reference:
 
 Official build guide: https://tesseract-ocr.github.io/tessdoc/Compiling.html
+
+### Layout model checkpoint
+Microsoft's DIT model (Document Image Transformer) is used for layout extraction: https://github.com/microsoft/unilm/tree/master/dit
+
+Download this checkpoint: 
+https://mail2sysueducn-my.sharepoint.com/:u:/g/personal/huangyp28_mail2_sysu_edu_cn/ESKnk2I_O09Em52V1xb2Ux0BrO_Z-7cuzL3H1KQRxipb7Q?e=iqTfGc
+
+Move it to the project directory
+
+### Datasets
+Create a datasets/ folder
+
+```
+mkdir datasets
+cd datasets
+```
+
+**TAT-DQA**:
+
+Download the TAT-DQA Dataset from Google Drive
+
+Make a tatdqa/ folder and download the following:
+
+Dataset: gdown https://drive.google.com/uc?id=1iqe5r-qgQZLhGtM4G6LkNp9S6OCwOF2L (unzip this after downloading)
+
+QA Answer Pairs: gdown https://drive.google.com/uc?id=1ZQjjIC0BB14l6t9b1Ryq0t-CNAP6iC2J
+
+Make sure Dataset and Answer Pairs are in datasets/tatdqa/test and datasets/tatdqa/
+
+**MP-DocVQA**:
+```
+wget https://datasets.cvc.uab.es/rrc/DocVQA/Task4/images.tar.gz --no-check-certificate
+tar -xvf images.tar.gz
+python process_mpdocvqa.py # get documents with tables
+python filter_mpdocvqa.py # select 500 pages based on qa:pages ratio
+python indent_mpdocvqa.py # visibility of val.json
+```
+
+**SPIQA**:
+```
+# mkdir/cd into datasets/SPIQA
+pip install arxiv
+
+# open python shell: python
+from huggingface_hub import snapshot_download
+snapshot_download(repo_id="google/spiqa", repo_type="dataset", local_dir='.') ### Mention the local directory path
+```
+
+**FinTabNet**:
+```
+wget https://dax-cdn.cdn.appdomain.cloud/dax-fintabnet/1.0.0/fintabnet.tar.gz
+tar -xvf fintabnet.tar.gz
+```
+
+### Run
+```
+python make_ragstore.py
+```
