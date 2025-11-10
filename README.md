@@ -19,8 +19,9 @@
 </p>
 
 ## Installation
+### Enviroment Installation. 
 
-The following delineates the installation instructions. Clone this repository and navigate to it in your terminal. Create an environment using a preferred package manager.
+Clone this repository and navigate to it in your terminal. Create an environment using a preferred package manager.
 
 Note: can replace `conda` with `uv`.
 
@@ -28,6 +29,7 @@ Note: can replace `conda` with `uv`.
 conda create --name tabrag python=3.10
 conda activate tabrag
 ```
+
 Installing Dependencies
 ```
 pip install torch
@@ -49,10 +51,10 @@ pip install vllm
 pip install arxiv
 ```
 
-### Installing Tesseract OCR and pytesseract
-This guide explains how to install Tesseract OCR and use it in Python via pytesseract by building from source.
+### Installing Tesseract OCR and PyTesseract (Optional - Baseline). 
 
-#### Build from Source
+This guide explains how to install Tesseract OCR and use it in Python via PyTesseract by building from source. Official build guide: https://tesseract-ocr.github.io/tessdoc/Compiling.html
+
 1. Install Python OCR dependencies inside your project environment
 ```bash
 pip install pytesseract Pillow
@@ -115,17 +117,14 @@ cd $HOME/tesseract_build/install/share/tessdata
 wget https://github.com/tesseract-ocr/tessdata_best/raw/main/eng.traineddata
 ```
 
-Reference:
+### Layout Model 
 
-Official build guide: https://tesseract-ocr.github.io/tessdoc/Compiling.html
-
-### Layout model checkpoint
 Microsoft's DIT model (Document Image Transformer) is used for layout extraction: https://github.com/microsoft/unilm/tree/master/dit
 
 Download this checkpoint: 
 https://mail2sysueducn-my.sharepoint.com/:u:/g/personal/huangyp28_mail2_sysu_edu_cn/ESKnk2I_O09Em52V1xb2Ux0BrO_Z-7cuzL3H1KQRxipb7Q?e=iqTfGc
 
-Move it to the project directory
+Move it to the project directory.
 
 ### Datasets
 Create a datasets/ folder
@@ -136,16 +135,13 @@ cd datasets
 ```
 
 **TAT-DQA**:
-
-Download the TAT-DQA Dataset from Google Drive
-
-Make a tatdqa/ folder and download the following:
-
-Dataset: gdown https://drive.google.com/uc?id=1iqe5r-qgQZLhGtM4G6LkNp9S6OCwOF2L (unzip this after downloading)
-
-QA Answer Pairs: gdown https://drive.google.com/uc?id=1ZQjjIC0BB14l6t9b1Ryq0t-CNAP6iC2J
-
-Make sure Dataset and Answer Pairs are in datasets/tatdqa/test and datasets/tatdqa/
+```
+mkdir tatdqa
+cd tatdqa
+gdown https://drive.google.com/uc?id=1iqe5r-qgQZLhGtM4G6LkNp9S6OCwOF2L
+unzip the folder
+gdown https://drive.google.com/uc?id=1ZQjjIC0BB14l6t9b1Ryq0t-CNAP6iC2J
+```
 
 **MP-DocVQA**:
 ```
