@@ -18,6 +18,11 @@
 <a href="https://github.com/jacobyhsi/TabRAG/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-CC%20BY--NC%204.0-blue.svg" alt="TabRAG License"/></a>
 </p>
 
+<div align="center">
+  <img src="imgs/tabrag_architecture.png" alt="Model Logo" width="800" style="margin-left:'auto' margin-right:'auto' display:'block'"/>
+  <p><em>Figure 1: The TabRAG Architecture, a parsing-based RAG pipeline designed specifically for tables.</em>
+</div>
+
 ## Installation
 ### Enviroment Installation. 
 
