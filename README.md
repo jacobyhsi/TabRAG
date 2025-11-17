@@ -146,15 +146,17 @@ cd tatdqa
 gdown https://drive.google.com/uc?id=1iqe5r-qgQZLhGtM4G6LkNp9S6OCwOF2L
 unzip the folder
 gdown https://drive.google.com/uc?id=1ZQjjIC0BB14l6t9b1Ryq0t-CNAP6iC2J
+
+python process_tatdqa.py
 ```
 
 **MP-DocVQA**:
 ```
 wget https://datasets.cvc.uab.es/rrc/DocVQA/Task4/images.tar.gz --no-check-certificate
 tar -xvf images.tar.gz
-python process_mpdocvqa.py # get documents with tables
-python filter_mpdocvqa.py # select 500 pages based on qa:pages ratio
-python indent_mpdocvqa.py # visibility of val.json
+python process_mpdocvqa.py # get documents with tables # EDIT run this will do
+# python filter_mpdocvqa.py # select 500 pages based on qa:pages ratio
+# python indent_mpdocvqa.py # visibility of val.json
 ```
 
 **SPIQA**:
@@ -165,6 +167,16 @@ pip install arxiv
 # open python shell: python
 from huggingface_hub import snapshot_download
 snapshot_download(repo_id="google/spiqa", repo_type="dataset", local_dir='.') ### Mention the local directory path
+
+python process_spiqa.py
+```
+
+**WikiTableQuestions**:
+```
+wget https://github.com/ppasupat/WikiTableQuestions/archive/refs/tags/v1.0.2.tar.gz
+tar -xvf v1.0.2.tar.gz
+mv WikiTableQuestions-1.0.2 wikitablequestions
+python process_wikitq.py
 ```
 
 **FinTabNet**:
