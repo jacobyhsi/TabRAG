@@ -144,8 +144,6 @@ class Ragstore:
                         prev_idx = component_indices[local_idx - 1]
                         prev_context = comps[page_idx][prev_idx].get('details', '')
                     output = self.llm.generate(llm_prompt, prev_context + '\n\n' + output)
-                    print(output)
-                    exit()
 
                 # Collect component-level info
                 page_texts.append(output)
