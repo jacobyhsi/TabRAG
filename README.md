@@ -132,10 +132,9 @@ https://mail2sysueducn-my.sharepoint.com/:u:/g/personal/huangyp28_mail2_sysu_edu
 Move it to the project directory.
 
 ### Datasets
-Create a datasets/ folder
+Enter the datasets/ folder
 
 ```
-mkdir datasets
 cd datasets
 ```
 
