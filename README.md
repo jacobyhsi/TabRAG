@@ -195,5 +195,5 @@ vllm serve "Qwen/Qwen3-14B" --dtype auto --tensor-parallel-size 1 --max_model_le
 
 Once the LMs are served, the ragstore can be constructed:
 ```
-python make_ragstore.py
+python main.py --model tabrag --mode generation --dataset tatdqa
 ```
