@@ -144,7 +144,7 @@ cd datasets
 mkdir tatdqa
 cd tatdqa
 gdown https://drive.google.com/uc?id=1iqe5r-qgQZLhGtM4G6LkNp9S6OCwOF2L
-unzip the folder
+# unzip the folder
 gdown https://drive.google.com/uc?id=1ZQjjIC0BB14l6t9b1Ryq0t-CNAP6iC2J
 
 python process_tatdqa.py
