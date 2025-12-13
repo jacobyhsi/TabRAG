@@ -186,6 +186,14 @@ tar -xvf fintabnet.tar.gz
 ```
 
 ### Run
+Before running TabRAG, please serve a VLM, and an LLM. For example:
+
+```
+vllm serve "Qwen/Qwen3-VL-4B-Instruct" --dtype auto --tensor-parallel-size 1 --max_model_len 32768 --gpu-memory-utilization 0.95 --port 6288
+vllm serve "Qwen/Qwen3-14B" --dtype auto --tensor-parallel-size 1 --max_model_len 32768 --gpu-memory-utilization 0.95 --port 1707
+```
+
+Once the LMs are served, the ragstore can be constructed:
 ```
 python make_ragstore.py
 ```
