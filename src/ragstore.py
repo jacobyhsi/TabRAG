@@ -9,9 +9,12 @@ from src.prompts import LLMPrompts, VLMPrompts
 from tqdm import tqdm
 import pymupdf
 import re
+import heapq
 from PIL import Image
-import pytesseract
+# import pytesseract
 
+MAX_EMBED_TOKENS = 32000 # < 40960 for Qwen3-Embedding-8B
+MAX_PROMPT_TOKENS = 15000
 
 class Ragstore:
     def __init__(self,
@@ -33,6 +36,9 @@ class Ragstore:
         self.model = model
         self.data_dir = data_dir
         self.save_dir = save_dir
+        self.num_examples = 3
+        self.icl_examples = []
+        self.fallback_ct = 0
 
     def process_one_file_pymupdf(self, file_path, file_name):
         doc = pymupdf.open(file_path)
@@ -102,6 +108,45 @@ class Ragstore:
 
         return output_data, output_meta, output_emb
 
+    def initialize_icl(self, file_path):
+        # Generate num_examples ICL pairs
+        # generate components
+        comps = self.lp.preprocess(file_path)
+
+        comps_sorted = [
+            sorted(
+                range(len(comps[page])),
+                key=lambda i: (comps[page][i]['bbox'][1] + comps[page][i]['bbox'][3]) / 2
+            )
+            for page in comps
+        ]
+        # check table components and retrieve the top 3 in area
+        top_table_comps = [] # heap tracking k table ids with the largest areas
+        all_table_comps = [] # maps table id to actual table
+        for page_idx, component_indices in enumerate(comps_sorted):
+            for local_idx, comp_idx in enumerate(component_indices):
+                component = comps[page_idx][comp_idx]
+                component_class = component['class']
+                if component_class == 3:
+                    w = component['bbox'][2] - component['bbox'][0]
+                    h = component['bbox'][3] - component['bbox'][1]
+                    all_table_comps.append(component)
+                    if len(top_table_comps) < self.num_examples:
+                        heapq.heappush(top_table_comps, (w * h, len(all_table_comps) - 1))
+                    else:
+                        heapq.heappushpop(top_table_comps, (w * h, len(all_table_comps) - 1))
+
+        print(top_table_comps)
+        for _, all_table_comps_idx in top_table_comps:
+            component = all_table_comps[all_table_comps_idx]
+            vlm_image = component['path']
+            icl_markdown_prompt = self.vlm_prompts.vlm_table_icl_markdown_prompt
+            icl_json_prompt = self.vlm_prompts.vlm_table_icl_json_prompt
+            markdown_output = self.vlm.generate(icl_markdown_prompt, vlm_image)
+            json_output = self.vlm.generate(icl_json_prompt, vlm_image)
+            output = f'\n Input: \n {markdown_output} \n\n Output: \n {json_output}'
+            self.icl_examples.append(output)
+
     def process_one_file(self, file_path, file_name):
         # file_path = os.path.join(self.data_dir, file_name)
         comps = self.lp.preprocess(file_path)
@@ -130,14 +175,23 @@ class Ragstore:
                 component = comps[page_idx][comp_idx]
                 component_class = component['class']
                 vlm_image = component['path']
-                vlm_prompt = self.vlm_prompts.prompt_map[component_class]
+                if component_class != 3 or len(self.icl_examples) == 0:
+                    vlm_prompt = self.vlm_prompts.prompt_map[component_class]
+                else:
+                    vlm_prompt = self.vlm_prompts.built_vlm_table_prompt(self.icl_examples)
+                    print(vlm_prompt)
 
+                # Fallback for exceedingly long prompts
+                if len(vlm_prompt) > MAX_PROMPT_TOKENS:
+                    vlm_prompt = self.vlm_prompts.prompt_map[component_class]
+                    print(f"Prompt too long, using default prompt. ({self.fallback_ct})")
+                    self.fallback_ct += 1
+    
                 # Extract text with VLM
                 output = self.vlm.generate(vlm_prompt, vlm_image)
 
                 # Special handling for tables (class 3)
                 if component_class == 3:
-                    print(output)
                     llm_prompt = self.llm_prompts.prompt_map[component_class]
                     prev_context = ""
                     if local_idx > 0:
@@ -170,7 +224,16 @@ class Ragstore:
             # Store
             output_data.append(page_text)
             output_meta.append(page_meta)
-            output_emb.append(self.embedder.encode([page_text]))
+
+            MAX_CHARS = 40960
+            chunk_embs = []
+            for i in range(0, len(page_text), MAX_CHARS):
+                chunk = page_text[i : i + MAX_CHARS]
+                emb = self.embedder.encode([chunk])[0]
+                chunk_embs.append(emb)
+
+            page_emb = sum(chunk_embs) / len(chunk_embs) # mean pooling embeddings
+            output_emb.append(page_emb[None, :])
         
         return output_data, output_meta, output_emb
     
@@ -184,6 +247,12 @@ class Ragstore:
         # Create a single VectorStore for the entire folder
         emb_dim = self.embedder.get_dims()
         index = VectorStore(emb_dim)
+
+        for f in tqdm(files, desc="Initializing ICL Examples:"):
+            file_path = os.path.join(self.data_dir, f)
+            if len(self.icl_examples) >= self.num_examples: # end icl creation if there are already >= 3 existing examples
+                break
+            self.initialize_icl(file_path)
 
         for f in tqdm(files, desc=f"Building Folder {os.path.basename(self.data_dir)}"):
             file_path = os.path.join(self.data_dir, f)

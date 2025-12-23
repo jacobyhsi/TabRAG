@@ -44,29 +44,36 @@ def eval_TATDQA(gt_path, storage_dir, llm, emb, metric):
             total += 1
 
             # QA interaction
-            if metric == 'acc' or metric is None:
-                retr = index.search(q_embed, k=1)
-                system_prompt = f"""You are a helpful assistant. Use the information from the documents below to answer the question."""
-                user_prompt = f"""/no_think {retr[0]['text']} \n Question: {q} \n Answer: """
+            try:
+                if metric == 'acc' or metric is None:
+                    retr = index.search(q_embed, k=1)
+                    system_prompt = f"""You are a helpful assistant. Use the information from the documents below to answer the question."""
+                    user_prompt = f"""/no_think {retr[0]['text']} \n Question: {q} \n Answer: """
 
-                raw_response = llm.generate(system_prompt, user_prompt)
+                    raw_response = llm.generate(system_prompt, user_prompt)
 
-                print(f'\nResponse: {raw_response} \nGround Truth: {q_a}')
+                    print(f'\nResponse: {raw_response} \nGround Truth: {q_a}')
 
-                raw_response = normalize_answer(raw_response)
+                    raw_response = normalize_answer(raw_response)
 
-                if not isinstance(q_a, list): # ensure q_a is a list even even if there is only one entry
-                    q_a = [q_a]
+                    if not isinstance(q_a, list): # ensure q_a is a list even even if there is only one entry
+                        q_a = [q_a]
 
-                q_a = [normalize_answer(str(ans)) for ans in q_a]
+                    q_a = [normalize_answer(str(ans)) for ans in q_a]
 
-                if all(ans in raw_response for ans in q_a):
-                    correct += 1
-                    print("correct!")
-                else:
-                    mistakes.append((q_q, q_a, raw_response))
-                    print("incorrect!")
-                print(f'Current Accuracy: {correct/total} | # correct: {correct}, # total: {total}')
+                    if all(ans in raw_response for ans in q_a):
+                        correct += 1
+                        print("correct!")
+                    else:
+                        mistakes.append((q_q, q_a, raw_response))
+                        print("incorrect!")
+                    print(f'Current Accuracy: {correct/total} | # correct: {correct}, # total: {total}')
+            except Exception as e:
+                print(f"Error during QA interaction: {e}")
+                continue
+            except KeyboardInterrupt:
+                print("Evaluation interrupted by user.")
+                break
 
     results = {}
     results['accuracy'] = correct / total
@@ -595,8 +602,8 @@ def main(args):
     dataset = args.dataset
     metric = args.metric
     model = args.model
-    llm = HFLLMClient('Qwen/Qwen3-8B')
-    # llm = VLLMLLMClient('Qwen/Qwen3-8B', ip='146.169.1.214', port='6000')
+    # llm = HFLLMClient('Qwen/Qwen3-8B')
+    llm = VLLMLLMClient('Qwen/Qwen3-14B', ip='146.169.1.69', port='1707')
 
     # llm = None
     embedder = SentenceTransformerEmbedder('Qwen/Qwen3-Embedding-8B')

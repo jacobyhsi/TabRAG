@@ -8,3 +8,6 @@ storages/
 *.pth
 visrag/
 unused/
+interactive.py
+eval.sh
+run.sh

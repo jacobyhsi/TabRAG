@@ -80,9 +80,9 @@ def group_images_for_retrieval(src_base, dst_base, group_size=25):
 # --------------------------------------------------------------
 
 if __name__ == "__main__":
-    source_directory = 'datasets/tatdqa/test'
-    generation_directory = 'datasets/tatdqa/generation'
-    retrieval_directory = 'datasets/tatdqa/retrieval'
+    source_directory = './test'
+    generation_directory = './generation'
+    retrieval_directory = './retrieval'
 
     # Step 1: Convert PDFs → images
     if not os.path.isdir(source_directory):

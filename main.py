@@ -14,20 +14,20 @@ from src.ragstore import Ragstore
 import warnings
 warnings.filterwarnings("ignore")
 
-def main(model, mode):
+def main(model, mode, dataset):
     # -----------------------------
     # Model setup
     # -----------------------------
     # VLLM
-    vlm = VLLMVLMClient('Qwen/Qwen2.5-VL-32B-Instruct', ip='146.169.1.68', port='1708')
-    llm = VLLMLLMClient('Qwen/Qwen3-14B', ip='146.169.1.68', port='1707')
+    vlm = VLLMVLMClient('Qwen/Qwen3-VL-8B-Instruct', ip='146.169.1.68', port='6288')
+    llm = VLLMLLMClient('Qwen/Qwen3-14B', ip='146.169.1.69', port='1707')
 
     # HuggingFace
     # llm = HFLLMClient('Qwen/Qwen3-8B')
     # vlm = HFVLMClient('Qwen/Qwen2.5-VL-7B-Instruct')
 
     # Embedder
-    embedder = VLLMEmbedder('Qwen/Qwen3-Embedding-8B', tensor_parallel_size=2, gpu_memory_utilization=0.5)
+    embedder = VLLMEmbedder('Qwen/Qwen3-Embedding-8B', tensor_parallel_size=1, gpu_memory_utilization=0.5)
     # embedder = HFEmbedder('Qwen/Qwen3-Embedding-8B')
     # embedder = SentenceTransformerEmbedder('Qwen/Qwen3-Embedding-8B')
     # embedder = SentenceTransformerEmbedder('Qwen/Qwen3-Embedding-4B')
@@ -73,7 +73,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", type=str, required=True, help="e.g. tabrag, pymupdf, pytesseract, vlm")
     parser.add_argument("--mode", type=str, required=True, help="generation or retrieval")
-    parser.add_argument("--dataset", type=str, required=True, help="tatdqa, mpdocvqa, wikitablequestions, spiqa")
+    parser.add_argument("--dataset", type=str, required=True, help="tatdqa, mpdocvqa, wikitablequestions, spiqa, tablevqa")
     args = parser.parse_args()
     model = args.model
     mode = args.mode
