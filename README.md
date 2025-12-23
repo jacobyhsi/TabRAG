@@ -132,10 +132,9 @@ https://mail2sysueducn-my.sharepoint.com/:u:/g/personal/huangyp28_mail2_sysu_edu
 Move it to the project directory.
 
 ### Datasets
-Create a datasets/ folder
+Enter the datasets/ folder
 
 ```
-mkdir datasets
 cd datasets
 ```
 
@@ -144,7 +143,7 @@ cd datasets
 mkdir tatdqa
 cd tatdqa
 gdown https://drive.google.com/uc?id=1iqe5r-qgQZLhGtM4G6LkNp9S6OCwOF2L
-unzip the folder
+# unzip the folder
 gdown https://drive.google.com/uc?id=1ZQjjIC0BB14l6t9b1Ryq0t-CNAP6iC2J
 
 python process_tatdqa.py
@@ -195,5 +194,5 @@ vllm serve "Qwen/Qwen3-14B" --dtype auto --tensor-parallel-size 1 --max_model_le
 
 Once the LMs are served, the ragstore can be constructed:
 ```
-python make_ragstore.py
+python main.py --model tabrag --mode generation --dataset tatdqa
 ```
