@@ -1,5 +1,4 @@
 venv/
-datasets/
 processed/
 storages/
 *.txt
@@ -11,3 +10,19 @@ unused/
 interactive.py
 eval.sh
 run.sh
+
+visualizations/
+
+datasets/fintabnet/
+
+datasets/tatdqa/*
+!datasets/tatdqa/process_tatdqa.py
+
+datasets/spiqa/*
+!datasets/spiqa/process_spiqa.py
+
+datasets/mpdocvqa/*
+!datasets/mpdocvqa/process_mpdocvqa.py
+
+datasets/wikitablequestions/*
+!datasets/wikitablequestions/process_wikitableqa.py
