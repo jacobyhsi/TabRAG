@@ -40,20 +40,16 @@ Installing Dependencies
 pip install torch
 pip install 'git+https://github.com/facebookresearch/detectron2.git' --no-build-isolation
 pip install pymupdf
-pip install transformers
-pip install openai
 pip install faiss-gpu
 pip install timm
 pip install shapely
 pip install qwen_vl_utils
-pip install scipy
-pip install sentence-transformers
 pip install gdown
 pip install opencv-python
-pip install numpy==1.26.4
 pip install pypdf
-pip install vllm
 pip install arxiv
+pip install vllm
+pip install numpy==1.26.4
 ```
 
 ### Installing Tesseract OCR and PyTesseract (Optional - Baseline). 
