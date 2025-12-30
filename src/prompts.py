@@ -194,7 +194,7 @@ Be precise and avoid speculation. Ensure your interpretation **accurately matche
 
         self.vlm_table_prompt = """
 You are a precise information extraction engine. Output ONLY a JSON array of objects, each with:
-{"row": <string>, "column": <string>, "value": <string|null>}.
+{"row": <string>, "column": <string>, "value": <string|null>, "units": <string|null>}.
 No markdown, explanations, or text before/after the JSON.
 
 Task: Extract every visible cell in the attached table image into JSON triples.
@@ -203,11 +203,12 @@ Each table cell must be represented as:
 {
 "row": string,        // the row label (e.g. "Revenue", "2024", "Row 1" if unnamed)
 "column": string,     // column header text; if multi-level, join levels with " -> "
-"value": string|null  // exact text as seen in the table (keep symbols and brackets)
+"value": string|null, // exact text as seen in the table (keep symbols and brackets)
+"units": string|null  // units of the value (e.g. "$", "%", "kg"), or null if none
 }
 
 Rules:
-- Output ONLY a JSON array: [ {row, column, value}, ... ].
+- Output ONLY a JSON array: [ {row, column, value, units}, ... ].
 - Order: top-to-bottom, left-to-right.
 - Preserve all text formatting exactly as shown:
 - Keep parentheses, minus signs, commas, currency symbols, and percent signs.
@@ -222,22 +223,22 @@ Rules:
 **Example 1: Two-level header**
 
 Input:
-| Item         | 2024               | 2023               |
-|--------------|--------------------|--------------------|
-|              | Revenue | Profit   | Revenue | Profit   |
-| Sales        | 1,234   | 400      | 1,200   | 350      |
-| Net Income   | (56)    | 80       | -40     | 70       |
+| ($ in millions) | 2024             | 2023             |
+|-----------------|------------------|------------------|
+|                 | Revenue | Profit | Revenue | Profit |
+| Sales           | 1,234   | 400    | 1,200   | 350    |
+| Net Income      | (56)    | 80     | -40     | 70     |
 
 Output:
 [
-{"row": "Sales", "column": "2024 -> Revenue", "value": "1,234"},
-{"row": "Sales", "column": "2024 -> Profit", "value": "400"},
-{"row": "Sales", "column": "2023 -> Revenue", "value": "1,200"},
-{"row": "Sales", "column": "2023 -> Profit", "value": "350"},
-{"row": "Net Income", "column": "2024 -> Revenue", "value": "(56)"},
-{"row": "Net Income", "column": "2024 -> Profit", "value": "80"},
-{"row": "Net Income", "column": "2023 -> Revenue", "value": "-40"},
-{"row": "Net Income", "column": "2023 -> Profit", "value": "70"}
+{"row": "Sales", "column": "2024 -> Revenue", "value": "1,234", "units": "million"},
+{"row": "Sales", "column": "2024 -> Profit", "value": "400", "units": "million"},
+{"row": "Sales", "column": "2023 -> Revenue", "value": "1,200", "units": "million"},
+{"row": "Sales", "column": "2023 -> Profit", "value": "350", "units": "million"},
+{"row": "Net Income", "column": "2024 -> Revenue", "value": "(56)", "units": "million"},
+{"row": "Net Income", "column": "2024 -> Profit", "value": "80", "units": "million"},
+{"row": "Net Income", "column": "2023 -> Revenue", "value": "-40", "units": "million"},
+{"row": "Net Income", "column": "2023 -> Profit", "value": "70", "units": "million"}
 ]
 
 ---
@@ -245,68 +246,68 @@ Output:
 **Example 2: Three-level header**
 
 Input:
-| Metric    | 2024                                 | 2023                                |
-|-----------|--------------------------------------|-------------------------------------|
-|           | Q1                | Q2               | Q1               | Q2               |
-|           | Revenue | Profit  | Revenue | Profit | Revenue | Profit | Revenue | Profit |
-| Product A | 500     | 120     | 600     | 150    | 450     | 100    | 550     | 140    |
-| Product B | (50)    | 80      | (30)    | 100    | -20     | 60     | 10      | 90     |
+| ($ in thousands) | 2024                                 | 2023                                |
+|------------------|--------------------------------------|-------------------------------------|
+|                  | Q1                | Q2               | Q1               | Q2               |
+|                  | Revenue | Profit  | Revenue | Profit | Revenue | Profit | Revenue | Profit |
+| Product A        | 500     | 120     | 600     | 150    | 450     | 100    | 550     | 140    |
+| Product B        | (50)    | 80      | (30)    | 100    | -20     | 60     | 10      | 90     |
 
 Output:
 [
-{"row": "Product A", "column": "2024 -> Q1 -> Revenue", "value": "500"},
-{"row": "Product A", "column": "2024 -> Q1 -> Profit", "value": "120"},
-{"row": "Product A", "column": "2024 -> Q2 -> Revenue", "value": "600"},
-{"row": "Product A", "column": "2024 -> Q2 -> Profit", "value": "150"},
-{"row": "Product A", "column": "2023 -> Q1 -> Revenue", "value": "450"},
-{"row": "Product A", "column": "2023 -> Q1 -> Profit", "value": "100"},
-{"row": "Product A", "column": "2023 -> Q2 -> Revenue", "value": "550"},
-{"row": "Product A", "column": "2023 -> Q2 -> Profit", "value": "140"},
-{"row": "Product B", "column": "2024 -> Q1 -> Revenue", "value": "(50)"},
-{"row": "Product B", "column": "2024 -> Q1 -> Profit", "value": "80"},
-{"row": "Product B", "column": "2024 -> Q2 -> Revenue", "value": "(30)"},
-{"row": "Product B", "column": "2024 -> Q2 -> Profit", "value": "100"},
-{"row": "Product B", "column": "2023 -> Q1 -> Revenue", "value": "-20"},
-{"row": "Product B", "column": "2023 -> Q1 -> Profit", "value": "60"},
-{"row": "Product B", "column": "2023 -> Q2 -> Revenue", "value": "10"},
-{"row": "Product B", "column": "2023 -> Q2 -> Profit", "value": "90"}
+{"row": "Product A", "column": "2024 -> Q1 -> Revenue", "value": "500", "units": "thousand"},
+{"row": "Product A", "column": "2024 -> Q1 -> Profit", "value": "120", "units": "thousand"},
+{"row": "Product A", "column": "2024 -> Q2 -> Revenue", "value": "600", "units": "thousand"},
+{"row": "Product A", "column": "2024 -> Q2 -> Profit", "value": "150", "units": "thousand"},
+{"row": "Product A", "column": "2023 -> Q1 -> Revenue", "value": "450", "units": "thousand"},
+{"row": "Product A", "column": "2023 -> Q1 -> Profit", "value": "100", "units": "thousand"},
+{"row": "Product A", "column": "2023 -> Q2 -> Revenue", "value": "550", "units": "thousand"},
+{"row": "Product A", "column": "2023 -> Q2 -> Profit", "value": "140", "units": "thousand"},
+{"row": "Product B", "column": "2024 -> Q1 -> Revenue", "value": "(50)", "units": "thousand"},
+{"row": "Product B", "column": "2024 -> Q1 -> Profit", "value": "80", "units": "thousand"},
+{"row": "Product B", "column": "2024 -> Q2 -> Revenue", "value": "(30)", "units": "thousand"},
+{"row": "Product B", "column": "2024 -> Q2 -> Profit", "value": "100", "units": "thousand"},
+{"row": "Product B", "column": "2023 -> Q1 -> Revenue", "value": "-20", "units": "thousand"},
+{"row": "Product B", "column": "2023 -> Q1 -> Profit", "value": "60", "units": "thousand"},
+{"row": "Product B", "column": "2023 -> Q2 -> Revenue", "value": "10", "units": "thousand"},
+{"row": "Product B", "column": "2023 -> Q2 -> Profit", "value": "90", "units": "thousand"}
 ]
 
 ---
 
 **Example 3: Mixed 1-row, 2-row, and 3-row headers**
 
-Input:
-| Category | 2024                                | 2023             | Growth % | Notes    |
-|----------|-------------------------------------|------------------|----------|----------|
-|          | Q1               | Q2               | Revenue | Profit |          |          |
-|          | Revenue | Profit | Revenue | Profit |         |        |          |          |
-| Sales    | 1,000   | 300    | 900     | 250    | 1,700   | 550    | 12%      | N/A      |
-| Cost     | (200)   | (50)   | -180    | -40    | (380)   | (90)   | N/A      | Adjusted |
+Input: 
+| Category              | 2024                                | 2023             | Growth % | Notes    |
+|-----------------------|-------------------------------------|------------------|----------|----------|
+|                       | Q1               | Q2               | Revenue | Profit |          |          |
+|                       | Revenue | Profit | Revenue | Profit |         |        |          |          |
+| Sales                 | 1,000   | 300    | 900     | 250    | 1,700   | 550    | 12%      | N/A      |
+| Cost                  | (200)   | (50)   | -180    | -40    | (380)   | (90)   | N/A      | Adjusted |
 
 Output:
 [
-{"row": "Sales", "column": "2024 -> Q1 -> Revenue", "value": "1,000"},
-{"row": "Sales", "column": "2024 -> Q1 -> Profit", "value": "300"},
-{"row": "Sales", "column": "2024 -> Q2 -> Revenue", "value": "900"},
-{"row": "Sales", "column": "2024 -> Q2 -> Profit", "value": "250"},
-{"row": "Sales", "column": "2023 -> Revenue", "value": "1,700"},
-{"row": "Sales", "column": "2023 -> Profit", "value": "550"},
-{"row": "Sales", "column": "Growth %", "value": "12%"},
-{"row": "Sales", "column": "Notes", "value": "N/A"},
-{"row": "Cost", "column": "2024 -> Q1 -> Revenue", "value": "(200)"},
-{"row": "Cost", "column": "2024 -> Q1 -> Profit", "value": "(50)"},
-{"row": "Cost", "column": "2024 -> Q2 -> Revenue", "value": "-180"},
-{"row": "Cost", "column": "2024 -> Q2 -> Profit", "value": "-40"},
-{"row": "Cost", "column": "2023 -> Revenue", "value": "(380)"},
-{"row": "Cost", "column": "2023 -> Profit", "value": "(90)"},
-{"row": "Cost", "column": "Growth %", "value": "N/A"},
-{"row": "Cost", "column": "Notes", "value": "Adjusted"}
+{"row": "Sales", "column": "2024 -> Q1 -> Revenue", "value": "1,000", "units": "null"},
+{"row": "Sales", "column": "2024 -> Q1 -> Profit", "value": "300", "units": "null"},
+{"row": "Sales", "column": "2024 -> Q2 -> Revenue", "value": "900", "units": "null"},
+{"row": "Sales", "column": "2024 -> Q2 -> Profit", "value": "250", "units": "null"},
+{"row": "Sales", "column": "2023 -> Revenue", "value": "1,700", "units": "null"},
+{"row": "Sales", "column": "2023 -> Profit", "value": "550", "units": "null"},
+{"row": "Sales", "column": "Growth %", "value": "12", "units": "%"},
+{"row": "Sales", "column": "Notes", "value": "N/A", "units": "null"},
+{"row": "Cost", "column": "2024 -> Q1 -> Revenue", "value": "(200)", "units": "null"},
+{"row": "Cost", "column": "2024 -> Q1 -> Profit", "value": "(50)", "units": "null"},
+{"row": "Cost", "column": "2024 -> Q2 -> Revenue", "value": "-180", "units": "null"},
+{"row": "Cost", "column": "2024 -> Q2 -> Profit", "value": "-40", "units": "null"},
+{"row": "Cost", "column": "2023 -> Revenue", "value": "(380)", "units": "null"},
+{"row": "Cost", "column": "2023 -> Profit", "value": "(90)", "units": "null"},
+{"row": "Cost", "column": "Growth %", "value": "N/A", "units": "%"},
+{"row": "Cost", "column": "Notes", "value": "Adjusted", "units": "null"}
 ]
 
 ---
 
-Now, extract all visible cells from the attached table image and output only the JSON array of {row, column, value} objects using the " -> " separator for multi-level headers, keeping all cell values exactly as written in the table. ENSURING THAT ALL EXTRACTED VALUES ARE ACCURATE IS THE MOST IMPORTANT! DO NOT OUTPUT ANYTHING ELSE.
+Now, extract all visible cells from the attached table image and output only the JSON array of {row, column, value, units} objects using the " -> " separator for multi-level headers, keeping all cell values exactly as written in the table. ENSURING THAT ALL EXTRACTED VALUES ARE ACCURATE IS THE MOST IMPORTANT! DO NOT OUTPUT ANYTHING ELSE.
 """
 
         self.vlm_page_prompt = """
@@ -396,7 +397,7 @@ Rules:
 
 ---
 
-**Example 1: Two-level header and filler dots**
+**Example 1: Two-level header**
 
 Input:
 | ($ in millions) | 2024             | 2023             |
@@ -576,7 +577,7 @@ Output:
 """
         ]
 
-    def built_vlm_table_prompt(self, icl_examples):
+    def build_vlm_table_prompt(self, icl_examples):
         examples_section = ""
         for icl_idx, icl_example in enumerate(icl_examples):
             examples_section += f"\n\n ** Example {icl_idx} ** \n\n"
@@ -584,7 +585,7 @@ Output:
             examples_section += "\n\n ---"
         vlm_table_prompt_start = """
 You are a precise information extraction engine. Output ONLY a JSON array of objects, each with:
-{"row": <string>, "column": <string>, "value": <string|null>}.
+{"row": <string>, "column": <string>, "value": <string|null>, "units": <string|null>}.
 No markdown, explanations, or text before/after the JSON.
 
 Task: Extract every visible cell in the attached table image into JSON triples.
@@ -593,8 +594,8 @@ Each table cell must be represented as:
 {
 "row": string,        // the row label (e.g. "Revenue", "2024", "Row 1" if unnamed)
 "column": string,     // column header text; if multi-level, join levels with " -> "
-"value": string|null,  // exact text as seen in the table (keep symbols and brackets)
-"units": string|null // units if present in header (e.g., "$ in millions"), otherwise null
+"value": string|null, // exact text as seen in the table (keep symbols and brackets)
+"units": string|null, // units if present in header (e.g., "$ in millions"), otherwise null
 }
 
 Rules:
@@ -613,7 +614,7 @@ Rules:
 """
         vlm_table_prompt_end = """
 
-Now, extract all visible cells from the attached table image and output only the JSON array of {row, column, value} objects using the " -> " separator for multi-level headers, keeping all cell values exactly as written in the table. 
+Now, extract all visible cells from the attached table image and output only the JSON array of {row, column, value, units} objects using the " -> " separator for multi-level headers, keeping all cell values exactly as written in the table. 
 ENSURING THAT ALL EXTRACTED VALUES ARE ACCURATE IS THE MOST IMPORTANT! DO NOT OUTPUT ANYTHING ELSE.
 """
         return vlm_table_prompt_start + examples_section + vlm_table_prompt_end

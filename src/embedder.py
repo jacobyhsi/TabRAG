@@ -78,7 +78,7 @@ class HFEmbedder(BaseEmbedder):
 
 class VLLMEmbedder(BaseEmbedder):
     def __init__(self, model_name: str = "Qwen/Qwen3-Embedding-8B", **kwargs):
-        self.model = vllm.LLM(model=model_name, task="embed", **kwargs)
+        self.model = vllm.LLM(model=model_name, **kwargs)
 
         dummy_output = self.model.embed("hello")
         self.emb_dim = len(dummy_output[0].outputs.embedding)
