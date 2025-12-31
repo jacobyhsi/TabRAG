@@ -2,6 +2,7 @@ import re
 import math
 import requests
 import base64
+import httpx
 
 from openai import OpenAI
 from transformers import Qwen2_5_VLForConditionalGeneration, AutoModelForCausalLM, AutoTokenizer, AutoProcessor
@@ -66,13 +67,25 @@ class VLLMLLMClient(BaseLLMEngine):
 
 
 class VLLMVLMClient(BaseVLMEngine):
-    def __init__(self, model, ip, port):
+    def __init__(self, model, ip, port, timeout=1800):
         super().__init__()
         self.model = model
         self.temperature = 1.0
+
+        http_client = httpx.Client(
+            timeout=httpx.Timeout(
+                timeout,
+                read=timeout,
+                write=timeout,
+                connect=30,
+                pool=30
+            )
+        )
+
         self.client = OpenAI(
             api_key="EMPTY",  # Local server does not require a real API key
-            base_url=f"http://{ip}:{port}/v1"
+            base_url=f"http://{ip}:{port}/v1",
+            http_client=http_client
         )
 
     def generate(self, message, image_path, seed=42, max_tokens=16384):
@@ -93,27 +106,26 @@ class VLLMVLMClient(BaseVLMEngine):
             message.strip() + "\n\nPLEASE ENCLOSE YOUR OUTPUT IN <output> </output> TAGS"
         )
 
-        # Call chat API
         response = self.client.chat.completions.create(
             model=self.model,
             messages=[{
                 "role": "user",
                 "content": [
                     {"type": "text", "text": message_with_instruction},
-                    {"type": "image_url", "image_url": {"url": image_data_uri}}
-                ]
+                    {"type": "image_url", "image_url": {"url": image_data_uri}},
+                ],
             }],
             max_tokens=max_tokens,
             seed=seed,
-            temperature=self.temperature
+            temperature=self.temperature,
         )
 
-        # Extract content between <output> ... </output>
         full_output = response.choices[0].message.content
         match = re.search(r"<output>(.*?)</output>", full_output, re.DOTALL)
         extracted_output = match.group(1).strip() if match else full_output
 
         return extracted_output
+
 
 class HFVLMClient(BaseVLMEngine):
     def __init__(self, model):
