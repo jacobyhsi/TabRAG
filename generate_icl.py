@@ -142,31 +142,18 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--dataset",
-        type=str,
-        default="tatdqa",
-        help="Dataset name"
-    )
-    parser.add_argument(
-        "--num_folders",
-        type=int,
-        default=10,
-        help="Number of folders to iterate over"
-    )
-    parser.add_argument(
-        "--num_icl",
-        type=int,
-        default=3,
-        help="Number of ICL examples to generate"
-    )
-    parser.add_argument(
-        "--vlm_model",
-        type=str,
-        default="Qwen/Qwen3-VL-32B-Instruct"
-    )
-    parser.add_argument("--vlm_ip", type=str, default="146.169.26.172")
-    parser.add_argument("--vlm_port", type=str, default="3232")
+    parser.add_argument("--num_folders", type=int, default=10, help="Number of folders to iterate over")
+    parser.add_argument("--num_icl", type=int, default=3, help="Number of ICL examples to generate")
+
+    parser.add_argument("--dataset", type=str, default="tatdqa", help="Dataset name") # modify
+
+    # parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-32B-Instruct") # modify
+    # parser.add_argument("--vlm_ip", type=str, default="146.169.26.172") # modify
+    # parser.add_argument("--vlm_port", type=str, default="3232") # modify
+
+    parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-8B-Instruct") # modify
+    parser.add_argument("--vlm_ip", type=str, default="146.169.1.69") # modify
+    parser.add_argument("--vlm_port", type=str, default="6200") # modify
 
     args = parser.parse_args()
     main(args)

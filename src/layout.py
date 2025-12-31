@@ -76,7 +76,9 @@ class LayoutProcessor:
 
             md = MetadataCatalog.get(self.cfg.DATASETS.TEST[0])
             md.set(thing_classes=["text", "title", "list", "table", "figure"])
-            output = self.predictor(img)["instances"]
+
+            with torch.no_grad():
+                output = self.predictor(img)["instances"]
             output_dict = output.to('cpu').get_fields()
             keep = output_dict['scores'] > threshold
 
