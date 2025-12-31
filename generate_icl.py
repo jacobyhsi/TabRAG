@@ -131,10 +131,10 @@ def main(args):
         print("\n" + "-" * 20)
 
     # Save JSON (list of example strings)
-    with open(f"{args.dataset}_icl.json", "w") as f:
+    with open(f"icl/{args.dataset}_{args.vlm_model}_icl.json", "w") as f:
         json.dump(icl_examples, f, indent=2)
 
-    print(f"\nSaved examples to {args.dataset}_icl.json")
+    print(f"\nSaved examples to icl/{args.dataset}_{args.vlm_model}_icl.json")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
