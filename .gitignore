@@ -26,3 +26,4 @@ datasets/mpdocvqa/*
 
 datasets/wikitablequestions/*
 !datasets/wikitablequestions/process_wikitableqa.py
+!datasets/wikitablequestions/process_wikitq.py

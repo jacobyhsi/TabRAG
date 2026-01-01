@@ -65,21 +65,26 @@ def process_one(html_path: Path, in_root: Path, out_pdf: Path, out_png: Path):
 # ============================================================
 # PART 4 — MAIN HTML→PDF→PNG PIPELINE
 # ============================================================
-def run_conversion_pipeline():
+def run_conversion_pipeline(root):
     parser = argparse.ArgumentParser(description="Convert WikiTableQuestions HTMLs to PDF & PNG.")
-    parser.add_argument("--in-root", type=Path, default="wikitablequestions/csv")
-    parser.add_argument("--out-png", type=Path, default="wikitablequestions/png")
-    parser.add_argument("--out-pdf", type=Path, default="wikitablequestions/pdf")
+    parser.add_argument("--in-root", type=Path, default=os.path.join(root, "datasets/wikitablequestions/csv"))
+    parser.add_argument("--out-png", type=Path, default=os.path.join(root, "datasets/wikitablequestions/generation"))
+    parser.add_argument("--out-pdf", type=Path, default=os.path.join(root, "datasets/wikitablequestions/generation_pdf"))
     args = parser.parse_args()
 
     if not args.in_root.exists():
         print(f"Input root not found: {args.in_root}", file=sys.stderr)
         sys.exit(1)
 
+    EXCLUDED = {"203-csv", "204-csv"}
+
     html_files = []
     for group in sorted(args.in_root.glob("*-csv")):
+        if group.name in EXCLUDED:
+            continue
         if group.is_dir():
             html_files.extend(sorted(group.glob("*.html")))
+
 
     if not html_files:
         print("No HTML files found.", file=sys.stderr)
@@ -99,14 +104,31 @@ def run_conversion_pipeline():
 # ============================================================
 # PART 5 — Build retrieval folders for PNG + PDF
 # ============================================================
-def build_retrieval_folders(base_dir="wikitablequestions"):
+def build_retrieval_folders(root, base_dir="wikitablequestions"):
     print("\n=== Building retrieval folders ===\n")
+
+    base_dir = os.path.join(root, "datasets", "wikitablequestions")
+
+    src_map = {
+        "png": os.path.join(base_dir, "generation"),
+        "pdf": os.path.join(base_dir, "generation_pdf"),
+    }
+
+    dst_map = {
+        "png": os.path.join(base_dir, "retrieval"),
+        "pdf": os.path.join(base_dir, "retrieval_pdf"),
+    }
 
     modes = ["png", "pdf"]
 
     for mode in modes:
-        src_base = os.path.join(base_dir, mode)
-        dst_base = os.path.join(base_dir, f"{mode}_retrieval")
+        src_base = src_map[mode]
+        dst_base = dst_map[mode]
+
+        if not os.path.exists(src_base):
+            print(f"[WARN] Missing source dir: {src_base}")
+            continue
+
         os.makedirs(dst_base, exist_ok=True)
 
         for folder in tqdm(os.listdir(src_base), desc=f"Processing {mode.upper()} folders"):
@@ -142,8 +164,9 @@ def build_retrieval_folders(base_dir="wikitablequestions"):
 # PART 6 — Parse WTQ training.examples → qa.json
 # ============================================================
 def build_wtq_qa_json(
-    input_file="wikitablequestions/data/training.examples",
-    output_file="wikitablequestions/qa.json"
+    root,
+    input_file="datasets/wikitablequestions/data/training.examples",
+    output_file="datasets/wikitablequestions/qa.json"
 ):
 
     print("\n=== Parsing training.examples → qa.json ===\n")
@@ -193,12 +216,12 @@ def build_wtq_qa_json(
 
         return examples
 
-    with open(input_file, "r", encoding="utf-8") as f:
+    with open(os.path.join(root, input_file), "r", encoding="utf-8") as f:
         raw = f.read()
 
     examples = parse_examples(raw)
 
-    with open(output_file, "w", encoding="utf-8") as f:
+    with open(os.path.join(root, output_file), "w", encoding="utf-8") as f:
         json.dump(examples, f, indent=2, ensure_ascii=False)
 
     print(f"✔ Saved {len(examples)} examples to {output_file}\n")
@@ -208,13 +231,14 @@ def build_wtq_qa_json(
 # ENTRYPOINT
 # ============================================================
 if __name__ == "__main__":
+    ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
     # Step 1–4: Convert HTML → PDF → PNG
-    out_png, out_pdf = run_conversion_pipeline()
+    out_png, out_pdf = run_conversion_pipeline(ROOT)
 
     # Step 5: Build retrieval folders
-    build_retrieval_folders("wikitablequestions")
+    build_retrieval_folders(ROOT, "wikitablequestions")
 
     # Step 6: Convert training.examples → qa.json
-    build_wtq_qa_json()
+    build_wtq_qa_json(ROOT)
 
     print("\n=== All WikiTQ tasks completed successfully. ===\n")

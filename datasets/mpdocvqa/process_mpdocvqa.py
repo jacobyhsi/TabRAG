@@ -6,6 +6,12 @@ import warnings
 from tqdm import tqdm
 from pathlib import Path
 from collections import defaultdict
+from tqdm import tqdm
+
+# sys.path.append(os.path.abspath("object_detection"))
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
+sys.path.append(ROOT)
+from src.layout import LayoutProcessor
 
 warnings.filterwarnings("ignore")
 
@@ -14,8 +20,12 @@ warnings.filterwarnings("ignore")
 # ============================================================
 def group_images_by_prefix(src_dir, dst_dir):
     os.makedirs(dst_dir, exist_ok=True)
+    
+    # Get list of files first so tqdm knows the total count
+    file_list = os.listdir(src_dir)
 
-    for fname in os.listdir(src_dir):
+    # Wrap the list in tqdm for a progress bar
+    for fname in tqdm(file_list, desc="Grouping images"):
         if not fname.lower().endswith((".png", ".jpg", ".jpeg")):
             continue
         if "_p" not in fname:
@@ -29,14 +39,12 @@ def group_images_by_prefix(src_dir, dst_dir):
         dst_path = os.path.join(prefix_folder, fname)
         shutil.copy(src_path, dst_path)
 
-    print("✔ Done grouping images by prefix.")
+    print("\nDone grouping images by prefix.")
 
 
 # ============================================================
 # PART 2 — LayoutProcessor (table detection)
 # ============================================================
-sys.path.append(os.path.abspath("object_detection"))
-from src.layout import LayoutProcessor
 lp = LayoutProcessor()
 
 def extract_table_images(base_dir, tables_dir):
@@ -44,7 +52,7 @@ def extract_table_images(base_dir, tables_dir):
 
     print("\n=== Running table detection ===\n")
 
-    for root, subdirs, files in os.walk(base_dir):
+    for root, subdirs, files in tqdm(os.walk(base_dir), desc="Scanning directories", unit="index"):
         if not any(f.lower().endswith((".pdf", ".jpg", ".jpeg", ".png")) for f in files):
             continue
 
@@ -54,7 +62,7 @@ def extract_table_images(base_dir, tables_dir):
             f for f in files if f.lower().endswith(('.jpg', '.jpeg', '.png'))
         ])
 
-        for f in tqdm(image_files, desc="Processing files"):
+        for f in tqdm(image_files, desc="Processing files", leave=False):
             file_path = os.path.join(root, f)
             comps = lp.preprocess(file_path)
 
@@ -164,7 +172,7 @@ def prune_tables_by_ratio(val_json_path, tables_dir, file_limit=500):
 def build_generation_tree(tables_dir, generation_dir):
     os.makedirs(generation_dir, exist_ok=True)
 
-    print("\n=== Step 4: Building generation/ directory structure ===\n")
+    print("\n=== Step 4: Building generation/directory structure ===\n")
 
     for folder in os.listdir(tables_dir):
         folder_path = os.path.join(tables_dir, folder)
@@ -209,11 +217,11 @@ def pretty_print_val_json(val_json_path):
 # ============================================================
 if __name__ == "__main__":
 
-    raw_images = "datasets/mpdocvqa/images"
-    grouped_images = "datasets/mpdocvqa/images_test"
-    tables_output = "datasets/mpdocvqa/retrieval"
-    generation_output = "datasets/mpdocvqa/generation"
-    val_json = "datasets/mpdocvqa/val.json"
+    raw_images = os.path.join(ROOT, "datasets/mpdocvqa/images")
+    grouped_images = os.path.join(ROOT, "datasets/mpdocvqa/images_test")
+    tables_output = os.path.join(ROOT, "datasets/mpdocvqa/retrieval")
+    generation_output = os.path.join(ROOT, "datasets/mpdocvqa/generation")
+    val_json = os.path.join(ROOT, "datasets/mpdocvqa/val.json")
 
     print("\n=== Step 1: Grouping images by prefix ===")
     group_images_by_prefix(raw_images, grouped_images)

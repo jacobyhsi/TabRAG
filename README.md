@@ -48,6 +48,8 @@ pip install gdown
 pip install opencv-python
 pip install pypdf
 pip install arxiv
+pip install weasyprint
+pip install datasets
 pip install vllm
 pip install numpy==1.26.4
 ```

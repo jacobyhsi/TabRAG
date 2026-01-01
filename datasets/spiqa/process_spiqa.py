@@ -1,4 +1,5 @@
 import os
+import sys
 import re
 import json
 import arxiv
@@ -110,15 +111,17 @@ def split_pdf_to_pages(pdf_path: str, png_root: str, pdf_root: str,
         json.dump(figure_to_page, f, indent=4, ensure_ascii=False)
 
 if __name__ == "__main__":
-    if not os.path.exists('datasets/spiqa/test'):
-        snapshot_download(repo_id="google/spiqa", repo_type="dataset", local_dir='datasets/spiqa') 
-    SPIQA_PATH = 'datasets/spiqa/test-A'
-    DATA_PATH = 'datasets/spiqa/test'
-    PNG_PATH = 'datasets/spiqa/generation' # png
-    PDF_PATH = 'datasets/spiqa/pdf_generation'
-    PNG_FLAT_PATH = 'datasets/spiqa/retrieval' # png
-    PDF_FLAT_PATH = 'datasets/spiqa/pdf_retrieval'
-    REFS_PATH = 'datasets/spiqa/refs'
+    ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
+    if not os.path.exists(os.path.join(ROOT, 'datasets/spiqa/test')):
+        snapshot_download(repo_id="google/spiqa", repo_type="dataset", local_dir=os.path.join(ROOT, 'datasets/spiqa')) 
+
+    SPIQA_PATH = os.path.join(ROOT, 'datasets/spiqa/test-A')
+    DATA_PATH = os.path.join(ROOT, 'datasets/spiqa/test')
+    PNG_PATH = os.path.join(ROOT, 'datasets/spiqa/generation') # png
+    PDF_PATH = os.path.join(ROOT, 'datasets/spiqa/pdf_generation')
+    PNG_FLAT_PATH = os.path.join(ROOT, 'datasets/spiqa/retrieval') # png
+    PDF_FLAT_PATH = os.path.join(ROOT, 'datasets/spiqa/pdf_retrieval')
+    REFS_PATH = os.path.join(ROOT, 'datasets/spiqa/refs')
 
     for p in [PNG_PATH, PDF_PATH, PNG_FLAT_PATH, PDF_FLAT_PATH, REFS_PATH]:
         os.makedirs(p, exist_ok=True)

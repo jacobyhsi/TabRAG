@@ -16,7 +16,6 @@ from src.llm import VLLMVLMClient
 from src.prompts import VLMPrompts
 from src.layout import LayoutProcessor
 
-
 def main(args):
     # Initialize Models
     print("Initializing models...")
@@ -132,28 +131,31 @@ def main(args):
 
     # Save JSON (list of example strings)
 
-    if not os.path.exists("icl"):
-        os.makedirs("icl")
+    if not os.path.exists(f"icl/{args.dataset}"):
+        os.makedirs(f"icl/{args.dataset}")
 
-    with open(f"icl/{args.dataset}_{args.vlm_model.split('/')[-1]}_icl.json", "w") as f:
+    vlm_name = args.vlm_model.split('/')[-1]
+
+    with open(f"icl/{args.dataset}/{vlm_name}.json", "w") as f:
         json.dump(icl_examples, f, indent=2)
 
-    print(f"\nSaved examples to icl/{args.dataset}_{args.vlm_model.split('/')[-1]}_icl.json")
+    print(f"\nSaved examples to icl/{args.dataset}/{vlm_name}.json")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--num_folders", type=int, default=10, help="Number of folders to iterate over")
     parser.add_argument("--num_icl", type=int, default=3, help="Number of ICL examples to generate")
 
-    parser.add_argument("--dataset", type=str, default="tatdqa", help="Dataset name") # modify
+    parser.add_argument("--dataset", type=str, default="tablevqa", help="Dataset name") 
+    # tatdqa, tablevqa, mpdocvqa, wikitablequestions, spiqa
 
-    # parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-32B-Instruct") # modify
-    # parser.add_argument("--vlm_ip", type=str, default="146.169.26.172") # modify
-    # parser.add_argument("--vlm_port", type=str, default="3232") # modify
+    parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-32B-Instruct") # modify
+    parser.add_argument("--vlm_ip", type=str, default="146.169.26.172") # modify
+    parser.add_argument("--vlm_port", type=str, default="3232") # modify
 
-    parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-8B-Instruct") # modify
-    parser.add_argument("--vlm_ip", type=str, default="146.169.1.69") # modify
-    parser.add_argument("--vlm_port", type=str, default="6200") # modify
+    # parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-8B-Instruct") # modify
+    # parser.add_argument("--vlm_ip", type=str, default="146.169.1.69") # modify
+    # parser.add_argument("--vlm_port", type=str, default="6200") # modify
 
     args = parser.parse_args()
     main(args)

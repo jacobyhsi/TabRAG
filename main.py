@@ -43,7 +43,9 @@ def main(args):
     llmp = LLMPrompts()
     lp = LayoutProcessor()
 
-    icl_path = f"icl/{args.dataset}_{args.vlm_model.split('/')[-1]}_icl.json"
+    vlm_name = args.vlm_model.split('/')[-1]
+
+    icl_path = f"icl/{args.dataset}/{vlm_name}.json"
     with open(icl_path, "r") as f:
         icl = json.load(f)
 
@@ -63,7 +65,7 @@ def main(args):
             print(f"Processing directory: {root}")
 
             relative_path = os.path.relpath(root, data_dir)
-            save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}", relative_path)
+            save_dir = os.path.join(f"storages/{dataset}/{vlm_name}/{mode}/{model}", relative_path)
 
             rs = Ragstore(
                 lp=lp,
@@ -84,21 +86,23 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", type=str, default="tabrag", help="e.g. tabrag, pymupdf, pytesseract, vlm")
     parser.add_argument("--mode", type=str,  default="generation", help="generation or retrieval")
-    parser.add_argument("--dataset", type=str,  default="tatdqa", help="tatdqa, mpdocvqa, wikitablequestions, spiqa, tablevqa")
-
     parser.add_argument("--embedder", type=str, default="Qwen/Qwen3-Embedding-8B")
-
-    # parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-32B-Instruct") # modify
-    # parser.add_argument("--vlm_ip", type=str, default="146.169.26.172") # modify
-    # parser.add_argument("--vlm_port", type=str, default="3232") # modify
-
-    parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-8B-Instruct") # modify
-    parser.add_argument("--vlm_ip", type=str, default="146.169.1.69") # modify
-    parser.add_argument("--vlm_port", type=str, default="6200") # modify
 
     parser.add_argument("--llm_model", type=str, default="Qwen/Qwen3-14B") # modify
     parser.add_argument("--llm_ip", type=str, default="146.169.1.68") # modify
     parser.add_argument("--llm_port", type=str, default="1707") # modify
+
+    parser.add_argument("--dataset", type=str,  default="wikitablequestions", help="tatdqa, mpdocvqa, wikitablequestions, spiqa, tablevqa")
+
+    parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-32B-Instruct") # modify
+    parser.add_argument("--vlm_ip", type=str, default="146.169.26.172") # modify
+    parser.add_argument("--vlm_port", type=str, default="3232") # modify
+
+    # parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-8B-Instruct") # modify
+    # parser.add_argument("--vlm_ip", type=str, default="146.169.1.69") # modify
+    # parser.add_argument("--vlm_port", type=str, default="6200") # modify
+
+
 
 
     args = parser.parse_args()
