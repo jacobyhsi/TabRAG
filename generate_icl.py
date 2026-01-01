@@ -35,11 +35,9 @@ def main(args):
     print(f"Scanning for {args.num_folders} files containing tables in {data_dir}...")
 
     # Walk through directories
-    # We use a progress bar to track the number of tables found vs our goal
     pbar = tqdm(total=args.num_folders, desc="Tables Found")
 
     for root, subdirs, files in os.walk(data_dir):
-        # Stop walking if we've reached our target count of tables
         if len(candidate_tables) >= args.num_folders:
             break
             
@@ -53,7 +51,6 @@ def main(args):
         if not valid_files:
             continue
 
-        # Check files in this directory until a table is found
         for file_name in valid_files:
             file_path = os.path.join(root, file_name)
             
@@ -62,7 +59,6 @@ def main(args):
                 largest_table = None
                 max_area = -1
 
-                # comps: {page_num: [components]}
                 for page_num, components in comps.items():
                     for comp in components:
                         if comp["class"] == 3:  # Table class
@@ -78,51 +74,37 @@ def main(args):
                 if largest_table:
                     candidate_tables.append((max_area, largest_table))
                     pbar.update(1)
-                    # We found a table in this folder, so we can stop searching this specific folder
                     break 
 
             except Exception as e:
-                # Silently continue to next file if one fails to process
                 continue
         
-        # Double check exit condition for the outer loop
         if len(candidate_tables) >= args.num_folders:
             break
 
     pbar.close()
     print(f"\nFound {len(candidate_tables)} tables total.")
 
-    # Select top N largest tables
-    top_tables = heapq.nlargest(
-        args.num_icl, candidate_tables, key=lambda x: x[0]
-    )
+    # --- MODIFIED SECTION ---
+    # Sort by area descending
+    candidate_tables.sort(key=lambda x: x[0], reverse=True)
+    
+    # Pick ranks 4, 5, and 6 (indices 3, 4, 5)
+    top_tables = candidate_tables[3:6]
+    # ------------------------
 
-    print(f"Generating ICL examples for top {len(top_tables)} tables...")
+    print(f"Generating ICL examples for {len(top_tables)} tables (Ranks 4-6)...")
 
-    icl_examples = []  # List[str]
+    icl_examples = []
 
     for i, (area, comp) in enumerate(top_tables):
         print(f"Generating example {i+1}/{len(top_tables)} (Area: {area})...")
-
         vlm_image = comp["path"]
 
-        # Generate Markdown
-        markdown_output = vlm.generate(
-            vlmp.vlm_table_icl_markdown_prompt,
-            vlm_image
-        )
+        markdown_output = vlm.generate(vlmp.vlm_table_icl_markdown_prompt, vlm_image)
+        json_output = vlm.generate(vlmp.vlm_table_icl_json_prompt, vlm_image)
 
-        # Generate JSON
-        json_output = vlm.generate(
-            vlmp.vlm_table_icl_json_prompt,
-            vlm_image
-        )
-
-        example = (
-            f"Input:\n{markdown_output}\n\n"
-            f"Output:\n{json_output}"
-        )
-
+        example = f"Input:\n{markdown_output}\n\nOutput:\n{json_output}"
         icl_examples.append(example)
 
     # Console output
@@ -135,7 +117,6 @@ def main(args):
         print(example)
         print("\n" + "-" * 20)
 
-    # Save JSON (list of example strings)
     if not os.path.exists(f"icl/{args.dataset}"):
         os.makedirs(f"icl/{args.dataset}")
 
@@ -151,7 +132,7 @@ if __name__ == "__main__":
     parser.add_argument("--num_folders", type=int, default=10, help="Number of folders to iterate over")
     parser.add_argument("--num_icl", type=int, default=3, help="Number of ICL examples to generate")
 
-    parser.add_argument("--dataset", type=str, default="spiqa", help="Dataset name") 
+    parser.add_argument("--dataset", type=str, default="mpdocvqa", help="Dataset name") 
     # tatdqa, tablevqa, mpdocvqa, wikitablequestions, spiqa
 
     parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-32B-Instruct") # modify
