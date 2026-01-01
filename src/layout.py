@@ -6,15 +6,20 @@ from detectron2.engine import DefaultPredictor
 from detectron2.structures import Instances
 
 import os
+import sys
 import cv2
 import torch
 import shutil
 import pymupdf
 
-from ditod import add_vit_config
+tabrag_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.append(tabrag_dir)
 
-CONFIG_PATH = './object_detection/publaynet_configs/cascade/cascade_dit_large.yaml'
-WEIGHTS_PATH = ['MODEL.WEIGHTS', 'publaynet_dit-l_cascade.pth']
+from object_detection.ditod import add_vit_config
+
+CONFIG_PATH = os.path.join(tabrag_dir, 'object_detection/publaynet_configs/cascade/cascade_dit_large.yaml')
+WEIGHTS_PATH = ['MODEL.WEIGHTS', os.path.join(tabrag_dir, 'publaynet_dit-l_cascade.pth')]
+
 visualize = True # Toggle on to save a visualization of identified layout sections
 
 class LayoutProcessor:
@@ -64,8 +69,11 @@ class LayoutProcessor:
         # Handle single images
         # -------------------------
         if ext in [".jpg", ".jpeg", ".png"]:
-            filename = os.path.splitext(file_path)[0]
-            processed_path = os.path.join('processed', filename.split('datasets/')[1])
+            rel_path = os.path.relpath(file_path, os.path.join(tabrag_dir, "datasets"))
+            dataset_name = rel_path.split(os.sep)[0]
+            file_name = os.path.splitext(os.path.basename(file_path))[0]
+
+            processed_path = os.path.join(tabrag_dir, 'processed', dataset_name, file_name)
             os.makedirs(processed_path, exist_ok=True)
 
             img = cv2.imread(file_path)
@@ -104,25 +112,25 @@ class LayoutProcessor:
                     if cropped.size == 0:
                         continue
 
-                    cv2.imwrite(f"{processed_path}/{i}.png", cropped)
+                    cv2.imwrite(os.path.join(processed_path, f"{file_name}_{i}.png"), cropped)
                     layout_components[0].append({
                         "idx": i,
                         "bbox": bbox_scaled,
                         "score": score.item(),
                         "class": pred_class.item(),
-                        "path": f"{processed_path}/{i}.png",
+                        "path": f"{processed_path}/{file_name}_{i}.png",
                         "text": ""  # no PDF text
                     })
 
             if visualize:
-                self._save_visualization(img, output, keep, md, filename, 0)
+                self._save_visualization(img, output, keep, md, dataset_name, file_name)
 
         else:
             raise ValueError(f"Unsupported file format: {ext}. Please preprocess PDFs to images first.")
 
         return layout_components
 
-    def _save_visualization(self, img, output, keep, md, filename, page_number):
+    def _save_visualization(self, img, output, keep, md, dataset_name, file_name):
         """Helper to save visualization images."""
         output_dict = output.to('cpu').get_fields()
         image_size = output.image_size
@@ -139,5 +147,6 @@ class LayoutProcessor:
                     instance_mode=ColorMode.SEGMENTATION)
         result = v.draw_instance_predictions(thresholded_output)
         result_image = result.get_image()[:, :, ::-1]
-        os.makedirs(f'visualizations/{filename}', exist_ok=True)
-        cv2.imwrite(f'visualizations/{filename}/{page_number}.jpg', result_image)
+        
+        os.makedirs(os.path.join(tabrag_dir, "visualizations", dataset_name, file_name), exist_ok=True)
+        cv2.imwrite(os.path.join(tabrag_dir, "visualizations", dataset_name, file_name, f"{file_name}.jpg"), result_image)
