@@ -197,7 +197,7 @@ You are a precise information extraction engine. Output ONLY a JSON array of obj
 {"row": <string>, "column": <string>, "value": <string|null>, "units": <string|null>}.
 No markdown, explanations, or text before/after the JSON.
 
-Task: Extract every visible cell in the attached table image into JSON triples.
+Task: Extract every visible cell in the attached table image into JSON objects.
 
 Each table cell must be represented as:
 {
@@ -371,9 +371,9 @@ Now, generate the markdown table ONLY, do not include any other irrelevant text.
 
         self.vlm_table_icl_json_prompt = """
 You are a precise information parsing and extraction engine. Output ONLY
-A JSON array of objects, each with: {"row": <string>, "column": <string>, "value": <string|null>}.
+A JSON array of objects, each with: {"row": <string>, "column": <string>, "value": <string|null>, "units": <string|null>}.
 
-Task: Then Extract every visible cell in the attached table image into JSON triples.
+Task: Then Extract every visible cell in the attached table image into JSON objects.
 
 Each table cell must be represented as:
 {

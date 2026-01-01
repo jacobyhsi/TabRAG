@@ -92,8 +92,6 @@ if __name__ == "__main__":
     parser.add_argument("--llm_ip", type=str, default="146.169.1.68") # modify
     parser.add_argument("--llm_port", type=str, default="1707") # modify
 
-    parser.add_argument("--dataset", type=str,  default="wikitablequestions", help="tatdqa, mpdocvqa, wikitablequestions, spiqa, tablevqa")
-
     parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-32B-Instruct") # modify
     parser.add_argument("--vlm_ip", type=str, default="146.169.26.172") # modify
     parser.add_argument("--vlm_port", type=str, default="3232") # modify
@@ -101,6 +99,10 @@ if __name__ == "__main__":
     # parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-8B-Instruct") # modify
     # parser.add_argument("--vlm_ip", type=str, default="146.169.1.69") # modify
     # parser.add_argument("--vlm_port", type=str, default="6200") # modify
+
+    parser.add_argument("--dataset", type=str,  default="wikitablequestions", help="tatdqa, mpdocvqa, wikitablequestions, spiqa, tablevqa")
+
+
 
 
 

@@ -1,15 +1,15 @@
 import sys
 import os
-import heapq
 import json
-from tqdm import tqdm
 import argparse
 import random
-
-random.seed(0)
-
 import warnings
 warnings.filterwarnings("ignore")
+
+from tqdm import tqdm
+from transformers import AutoTokenizer
+
+random.seed(1)
 
 # Add object_detection to path so src.layout works
 sys.path.append(os.path.abspath("object_detection"))
@@ -18,130 +18,217 @@ from src.llm import VLLMVLMClient
 from src.prompts import VLMPrompts
 from src.layout import LayoutProcessor
 
+
+# --------------------------------------------------
+# Utils
+# --------------------------------------------------
+def collect_image_paths(data_dir):
+    """
+    Collect all image paths under:
+    generation/<doc>/<doc_page>/<doc_page>.jpg
+    """
+    image_paths = []
+    for root, _, files in os.walk(data_dir):
+        for f in files:
+            if f.lower().endswith((".jpg", ".jpeg", ".png")):
+                image_paths.append(os.path.join(root, f))
+    return image_paths
+
+
+def count_tokens(tokenizer, text: str) -> int:
+    return len(tokenizer.encode(text, add_special_tokens=False))
+
+
+# --------------------------------------------------
+# Main
+# --------------------------------------------------
 def main(args):
-    # Initialize Models
+    # ----------------------------
+    # Initialize models
+    # ----------------------------
     print("Initializing models...")
     try:
         vlm = VLLMVLMClient(args.vlm_model, ip=args.vlm_ip, port=args.vlm_port)
         lp = LayoutProcessor()
         vlmp = VLMPrompts()
+
+        tokenizer = AutoTokenizer.from_pretrained(
+            args.vlm_model,
+            trust_remote_code=True
+        )
     except Exception as e:
         print(f"Error initializing models: {e}")
         return
 
-    data_dir = f"datasets/{args.dataset}"
-    candidate_tables = []  # List of (area, component_dict)
+    data_dir = f"datasets/{args.dataset}/generation"
+    candidate_tables = []  # (area, component)
 
-    print(f"Scanning for {args.num_folders} files containing tables in {data_dir}...")
+    # ----------------------------
+    # Collect images
+    # ----------------------------
+    image_paths = collect_image_paths(data_dir)
+    random.shuffle(image_paths)
 
-    # Walk through directories
+    print(f"Found {len(image_paths)} images under {data_dir}")
+    print(f"Scanning for {args.num_folders} files containing tables...")
+
     pbar = tqdm(total=args.num_folders, desc="Tables Found")
 
-    for root, subdirs, files in os.walk(data_dir):
+    # ----------------------------
+    # Detect tables
+    # ----------------------------
+    for file_path in image_paths:
         if len(candidate_tables) >= args.num_folders:
             break
-            
-        random.shuffle(subdirs)
 
-        valid_files = [
-            f for f in files
-            if f.lower().endswith((".pdf", ".jpg", ".jpeg", ".png"))
-        ]
+        try:
+            comps = lp.preprocess(file_path)
 
-        if not valid_files:
+            largest_table = None
+            max_area = -1
+
+            for _, components in comps.items():
+                for comp in components:
+                    if comp["class"] == 3:  # table class
+                        bbox = comp["bbox"]
+                        area = (bbox[2] - bbox[0]) * (bbox[3] - bbox[1])
+
+                        if area > max_area:
+                            max_area = area
+                            largest_table = comp
+
+            if largest_table is not None:
+                candidate_tables.append((max_area, largest_table))
+                pbar.update(1)
+
+        except Exception:
             continue
-
-        for file_name in valid_files:
-            file_path = os.path.join(root, file_name)
-            
-            try:
-                comps = lp.preprocess(file_path)
-                largest_table = None
-                max_area = -1
-
-                for page_num, components in comps.items():
-                    for comp in components:
-                        if comp["class"] == 3:  # Table class
-                            bbox = comp["bbox"]
-                            width = bbox[2] - bbox[0]
-                            height = bbox[3] - bbox[1]
-                            area = width * height
-
-                            if area > max_area:
-                                max_area = area
-                                largest_table = comp
-
-                if largest_table:
-                    candidate_tables.append((max_area, largest_table))
-                    pbar.update(1)
-                    break 
-
-            except Exception as e:
-                continue
-        
-        if len(candidate_tables) >= args.num_folders:
-            break
 
     pbar.close()
     print(f"\nFound {len(candidate_tables)} tables total.")
 
-    # --- MODIFIED SECTION ---
-    # Sort by area descending
+    # ----------------------------
+    # Rank tables by area
+    # ----------------------------
     candidate_tables.sort(key=lambda x: x[0], reverse=True)
-    
-    # Pick ranks 4, 5, and 6 (indices 3, 4, 5)
-    top_tables = candidate_tables[3:6]
-    # ------------------------
 
-    print(f"Generating ICL examples for {len(top_tables)} tables (Ranks 4-6)...")
+    # ----------------------------
+    # Token-budget-aware selection
+    # ----------------------------
+    MAX_TOKENS = 6000
+    MIN_TOKENS = 100
+    K = args.num_icl
 
-    icl_examples = []
+    print(
+        f"Selecting top-{K} tables with "
+        f"{MIN_TOKENS} ≤ tokens per field < {MAX_TOKENS} total..."
+    )
 
-    for i, (area, comp) in enumerate(top_tables):
-        print(f"Generating example {i+1}/{len(top_tables)} (Area: {area})...")
-        vlm_image = comp["path"]
+    selected_examples = []
+    cursor = 0
 
-        markdown_output = vlm.generate(vlmp.vlm_table_icl_markdown_prompt, vlm_image)
-        json_output = vlm.generate(vlmp.vlm_table_icl_json_prompt, vlm_image)
+    while cursor < len(candidate_tables) and len(selected_examples) < K:
+        area, comp = candidate_tables[cursor]
 
-        example = f"Input:\n{markdown_output}\n\nOutput:\n{json_output}"
-        icl_examples.append(example)
+        try:
+            vlm_image = comp["path"]
 
-    # Console output
+            markdown_output = vlm.generate(
+                vlmp.vlm_table_icl_markdown_prompt, vlm_image
+            )
+            json_output = vlm.generate(
+                vlmp.vlm_table_prompt, vlm_image
+            )
+
+            md_tokens = count_tokens(tokenizer, markdown_output)
+            json_tokens = count_tokens(tokenizer, json_output)
+            total_tokens = md_tokens + json_tokens
+
+            combined_text = (
+                "Input:\n"
+                f"{markdown_output}\n\n"
+                "Output:\n"
+                f"{json_output}"
+            )
+
+            if md_tokens < MIN_TOKENS:
+                print(
+                    f"Skipped (markdown too short: "
+                    f"{md_tokens} < {MIN_TOKENS})"
+                )
+
+            elif json_tokens < MIN_TOKENS:
+                print(
+                    f"Skipped (json too short: "
+                    f"{json_tokens} < {MIN_TOKENS})"
+                )
+
+            elif total_tokens >= MAX_TOKENS:
+                print(
+                    f"Skipped (total tokens {total_tokens} "
+                    f">= {MAX_TOKENS})"
+                )
+
+            else:
+                selected_examples.append(combined_text)
+                print(
+                    f"Accepted (md={md_tokens}, json={json_tokens}, "
+                    f"total={total_tokens}, area={area})"
+                )
+
+        except Exception:
+            pass
+
+        cursor += 1
+
+    if len(selected_examples) < K:
+        print(
+            f"Warning: only {len(selected_examples)} valid "
+            f"ICL examples found."
+        )
+
+    # ----------------------------
+    # Print results
+    # ----------------------------
     print("\n" + "=" * 50)
     print("GENERATED ICL EXAMPLES")
     print("=" * 50)
 
-    for i, example in enumerate(icl_examples):
-        print(f"\n--- Example {i+1} ---")
+    for i, example in enumerate(selected_examples):
+        print(f"\n--- Example {i + 1} ---")
         print(example)
         print("\n" + "-" * 20)
 
-    if not os.path.exists(f"icl/{args.dataset}"):
-        os.makedirs(f"icl/{args.dataset}")
+    # ----------------------------
+    # Save to disk
+    # ----------------------------
+    save_dir = f"icl/{args.dataset}"
+    os.makedirs(save_dir, exist_ok=True)
 
-    vlm_name = args.vlm_model.split('/')[-1]
+    vlm_name = args.vlm_model.split("/")[-1]
+    save_path = f"{save_dir}/{vlm_name}.json"
 
-    with open(f"icl/{args.dataset}/{vlm_name}.json", "w") as f:
-        json.dump(icl_examples, f, indent=2)
+    with open(save_path, "w") as f:
+        json.dump(selected_examples, f, indent=2)
 
-    print(f"\nSaved examples to icl/{args.dataset}/{vlm_name}.json")
+    print(f"\nSaved examples to {save_path}")
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--num_folders", type=int, default=10, help="Number of folders to iterate over")
     parser.add_argument("--num_icl", type=int, default=3, help="Number of ICL examples to generate")
 
-    parser.add_argument("--dataset", type=str, default="mpdocvqa", help="Dataset name") 
+    parser.add_argument("--dataset", type=str, default="tatdqa", help="Dataset name") 
     # tatdqa, tablevqa, mpdocvqa, wikitablequestions, spiqa
 
-    parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-32B-Instruct") # modify
-    parser.add_argument("--vlm_ip", type=str, default="146.169.26.172") # modify
-    parser.add_argument("--vlm_port", type=str, default="3232") # modify
+    # parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-32B-Instruct") # modify
+    # parser.add_argument("--vlm_ip", type=str, default="146.169.26.172") # modify
+    # parser.add_argument("--vlm_port", type=str, default="3232") # modify
 
-    # parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-8B-Instruct") # modify
-    # parser.add_argument("--vlm_ip", type=str, default="146.169.1.69") # modify
-    # parser.add_argument("--vlm_port", type=str, default="6200") # modify
+    parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-8B-Instruct") # modify
+    parser.add_argument("--vlm_ip", type=str, default="146.169.1.69") # modify
+    parser.add_argument("--vlm_port", type=str, default="6200") # modify
 
     args = parser.parse_args()
     main(args)
