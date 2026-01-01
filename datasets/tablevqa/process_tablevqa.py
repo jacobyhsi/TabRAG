@@ -31,13 +31,10 @@ def extract_metadata(example, split_name):
 
 ds["fintabnetqa"].map(save_images, load_from_cache_file=False)
 ds["vtabfact"].map(save_images, load_from_cache_file=False)
-# ds["vwtq"].map(save_images, load_from_cache_file=False)
-# ds["vwtq_syn"].map(save_images)
 
 out_path = os.path.join(ROOT, "datasets/tablevqa/qa.json")
 all_records = []
 
-# for split_name in ["fintabnetqa", "vtabfact", "vwtq", "vwtq_syn"]:
 for split_name in ["fintabnetqa", "vtabfact"]:
     for ex in ds[split_name]:
         all_records.append(extract_metadata(ex, split_name))

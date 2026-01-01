@@ -4,10 +4,12 @@ import heapq
 import json
 from tqdm import tqdm
 import argparse
-
 import random
+
 random.seed(0)
 
+import warnings
+warnings.filterwarnings("ignore")
 
 # Add object_detection to path so src.layout works
 sys.path.append(os.path.abspath("object_detection"))
@@ -28,15 +30,20 @@ def main(args):
         return
 
     data_dir = f"datasets/{args.dataset}"
-    folders_processed = 0
     candidate_tables = []  # List of (area, component_dict)
 
-    print(f"Scanning {args.num_folders} folders in {data_dir}...")
+    print(f"Scanning for {args.num_folders} files containing tables in {data_dir}...")
 
     # Walk through directories
+    # We use a progress bar to track the number of tables found vs our goal
+    pbar = tqdm(total=args.num_folders, desc="Tables Found")
+
     for root, subdirs, files in os.walk(data_dir):
+        # Stop walking if we've reached our target count of tables
+        if len(candidate_tables) >= args.num_folders:
+            break
+            
         random.shuffle(subdirs)
-        # files.sort()
 
         valid_files = [
             f for f in files
@@ -46,44 +53,43 @@ def main(args):
         if not valid_files:
             continue
 
-        file_name = valid_files[0]
-        file_path = os.path.join(root, file_name)
+        # Check files in this directory until a table is found
+        for file_name in valid_files:
+            file_path = os.path.join(root, file_name)
+            
+            try:
+                comps = lp.preprocess(file_path)
+                largest_table = None
+                max_area = -1
 
-        print(f"Processing folder: {root}, file: {file_name}")
+                # comps: {page_num: [components]}
+                for page_num, components in comps.items():
+                    for comp in components:
+                        if comp["class"] == 3:  # Table class
+                            bbox = comp["bbox"]
+                            width = bbox[2] - bbox[0]
+                            height = bbox[3] - bbox[1]
+                            area = width * height
 
-        try:
-            comps = lp.preprocess(file_path)
+                            if area > max_area:
+                                max_area = area
+                                largest_table = comp
 
-            largest_table = None
-            max_area = -1
+                if largest_table:
+                    candidate_tables.append((max_area, largest_table))
+                    pbar.update(1)
+                    # We found a table in this folder, so we can stop searching this specific folder
+                    break 
 
-            # comps: {page_num: [components]}
-            for page_num, components in comps.items():
-                for comp in components:
-                    if comp["class"] == 3:  # Table class
-                        bbox = comp["bbox"]
-                        width = bbox[2] - bbox[0]
-                        height = bbox[3] - bbox[1]
-                        area = width * height
-
-                        if area > max_area:
-                            max_area = area
-                            largest_table = comp
-
-            if largest_table:
-                candidate_tables.append((max_area, largest_table))
-                print(f"  Found table with area {max_area}")
-            else:
-                print("  No table found in this file.")
-
-        except Exception as e:
-            print(f"  Error processing file {file_path}: {e}")
-            continue
-
-        folders_processed += 1
-        if folders_processed >= args.num_folders:
+            except Exception as e:
+                # Silently continue to next file if one fails to process
+                continue
+        
+        # Double check exit condition for the outer loop
+        if len(candidate_tables) >= args.num_folders:
             break
 
+    pbar.close()
     print(f"\nFound {len(candidate_tables)} tables total.")
 
     # Select top N largest tables
@@ -119,7 +125,7 @@ def main(args):
 
         icl_examples.append(example)
 
-    # Console output (optional)
+    # Console output
     print("\n" + "=" * 50)
     print("GENERATED ICL EXAMPLES")
     print("=" * 50)
@@ -130,7 +136,6 @@ def main(args):
         print("\n" + "-" * 20)
 
     # Save JSON (list of example strings)
-
     if not os.path.exists(f"icl/{args.dataset}"):
         os.makedirs(f"icl/{args.dataset}")
 
@@ -146,7 +151,7 @@ if __name__ == "__main__":
     parser.add_argument("--num_folders", type=int, default=10, help="Number of folders to iterate over")
     parser.add_argument("--num_icl", type=int, default=3, help="Number of ICL examples to generate")
 
-    parser.add_argument("--dataset", type=str, default="tablevqa", help="Dataset name") 
+    parser.add_argument("--dataset", type=str, default="spiqa", help="Dataset name") 
     # tatdqa, tablevqa, mpdocvqa, wikitablequestions, spiqa
 
     parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-32B-Instruct") # modify
