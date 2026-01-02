@@ -65,7 +65,7 @@ def main(args):
             print(f"Processing directory: {root}")
 
             relative_path = os.path.relpath(root, data_dir)
-            save_dir = os.path.join(f"storages/{dataset}/{vlm_name}/{mode}/{model}", relative_path)
+            save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}", relative_path)
 
             rs = Ragstore(
                 lp=lp,
