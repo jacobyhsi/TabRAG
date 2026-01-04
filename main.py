@@ -32,7 +32,7 @@ def main(args):
     # VLLM
     vlm = VLLMVLMClient(args.vlm_model, ip=args.vlm_ip, port=args.vlm_port)
     # vlm = VLLMVLMClient('Qwen/Qwen3-VL-32B-Instruct', ip='localhost', port='3232')
-    llm = VLLMLLMClient(args.llm_model, ip=args.llm_ip, port=args.llm_port)
+    # llm = VLLMLLMClient(args.llm_model, ip=args.llm_ip, port=args.llm_port)
 
     # HuggingFace
     # llm = HFLLMClient('Qwen/Qwen3-8B')
@@ -71,9 +71,9 @@ def main(args):
                 lp=lp,
                 embedder=embedder,
                 vlm=vlm,
-                llm=llm,
+                # llm=llm,
                 vlm_prompts=vlmp,
-                llm_prompts=llmp,
+                # llm_prompts=llmp,
                 icl=icl,
                 model=model,
                 data_dir=root,
@@ -88,9 +88,9 @@ if __name__ == "__main__":
     parser.add_argument("--mode", type=str,  default="generation", help="generation or retrieval")
     parser.add_argument("--embedder", type=str, default="Qwen/Qwen3-Embedding-8B")
 
-    parser.add_argument("--llm_model", type=str, default="Qwen/Qwen3-14B") # modify
-    parser.add_argument("--llm_ip", type=str, default="146.169.1.68") # modify
-    parser.add_argument("--llm_port", type=str, default="1707") # modify
+    # parser.add_argument("--llm_model", type=str, default="Qwen/Qwen3-14B") # modify
+    # parser.add_argument("--llm_ip", type=str, default="146.169.1.68") # modify
+    # parser.add_argument("--llm_port", type=str, default="1707") # modify
 
     parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-32B-Instruct") # modify
     parser.add_argument("--vlm_ip", type=str, default="146.169.26.172") # modify

@@ -5,7 +5,7 @@ from src.layout import LayoutProcessor
 from src.embedder import BaseEmbedder
 from src.vector_store import VectorStore
 from src.llm import BaseVLMEngine, BaseLLMEngine
-from src.prompts import LLMPrompts, VLMPrompts
+from src.prompts import VLMPrompts
 from tqdm import tqdm
 import pymupdf
 import re
@@ -20,10 +20,10 @@ class Ragstore:
     def __init__(self,
                 lp: LayoutProcessor,
                 embedder: BaseEmbedder,
-                vlm: BaseLLMEngine, 
-                llm: BaseVLMEngine,
+                vlm: BaseVLMEngine, 
+                # llm: BaseLLMEngine,
                 vlm_prompts: VLMPrompts,
-                llm_prompts: LLMPrompts,
+                # llm_prompts: LLMPrompts,
                 icl,
                 model,
                 data_dir,
@@ -31,9 +31,9 @@ class Ragstore:
         self.lp = lp
         self.embedder = embedder
         self.vlm = vlm
-        self.llm = llm
+        # self.llm = llm
         self.vlm_prompts = vlm_prompts
-        self.llm_prompts = llm_prompts
+        # self.llm_prompts = llm_prompts
         self.icl = icl
         self.model = model
         self.data_dir = data_dir
@@ -206,17 +206,16 @@ class Ragstore:
                 #     exit()
     
                 # Extract text with VLM
-                # vlm_prompt = "hi"
                 output = self.vlm.generate(vlm_prompt, vlm_image)
 
                 # Special handling for tables (class 3)
-                if component_class == 3:
-                    llm_prompt = self.llm_prompts.prompt_map[component_class]
-                    prev_context = ""
-                    if local_idx > 0:
-                        prev_idx = component_indices[local_idx - 1]
-                        prev_context = comps[page_idx][prev_idx].get('details', '')
-                    output = self.llm.generate(llm_prompt, prev_context + '\n\n' + output)
+                # if component_class == 3:
+                #     llm_prompt = self.llm_prompts.prompt_map[component_class]
+                #     prev_context = ""
+                #     if local_idx > 0:
+                #         prev_idx = component_indices[local_idx - 1]
+                #         prev_context = comps[page_idx][prev_idx].get('details', '')
+                #     output = self.llm.generate(llm_prompt, prev_context + '\n\n' + output)
 
                 # Collect component-level info
                 page_texts.append(output)
