@@ -24,7 +24,7 @@ def main(args):
     # -----------------------------
 
     # Embedder
-    embedder = VLLMEmbedder(args.embedder, tensor_parallel_size=1, gpu_memory_utilization=0.7)
+    embedder = VLLMEmbedder(args.embedder, tensor_parallel_size=1, gpu_memory_utilization=0.6)
     # embedder = HFEmbedder('Qwen/Qwen3-Embedding-8B')
     # embedder = SentenceTransformerEmbedder('Qwen/Qwen3-Embedding-8B')
     # embedder = SentenceTransformerEmbedder('Qwen/Qwen3-Embedding-4B')
@@ -65,7 +65,7 @@ def main(args):
             print(f"Processing directory: {root}")
 
             relative_path = os.path.relpath(root, data_dir)
-            save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}", relative_path)
+            save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_xStructureICL", relative_path)
 
             rs = Ragstore(
                 lp=lp,
@@ -81,6 +81,7 @@ def main(args):
             )
             # rs.build_index_per_file()
             rs.build_index_per_folder()
+            print("Saved to:", save_dir)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -92,20 +93,15 @@ if __name__ == "__main__":
     # parser.add_argument("--llm_ip", type=str, default="146.169.1.68") # modify
     # parser.add_argument("--llm_port", type=str, default="1707") # modify
 
-    parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-32B-Instruct") # modify
+    # parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-32B-Instruct") # modify
+    # parser.add_argument("--vlm_ip", type=str, default="146.169.26.172") # modify
+    # parser.add_argument("--vlm_port", type=str, default="3232") # modify
+
+    parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-8B-Instruct") # modify
     parser.add_argument("--vlm_ip", type=str, default="146.169.26.172") # modify
     parser.add_argument("--vlm_port", type=str, default="3232") # modify
 
-    # parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-8B-Instruct") # modify
-    # parser.add_argument("--vlm_ip", type=str, default="146.169.1.69") # modify
-    # parser.add_argument("--vlm_port", type=str, default="6200") # modify
-
-    parser.add_argument("--dataset", type=str,  default="wikitablequestions", help="tatdqa, mpdocvqa, wikitablequestions, spiqa, tablevqa")
-
-
-
-
-
+    parser.add_argument("--dataset", type=str,  default="tatdqa", help="tatdqa, mpdocvqa, wikitablequestions, spiqa, tablevqa")
 
     args = parser.parse_args()
     main(args)

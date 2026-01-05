@@ -16,6 +16,13 @@ Please interpret the figure and describe it in detail. Your output should includ
 4. Any other notable features (e.g., anomalies, clustering, outliers).
 Be precise and avoid speculation. Ensure your interpretation **accurately matches the figure** and corresponds to what is visually present. DO NOT OUTPUT ANYTHING ELSE!
 """
+
+        self.vlm_table_prompt_xStructureICL = """
+Please extract and output the **table** from the image exactly **as displayed**. 
+Preserve original formatting of the table including columns and rows. DO NOT OUTPUT ANYTHING ELSE!
+"""
+
+
 #         self.vlm_table_prompt = """
 # SYSTEM:
 # You are a full table parser.
@@ -306,6 +313,35 @@ Output:
 ]
 
 ---
+
+Now, extract all visible cells from the attached table image and output only the JSON array of {row, column, value, units} objects using the " -> " separator for multi-level headers, keeping all cell values exactly as written in the table. ENSURING THAT ALL EXTRACTED VALUES ARE ACCURATE IS THE MOST IMPORTANT! DO NOT OUTPUT ANYTHING ELSE.
+"""
+
+        self.vlm_table_prompt_xICL = """
+You are a precise information extraction engine. Output ONLY a JSON array of objects, each with:
+{"row": <string>, "column": <string>, "value": <string|null>, "units": <string|null>}.
+No markdown, explanations, or text before/after the JSON.
+
+Task: Extract every visible cell in the attached table image into JSON objects.
+
+Each table cell must be represented as:
+{
+"row": string,        // the row label (e.g. "Revenue", "2024", "Row 1" if unnamed)
+"column": string,     // column header text; if multi-level, join levels with " -> "
+"value": string|null, // exact text as seen in the table (keep symbols and brackets)
+"units": string|null  // units of the value (e.g. "$", "%", "kg"), or null if none
+}
+
+Rules:
+- Output ONLY a JSON array: [ {row, column, value, units}, ... ].
+- Order: top-to-bottom, left-to-right.
+- Preserve all text formatting exactly as shown:
+- Keep parentheses, minus signs, commas, currency symbols, and percent signs.
+- Do NOT normalize numbers or remove punctuation.
+- Multi-line text: join with a single space.
+- Multi-level headers: join with " -> " (e.g. "2024 -> Revenue").
+- If a row header spans multiple rows, repeat its label for each affected row.
+- Use null only for empty or blank cells.
 
 Now, extract all visible cells from the attached table image and output only the JSON array of {row, column, value, units} objects using the " -> " separator for multi-level headers, keeping all cell values exactly as written in the table. ENSURING THAT ALL EXTRACTED VALUES ARE ACCURATE IS THE MOST IMPORTANT! DO NOT OUTPUT ANYTHING ELSE.
 """

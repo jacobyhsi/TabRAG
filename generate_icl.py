@@ -115,7 +115,7 @@ def main(args):
     # ----------------------------
     # Token-budget-aware selection
     # ----------------------------
-    MAX_TOKENS = 6000
+    MAX_TOKENS = 5000
     MIN_TOKENS = 100
     K = args.num_icl
 
@@ -139,7 +139,6 @@ def main(args):
             json_output = vlm.generate(
                 vlmp.vlm_table_prompt, vlm_image
             )
-
             md_tokens = count_tokens(tokenizer, markdown_output)
             json_tokens = count_tokens(tokenizer, json_output)
             total_tokens = md_tokens + json_tokens
@@ -163,9 +162,15 @@ def main(args):
                     f"{json_tokens} < {MIN_TOKENS})"
                 )
 
-            elif total_tokens >= MAX_TOKENS:
+            elif md_tokens >= MAX_TOKENS:
                 print(
-                    f"Skipped (total tokens {total_tokens} "
+                    f"Skipped (markdown tokens {md_tokens} "
+                    f">= {MAX_TOKENS})"
+                )
+
+            elif json_tokens >= MAX_TOKENS:
+                print(
+                    f"Skipped (json tokens {json_tokens} "
                     f">= {MAX_TOKENS})"
                 )
 
@@ -202,7 +207,7 @@ def main(args):
     # ----------------------------
     # Save to disk
     # ----------------------------
-    save_dir = f"icl/{args.dataset}"
+    save_dir = f"icl/{args.dataset}/{args.num_icl}"
     os.makedirs(save_dir, exist_ok=True)
 
     vlm_name = args.vlm_model.split("/")[-1]
@@ -216,8 +221,8 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--num_folders", type=int, default=10, help="Number of folders to iterate over")
-    parser.add_argument("--num_icl", type=int, default=3, help="Number of ICL examples to generate")
+    parser.add_argument("--num_folders", type=int, default=20, help="Number of folders to iterate over")
+    parser.add_argument("--num_icl", type=int, default=1, help="Number of ICL examples to generate")
 
     parser.add_argument("--dataset", type=str, default="tatdqa", help="Dataset name") 
     # tatdqa, tablevqa, mpdocvqa, wikitablequestions, spiqa
@@ -227,8 +232,8 @@ if __name__ == "__main__":
     # parser.add_argument("--vlm_port", type=str, default="3232") # modify
 
     parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-8B-Instruct") # modify
-    parser.add_argument("--vlm_ip", type=str, default="146.169.1.69") # modify
-    parser.add_argument("--vlm_port", type=str, default="6200") # modify
+    parser.add_argument("--vlm_ip", type=str, default="146.169.26.172") # modify
+    parser.add_argument("--vlm_port", type=str, default="3232") # modify
 
     args = parser.parse_args()
     main(args)

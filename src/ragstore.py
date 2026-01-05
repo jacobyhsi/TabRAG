@@ -182,7 +182,8 @@ class Ragstore:
                     vlm_prompt = self.vlm_prompts.prompt_map[component_class]
                 else:
                     # vlm_prompt = self.vlm_prompts.build_vlm_table_prompt(self.icl_examples)
-                    vlm_prompt = self.vlm_prompts.build_vlm_table_prompt(self.icl)
+                    # vlm_prompt = self.vlm_prompts.build_vlm_table_prompt(self.icl)
+                    vlm_prompt = self.vlm_prompts.vlm_table_prompt_xStructureICL
 
                 # Fallback for exceedingly long prompts
                 if len(vlm_prompt) > MAX_PROMPT_TOKENS:
