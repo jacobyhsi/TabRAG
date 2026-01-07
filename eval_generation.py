@@ -206,6 +206,74 @@ def eval_WikiTQ(gt_path, storage_dir, llm, emb, metric):
     results['accuracy'] = correct / total if total > 0 else 0.0
     return results
 
+def eval_TableVQA(gt_path, storage_dir, llm, emb, metric):
+    with open(gt_path, 'r') as f:
+        gt = json.load(f)
+
+    correct = 0
+    total = 0
+    mistakes = []
+
+    for doc in gt:
+        q_q = doc.get('question', '')
+        print(f"Question: {q_q}")
+        context = doc.get('qa_id', '')
+        q_a = doc.get('gt', [])
+
+        parts = context.split('.')
+        # if len(parts) < 3:
+        #     continue
+ 
+        page_id = parts[0]
+
+        storage_path = os.path.join(storage_dir, page_id)
+        index_prefix = os.path.join(storage_path, "docstore")
+
+        if not os.path.isfile(index_prefix + ".index"):
+            print(f"[Skip] Missing {index_prefix}.index")
+            continue
+
+        index = VectorStore.load(index_prefix)
+
+        q_embed = emb.encode([q_q]).astype("float32")
+        total += 1
+
+        # QA interaction
+        try:
+            if metric == 'acc' or metric is None:
+                retr = index.search(q_embed, k=1)
+                system_prompt = f"""You are a helpful assistant. Use the information from the documents below to answer the question."""
+                user_prompt = f"""/no_think {retr[0]['text']} \n Question: {q_q} \n Answer: """
+
+                raw_response = llm.generate(system_prompt, user_prompt)
+
+                print(f'\nResponse: {raw_response} \nGround Truth: {q_a}')
+
+                if not isinstance(q_a, list):
+                    q_a = [q_a]
+
+                q_a = [normalize_answer(str(ans)) for ans in q_a]
+                raw_response = normalize_answer(raw_response)
+
+                if all(ans in raw_response for ans in q_a):
+                    correct += 1
+                    print("correct!")
+                else:
+                    mistakes.append((q_q, q_a, raw_response))
+                    print("incorrect!")
+
+                print(f'Current Accuracy: {correct/total} | # correct: {correct}, # total: {total}')
+
+        except Exception as e:
+            print(f"Error during QA interaction: {e}")
+            continue
+        except KeyboardInterrupt:
+            print("Evaluation interrupted by user.")
+            break
+
+    results = {}
+    results['accuracy'] = correct / total if total > 0 else 0.0
+    return results
 
 def eval_SPIQA(gt_path, storage_dir, llm, emb, judge_llm):
     with open(gt_path, 'r') as f:
@@ -299,9 +367,9 @@ def eval_SPIQA(gt_path, storage_dir, llm, emb, judge_llm):
     return results
 
 
-################
+##################################################
 # Eval Baselines (PyMuPDF, PyTesseract, VLM, etc.)
-################
+##################################################
 
 def eval_TATDQA_baseline(gt_path, storage_dir, llm, metric):
     with open(gt_path, 'r') as f:
@@ -603,26 +671,51 @@ def main(args):
     metric = args.metric
     model = args.model
     # llm = HFLLMClient('Qwen/Qwen3-8B')
-    llm = VLLMLLMClient('Qwen/Qwen3-14B', ip='146.169.1.69', port='1707')
+    llm = VLLMLLMClient('Qwen/Qwen3-8B', ip='localhost', port='3232')
 
     # llm = None
     embedder = SentenceTransformerEmbedder('Qwen/Qwen3-Embedding-8B')
-    # embedder = VLLMEmbedder('Qwen/Qwen3-Embedding-8B', tensor_parallel_size=2, gpu_memory_utilization=0.7)
+    # embedder = VLLMEmbedder('Qwen/Qwen3-Embedding-8B', tensor_parallel_size=1, gpu_memory_utilization=0.6)
     # embedder = None
     if (model == 'tabrag'):
-        if (dataset == 'mpdocvqa'):
-            gt_path = f'datasets/mpdocvqa/val.json'
-            storage_dir =  f'storages/mpdocvqa/generation/{model}'
-            result = eval_MPDocVQA(gt_path, storage_dir, llm, embedder, metric)
-
         if (dataset == 'tatdqa'):
             gt_path = f'datasets/tatdqa/tatdqa_dataset_test_gold.json'
             storage_dir =  f'storages/tatdqa/generation/{model}'
             result = eval_TATDQA(gt_path, storage_dir, llm, embedder, metric)
 
+        if (dataset == 'tatdqa_xStructureICL'):
+            gt_path = f'datasets/tatdqa/tatdqa_dataset_test_gold.json'
+            storage_dir =  f'storages/tatdqa/generation/{model}/Qwen3-VL-8B-Instruct_xStructureICL'
+            result = eval_TATDQA(gt_path, storage_dir, llm, embedder, metric)
+
+        if (dataset == 'mpdocvqa'):
+            gt_path = f'datasets/mpdocvqa/val.json'
+            storage_dir =  f'storages/mpdocvqa/generation/{model}'
+            result = eval_MPDocVQA(gt_path, storage_dir, llm, embedder, metric)
+
+        if (dataset == 'mpdocvqa_xStructureICL'):
+            gt_path = f'datasets/mpdocvqa/val.json'
+            storage_dir =  f'storages/mpdocvqa/generation/{model}/Qwen3-VL-8B-Instruct_xStructureICL'
+            result = eval_MPDocVQA(gt_path, storage_dir, llm, embedder, metric)
+
+        if (dataset == 'mpdocvqa_noICL'):
+            gt_path = f'datasets/mpdocvqa/val.json'
+            storage_dir =  f'/vol/bitbucket/js2723/PROJECTS/TabRAG/storages/mpdocvqa/generation/no_icl'
+            result = eval_MPDocVQA(gt_path, storage_dir, llm, embedder, metric)
+
         if (dataset == 'wikitq'):
             gt_path = f'datasets/wikitablequestions/qa.json'
             storage_dir =  f'storages/wikitablequestions/generation/{model}'
+            result = eval_WikiTQ(gt_path, storage_dir, llm, embedder, metric)
+
+        if (dataset == 'wikitq_xStructureICL'):
+            gt_path = f'datasets/wikitablequestions/qa.json'
+            storage_dir =  f'storages/wikitablequestions/generation/{model}/Qwen3-VL-8B-Instruct_xStructureICL'
+            result = eval_WikiTQ(gt_path, storage_dir, llm, embedder, metric)
+
+        if (dataset == 'wikitq_noICL'):
+            gt_path = f'datasets/wikitablequestions/qa.json'
+            storage_dir =  f'/vol/bitbucket/js2723/PROJECTS/TabRAG/storages/wikitablequestions/generation/no_icl'
             result = eval_WikiTQ(gt_path, storage_dir, llm, embedder, metric)
 
         if (dataset == 'spiqa'):
@@ -630,6 +723,17 @@ def main(args):
             storage_dir =  f'storages/spiqa/generation/{model}'
             judge_llm = L3ScoreVLLMLLMClient('Qwen/Qwen3-8B', ip='146.169.1.214', port='6000')
             result = eval_SPIQA(gt_path, storage_dir, llm, embedder, judge_llm)
+
+        # if (dataset == 'spiqa_xStructureICL'):
+        #     gt_path = f'datasets/spiqa/test-A/SPIQA_testA_wpage.json'
+        #     storage_dir =  f'storages/spiqa/generation/{model}/Qwen3-VL-8B-Instruct_xStructureICL'
+        #     judge_llm = L3ScoreVLLMLLMClient('Qwen/Qwen3-8B', ip='146.169.1.214', port='6000')
+        #     result = eval_SPIQA(gt_path, storage_dir, llm, embedder, judge_llm)
+
+        if (dataset == 'tablevqa_xStructureICL'):
+            gt_path = f'datasets/tablevqa/qa.json'
+            storage_dir =  f'storages/tablevqa/generation/{model}/Qwen3-VL-8B-Instruct_xStructureICL'
+            result = eval_TableVQA(gt_path, storage_dir, llm, embedder, metric)
         
     elif (model == 'baseline'):
         if (dataset == 'mpdocvqa'):
@@ -653,9 +757,10 @@ def main(args):
             judge_llm = L3ScoreVLLMLLMClient('Qwen/Qwen3-8B', ip='146.169.1.214', port='6000')
             result = eval_SPIQA_baseline(gt_path, storage_dir, llm, judge_llm)
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Run Evaluation Pipeline')
-    parser.add_argument('--dataset', type=str, default='wikitq', help='dataset to evaluate on')
+    parser.add_argument('--dataset', type=str, default='tatdqa_xStructureICL', help='dataset to evaluate on')
     parser.add_argument('--model', type=str, default='tabrag', help='model to use')
     parser.add_argument('--metric', type=str, default='acc', help='metric to eval on: acc, mrr10, ndcg10')
     args = parser.parse_args()
