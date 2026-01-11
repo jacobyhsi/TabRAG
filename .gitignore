@@ -13,6 +13,8 @@ run.sh
 
 visualizations/
 
+results/
+
 datasets/fintabnet/
 
 datasets/tatdqa/*
