@@ -310,6 +310,82 @@ def eval_TableVQA(gt_path, storage_dir, llm, emb, metric):
     
     return results
 
+def eval_ComTQA(gt_path, storage_dir, llm, emb, metric):
+    with open(gt_path, 'r') as f:
+        gt = json.load(f)
+
+    correct = 0 # accuracy calc
+    total = 0
+    mistakes = []
+    for q in gt:
+        # Map to the correct folder name using image_name or table_id
+        if 'image_name' in q:
+            folder_name = q['image_name'].replace('.jpg', '')
+        else:
+            folder_name = str(q['table_id'])
+
+        storage_path = os.path.join(storage_dir, folder_name)
+
+        if not os.path.isdir(storage_path):
+            print(f"Skipping {storage_path} because it doesn't exist")
+            continue
+
+        docstore_path = os.path.join(storage_path, "docstore")
+
+        index = VectorStore.load(docstore_path)
+
+        q_q = q['question']
+        q_a = q['answer']
+        q_embed = emb.encode([q_q]).astype("float32")
+        
+        # ComTQA is a flat list, so we process each item directly
+        total += 1
+
+        # QA interaction
+        try:
+            if metric == 'acc' or metric is None:
+                retr = index.search(q_embed, k=1)
+                system_prompt = f"""You are a helpful assistant. Use the information from the documents below to answer the question."""
+                # Using q_q here to ensure the prompt contains the question string
+                user_prompt = f"""/no_think {retr[0]['text']} \n Question: {q_q} \n Answer: """
+
+                raw_response = llm.generate(system_prompt, user_prompt)
+
+                print(f'\nResponse: {raw_response} \nGround Truth: {q_a}')
+
+                raw_response = normalize_answer(raw_response)
+
+                # Handle multi-part answers often found in ComTQA
+                if isinstance(q_a, str) and '\n' in q_a:
+                    q_a_list = [ans.strip() for ans in q_a.split('\n') if ans.strip()]
+                elif not isinstance(q_a, list):
+                    q_a_list = [q_a]
+                else:
+                    q_a_list = q_a
+
+                q_a_norm = [normalize_answer(str(ans)) for ans in q_a_list]
+
+                if all(ans in raw_response for ans in q_a_norm):
+                    correct += 1
+                    print("correct!")
+                else:
+                    mistakes.append((q_q, q_a, raw_response))
+                    print("incorrect!")
+                print(f'Current Accuracy: {correct/total} | # correct: {correct}, # total: {total}')
+        except Exception as e:
+            print(f"Error during QA interaction: {e}")
+            continue
+        except KeyboardInterrupt:
+            print("Evaluation interrupted by user.")
+            break
+
+    results = {}
+    results['correct'] = correct
+    results['total'] = total
+    results['accuracy'] = round((correct / total) * 100, 3) if total > 0 else 0
+    
+    return results
+
 
 def eval_SPIQA(gt_path, storage_dir, llm, emb, judge_llm):
     with open(gt_path, 'r') as f:
@@ -328,7 +404,7 @@ def eval_SPIQA(gt_path, storage_dir, llm, emb, judge_llm):
 
             fig_meta = figures.get(ref_file, {})
             if 'page' not in fig_meta:
-                continue  # only include items with a page number
+                continue
 
             qa_item['paper_id'] = paper_id
             qa_item['page'] = fig_meta['page']
@@ -344,63 +420,81 @@ def eval_SPIQA(gt_path, storage_dir, llm, emb, judge_llm):
         question = qa_item.get('question')
         gt_answer = qa_item.get('answer')
         paper_id = qa_item.get('paper_id')
-        reference_file = qa_item.get('reference')
         page = qa_item.get('page')
 
-
-        # --- 1. Locate and load the Vector Store ---
-        # page index naming convention: 1611.02654v2_p1
         page_id = f"{paper_id}_p{page}"
         storage_path = os.path.join(storage_dir, paper_id, page_id)
         docstore_path = os.path.join(storage_path, "docstore.index")
 
         if not os.path.exists(docstore_path):
-            print(f"Warning: Skipping item {i+1} (paper {paper_id}, page {page}) — docstore not found at '{docstore_path}'.")
+            print(
+                f"Warning: Skipping item {i+1} "
+                f"(paper {paper_id}, page {page}) — docstore not found."
+            )
             continue
 
         index = VectorStore.load(os.path.join(storage_path, "docstore"))
 
+        # Count only valid attempts
         total_items += 1
 
-        # --- 3. Retrieve Context ---
-        q_embed = emb.encode([question]).astype("float32")
-        retrieved_docs = index.search(q_embed, k=1)
-        retrieved_context = retrieved_docs[0]['text']
+        # QA interaction
+        try:
+            # --- Retrieve Context ---
+            q_embed = emb.encode([question]).astype("float32")
+            retrieved_docs = index.search(q_embed, k=1)
+            retrieved_context = retrieved_docs[0]['text']
 
-        print(f"\n--- Item {i+1}/{len(all_questions)} (Page {page}) ---")
-        print(f"Generating response for paper {paper_id}...")
+            print(f"\n--- Item {i+1}/{len(all_questions)} (Page {page}) ---")
+            print(f"Generating response for paper {paper_id}...")
 
-        # --- 4. Generate Candidate Answer ---
-        system_prompt = (
-            "You are a helpful assistant. Use the information from the documents below and any provided images to answer the question."
-        )
-        user_prompt = f"/no_think {retrieved_context} \n Question: {question} \n Answer: "
+            # --- Generate Candidate Answer ---
+            system_prompt = (
+                "You are a helpful assistant. "
+                "Use the information from the documents below and any provided images "
+                "to answer the question."
+            )
+            user_prompt = f"/no_think {retrieved_context} \n Question: {question} \n Answer: "
 
-        raw_response = llm.generate(
-            system_message=system_prompt,
-            user_message=user_prompt,
-        )
+            raw_response = llm.generate(
+                system_message=system_prompt,
+                user_message=user_prompt,
+            )
 
-        print(f"Question: {question}")
-        print()
-        print(f"Ground Truth: {gt_answer}")
-        print()
-        print(f"Response: {raw_response}")
-        print()
+            print(f"Question: {question}\n")
+            print(f"Ground Truth: {gt_answer}\n")
+            print(f"Response: {raw_response}\n")
 
-        # --- 5. Judge ---
-        score, _ = judge_llm.generate(
-            question=question,
-            gt_answer=gt_answer,
-            candidate_answer=raw_response,
-        )
+            # --- Judge ---
+            score, _ = judge_llm.generate(
+                question=question,
+                gt_answer=gt_answer,
+                candidate_answer=raw_response,
+            )
 
-        total_l3score += score
-        print(f"L3Score: {score:.4f} | Current Avg L3Score: {total_l3score/total_items:.4f}")
+            total_l3score += score
+            print(
+                f"L3Score: {score:.4f} | "
+                f"Current Avg L3Score: {total_l3score/total_items:.4f}"
+            )
 
-    # --- 6. Finalize ---
-    results['average_l3score'] = total_l3score / total_items if total_items > 0 else 0.0
+        except Exception as e:
+            print(f"Error during SPIQA interaction: {e}")
+            continue
+
+        except KeyboardInterrupt:
+            print("Evaluation interrupted by user.")
+            break
+
+    # --- Finalize ---
+    results['average_l3score'] = (
+        round((total_l3score / total_items) * 100, 3)
+        if total_items > 0 else 0.0
+    )
+    results['total'] = total_items
+
     return results
+
 
 
 ##################################################
@@ -710,7 +804,7 @@ def eval_WikiTQ_baseline(gt_path, storage_dir, llm, metric='acc'):
     return results
 
 def save_results(result, dataset, model):
-    results_dir = os.path.join("results", dataset, model)
+    results_dir = os.path.join("results", model, dataset)
     os.makedirs(results_dir, exist_ok=True)
 
     out_path = os.path.join(results_dir, "eval.json")
@@ -763,6 +857,11 @@ def main(args):
             storage_dir =  f'/vol/bitbucket/js2723/PROJECTS/TabRAG_icl/storages/tatdqa/generation/tabrag/md'
             result = eval_TATDQA(gt_path, storage_dir, llm, embedder, metric)
             save_results(result, dataset, model)
+        if (dataset == 'tatdqa_text'):
+            gt_path = f'datasets/tatdqa/tatdqa_dataset_test_gold.json'
+            storage_dir =  f'/vol/bitbucket/js2723/PROJECTS/TabRAG_icl/storages/tatdqa/generation/tabrag/text'
+            result = eval_TATDQA(gt_path, storage_dir, llm, embedder, metric)
+            save_results(result, dataset, model)
 
         if (dataset == 'mpdocvqa'):
             gt_path = f'datasets/mpdocvqa/val.json'
@@ -789,7 +888,37 @@ def main(args):
             storage_dir =  f'/vol/bitbucket/js2723/PROJECTS/TabRAG/storages/mpdocvqa/generation/layout_only'
             result = eval_MPDocVQA(gt_path, storage_dir, llm, embedder, metric)
             save_results(result, dataset, model)
-
+        if (dataset == 'mpdocvqa_md'):
+            gt_path = f'datasets/mpdocvqa/val.json'
+            storage_dir =  f'/vol/bitbucket/js2723/PROJECTS/TabRAG_icl/storages/mpdocvqa/generation/tabrag/md'
+            result = eval_MPDocVQA(gt_path, storage_dir, llm, embedder, metric)
+            save_results(result, dataset, model)
+        if (dataset == 'mpdocvqa_tabrag1'):
+            gt_path = f'datasets/mpdocvqa/val.json'
+            storage_dir =  f'/vol/bitbucket/mml324/TabRAG/storages/mpdocvqa/generation/tabrag_1/Qwen3-VL-8B-Instruct'
+            result = eval_MPDocVQA(gt_path, storage_dir, llm, embedder, metric)
+            save_results(result, dataset, model)
+        if (dataset == 'mpdocvqa_tabrag7'):
+            gt_path = f'datasets/mpdocvqa/val.json'
+            storage_dir =  f'/vol/bitbucket/mml324/TabRAG/storages/mpdocvqa/generation/tabrag_7/Qwen3-VL-8B-Instruct'
+            result = eval_MPDocVQA(gt_path, storage_dir, llm, embedder, metric)
+            save_results(result, dataset, model)
+        if (dataset == 'mpdocvqa_tabrag5'):
+            gt_path = f'datasets/mpdocvqa/val.json'
+            storage_dir =  f'/vol/bitbucket/mml324/TabRAG/storages/mpdocvqa/generation/tabrag_5/Qwen3-VL-8B-Instruct'
+            result = eval_MPDocVQA(gt_path, storage_dir, llm, embedder, metric)
+            save_results(result, dataset, model)
+        if (dataset == 'mpdocvqa_tabrag9'):
+            gt_path = f'datasets/mpdocvqa/val.json'
+            storage_dir =  f'/vol/bitbucket/mml324/TabRAG/storages/mpdocvqa/generation/tabrag_9/Qwen3-VL-8B-Instruct'
+            result = eval_MPDocVQA(gt_path, storage_dir, llm, embedder, metric)
+            save_results(result, dataset, model)
+        if (dataset == 'mpdocvqa_text'):
+            gt_path = f'datasets/mpdocvqa/val.json'
+            storage_dir =  f'/vol/bitbucket/js2723/PROJECTS/TabRAG_icl/storages/mpdocvqa/generation/tabrag/text'
+            result = eval_MPDocVQA(gt_path, storage_dir, llm, embedder, metric)
+            save_results(result, dataset, model)
+            
         if (dataset == 'wikitq'):
             gt_path = f'datasets/wikitablequestions/qa.json'
             storage_dir =  f'storages/wikitablequestions/generation/{model}'
@@ -815,7 +944,32 @@ def main(args):
             storage_dir =  f'/vol/bitbucket/js2723/PROJECTS/TabRAG/storages/wikitablequestions/generation/layout_only'
             result = eval_WikiTQ(gt_path, storage_dir, llm, embedder, metric)
             save_results(result, dataset, model)
-
+        if (dataset == 'wikitq_tabrag1'):
+            gt_path = f'datasets/wikitablequestions/qa.json'
+            storage_dir =  f'/vol/bitbucket/mml324/TabRAG/storages/WikiTableQuestions/generation/tabrag_1/Qwen3-VL-8B-Instruct'
+            result = eval_WikiTQ(gt_path, storage_dir, llm, embedder, metric)
+            save_results(result, dataset, model)
+        if (dataset == 'wikitq_tabrag5'):
+            gt_path = f'datasets/wikitablequestions/qa.json'
+            storage_dir =  f'/vol/bitbucket/mml324/TabRAG/storages/WikiTableQuestions/generation/tabrag_1/Qwen3-VL-8B-Instruct'
+            result = eval_WikiTQ(gt_path, storage_dir, llm, embedder, metric)
+            save_results(result, dataset, model)
+        if (dataset == 'wikitq_tabrag7'):
+            gt_path = f'datasets/wikitablequestions/qa.json'
+            storage_dir =  f'/vol/bitbucket/mml324/TabRAG/storages/WikiTableQuestions/generation/tabrag_7/Qwen3-VL-8B-Instruct'
+            result = eval_WikiTQ(gt_path, storage_dir, llm, embedder, metric)
+            save_results(result, dataset, model)
+        if (dataset == 'wikitq_tabrag9'):
+            gt_path = f'datasets/wikitablequestions/qa.json'
+            storage_dir =  f'/vol/bitbucket/mml324/TabRAG/storages/WikiTableQuestions/generation/tabrag_9/Qwen3-VL-8B-Instruct'
+            result = eval_WikiTQ(gt_path, storage_dir, llm, embedder, metric)
+            save_results(result, dataset, model)
+        if (dataset == 'wikitq_text'):
+            gt_path = f'datasets/wikitablequestions/qa.json'
+            storage_dir =  f'/vol/bitbucket/js2723/PROJECTS/TabRAG_icl/storages/wikitablequestions/generation/tabrag/text'
+            result = eval_WikiTQ(gt_path, storage_dir, llm, embedder, metric)
+            save_results(result, dataset, model)
+       
         if (dataset == 'tablevqa_xStructureICL'):
             gt_path = f'datasets/tablevqa/qa.json'
             storage_dir =  f'storages/tablevqa/generation/{model}/Qwen3-VL-8B-Instruct_xStructureICL'
@@ -851,16 +1005,57 @@ def main(args):
             storage_dir =  f'/vol/bitbucket/mml324/TabRAG/storages/tablevqa/generation/tabrag_7/Qwen3-VL-8B-Instruct'
             result = eval_TableVQA(gt_path, storage_dir, llm, embedder, metric)
             save_results(result, dataset, model)
+        if (dataset == 'tablevqa_tabrag9'):
+            gt_path = f'datasets/tablevqa/qa.json'
+            storage_dir =  f'/vol/bitbucket/mml324/TabRAG/storages/tablevqa/generation/tabrag_9/Qwen3-VL-8B-Instruct'
+            result = eval_TableVQA(gt_path, storage_dir, llm, embedder, metric)
+            save_results(result, dataset, model)
         if (dataset == 'tablevqa_md'):
             gt_path = f'datasets/tablevqa/qa.json'
             storage_dir =  f'/vol/bitbucket/js2723/PROJECTS/TabRAG_icl/storages/tablevqa_bench_processed/generation/tabrag/md'
             result = eval_TableVQA(gt_path, storage_dir, llm, embedder, metric)
             save_results(result, dataset, model)
 
+        if (dataset == 'comtqa_xLayout'):
+            gt_path = f'datasets/comtqa/annotated.json'
+            storage_dir =  f'storages/comtqa/generation/tabrag/Qwen3-VL-8B-Instruct_xLayout/'
+            result = eval_ComTQA(gt_path, storage_dir, llm, embedder, metric)
+            save_results(result, dataset, model)
+
         if (dataset == 'spiqa'):
             gt_path = f'datasets/spiqa/test-A/SPIQA_testA_wpage.json'
             storage_dir =  f'storages/spiqa/generation/{model}'
-            judge_llm = L3ScoreVLLMLLMClient('Qwen/Qwen3-8B', ip='146.169.1.214', port='6000')
+            judge_llm = L3ScoreVLLMLLMClient('Qwen/Qwen3-32B', ip='146.169.1.68', port='8888')
+            result = eval_SPIQA(gt_path, storage_dir, llm, embedder, judge_llm)
+            save_results(result, dataset, model)
+        if (dataset == 'spiqa_xLayout'):
+            gt_path = f'datasets/spiqa/test-A/SPIQA_testA_wpage.json'
+            storage_dir =  f'storages/spiqa/generation/tabrag/Qwen3-VL-8B-Instruct_xLayout/'
+            judge_llm = L3ScoreVLLMLLMClient('Qwen/Qwen3-32B', ip='146.169.1.68', port='8888')
+            result = eval_SPIQA(gt_path, storage_dir, llm, embedder, judge_llm)
+            save_results(result, dataset, model)
+        if (dataset == 'spiqa_xStructureICL'):
+            gt_path = f'datasets/spiqa/test-A/SPIQA_testA_wpage.json'
+            storage_dir =  f'storages/spiqa/generation/{model}/Qwen3-VL-8B-Instruct_xStructureICL'
+            judge_llm = L3ScoreVLLMLLMClient('Qwen/Qwen3-32B', ip='146.169.1.68', port='8888')
+            result = eval_SPIQA(gt_path, storage_dir, llm, embedder, judge_llm)
+            save_results(result, dataset, model)
+        if (dataset == 'spiqa_noICL'):
+            gt_path = f'datasets/spiqa/test-A/SPIQA_testA_wpage.json'
+            storage_dir =  f'/vol/bitbucket/js2723/PROJECTS/TabRAG/storages/spiqa/generation/no_icl'
+            judge_llm = L3ScoreVLLMLLMClient('Qwen/Qwen3-32B', ip='146.169.1.68', port='8888')
+            result = eval_SPIQA(gt_path, storage_dir, llm, embedder, judge_llm)
+            save_results(result, dataset, model)
+        if (dataset == 'spiqa_md'):
+            gt_path = f'datasets/spiqa/test-A/SPIQA_testA_wpage.json'
+            storage_dir =  f'/vol/bitbucket/js2723/PROJECTS/TabRAG_icl/storages/spiqa/generation/tabrag/md'
+            judge_llm = L3ScoreVLLMLLMClient('Qwen/Qwen3-32B', ip='146.169.1.68', port='8888')
+            result = eval_SPIQA(gt_path, storage_dir, llm, embedder, judge_llm)
+            save_results(result, dataset, model)
+        if (dataset == 'spiqa_nopage'):
+            gt_path = f'datasets/spiqa/test-A/SPIQA_testA_wpage.json'
+            storage_dir =  f'/vol/bitbucket/mml324/TabRAG/storages/spiqa/generation/tabrag_G/Qwen3-VL-8B-Instruct'
+            judge_llm = L3ScoreVLLMLLMClient('Qwen/Qwen3-32B', ip='146.169.1.68', port='8888')
             result = eval_SPIQA(gt_path, storage_dir, llm, embedder, judge_llm)
             save_results(result, dataset, model)
 

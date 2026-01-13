@@ -32,3 +32,7 @@ datasets/wikitablequestions/*
 
 datasets/tablevqa/*
 !datasets/tablevqa/process_tablevqa.py
+
+datasets/comtqa/*
+!datasets/comtqa/process_comtqa.py
+!datasets/comtqa/process_qa.py
