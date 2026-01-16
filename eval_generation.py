@@ -969,6 +969,11 @@ def main(args):
             storage_dir =  f'/vol/bitbucket/js2723/PROJECTS/TabRAG_icl/storages/wikitablequestions/generation/tabrag/text'
             result = eval_WikiTQ(gt_path, storage_dir, llm, embedder, metric)
             save_results(result, dataset, model)
+        if (dataset == 'wikitq_md'):
+            gt_path = f'datasets/wikitablequestions/qa.json'
+            storage_dir =  f'/vol/bitbucket/js2723/PROJECTS/TabRAG_icl/storages/wikitablequestions/generation/tabrag/md'
+            result = eval_WikiTQ(gt_path, storage_dir, llm, embedder, metric)
+            save_results(result, dataset, model)
        
         if (dataset == 'tablevqa_xStructureICL'):
             gt_path = f'datasets/tablevqa/qa.json'
@@ -1016,11 +1021,37 @@ def main(args):
             result = eval_TableVQA(gt_path, storage_dir, llm, embedder, metric)
             save_results(result, dataset, model)
 
+        if (dataset == 'comtqa'):
+            gt_path = f'datasets/comtqa/qa3.json'
+            storage_dir =  f'/vol/bitbucket/mml324/TabRAG/storages/comtqa/generation/tabrag_3/Qwen3-VL-8B-Instruct'
+            result = eval_ComTQA(gt_path, storage_dir, llm, embedder, metric)
+            save_results(result, dataset, model)
+        if (dataset == 'comtqa_vlm'):
+            gt_path = f'datasets/comtqa/qa3.json'
+            storage_dir =  f'/vol/bitbucket/mml324/TabRAG/storages/comtqa/generation/vlm/Qwen3-VL-8B-Instruct'
+            result = eval_ComTQA(gt_path, storage_dir, llm, embedder, metric)
+            save_results(result, dataset, model)
         if (dataset == 'comtqa_xLayout'):
-            gt_path = f'datasets/comtqa/annotated.json'
+            gt_path = f'datasets/comtqa/qa3.json'
             storage_dir =  f'storages/comtqa/generation/tabrag/Qwen3-VL-8B-Instruct_xLayout/'
             result = eval_ComTQA(gt_path, storage_dir, llm, embedder, metric)
             save_results(result, dataset, model)
+        if (dataset == 'comtqa_xStructureICL'):
+            gt_path = f'datasets/comtqa/qa3.json'
+            storage_dir =  f'storages/comtqa/generation/tabrag/Qwen3-VL-8B-Instruct_xStructureICL/'
+            result = eval_ComTQA(gt_path, storage_dir, llm, embedder, metric)
+            save_results(result, dataset, model)
+        if (dataset == 'comtqa_xICL'):
+            gt_path = f'datasets/comtqa/qa3.json'
+            storage_dir =  f'storages/comtqa/generation/tabrag/Qwen3-VL-8B-Instruct_xICL/'
+            result = eval_ComTQA(gt_path, storage_dir, llm, embedder, metric)
+            save_results(result, dataset, model)
+        if (dataset == 'comtqa_xPageOverview'):
+            gt_path = f'datasets/comtqa/qa3.json'
+            storage_dir =  f'storages/comtqa/generation/tabrag/Qwen3-VL-8B-Instruct_xPageOverview/'
+            result = eval_ComTQA(gt_path, storage_dir, llm, embedder, metric)
+            save_results(result, dataset, model)
+
 
         if (dataset == 'spiqa'):
             gt_path = f'datasets/spiqa/test-A/SPIQA_testA_wpage.json'
