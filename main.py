@@ -40,7 +40,7 @@ def main(args):
 
     # Initialize Model
     vlmp = VLMPrompts()
-    llmp = LLMPrompts()
+    # llmp = LLMPrompts()
     lp = LayoutProcessor()
 
     vlm_name = args.vlm_model.split('/')[-1]
@@ -65,7 +65,12 @@ def main(args):
             print(f"Processing directory: {root}")
 
             relative_path = os.path.relpath(root, data_dir)
-            save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_xStructureICL", relative_path)
+            save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}", relative_path)
+
+            # save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_xLayout", relative_path)
+            # save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_xStructureICL", relative_path)
+            # save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_xPageOverview", relative_path)
+            # save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_xICL", relative_path)
 
             rs = Ragstore(
                 lp=lp,
@@ -99,9 +104,9 @@ if __name__ == "__main__":
 
     parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-8B-Instruct") # modify
     parser.add_argument("--vlm_ip", type=str, default="146.169.26.172") # modify
-    parser.add_argument("--vlm_port", type=str, default="3232") # modify
+    parser.add_argument("--vlm_port", type=str, default="1111") # modify
 
-    parser.add_argument("--dataset", type=str,  default="tatdqa", help="tatdqa, mpdocvqa, wikitablequestions, spiqa, tablevqa")
+    parser.add_argument("--dataset", type=str,  default="comtqa", help="tatdqa, mpdocvqa, wikitablequestions, spiqa, tablevqa, comtqa")
 
     args = parser.parse_args()
     main(args)

@@ -658,7 +658,6 @@ ENSURING THAT ALL EXTRACTED VALUES ARE ACCURATE IS THE MOST IMPORTANT! DO NOT OU
 
 class LLMPrompts:
     def __init__(self):
-        # self.llm_prompt = """You are an assistant for producing retrieval-friendly representation of a markdown document. If you encounter text, output as is, do not omit anything. If you encounter json based tables, for every single cell of the table's contents, you will include a comprehensive description on what the value is and what it represents in NATURAL LANGUAGE on a new line. Use your discretion."""
 
         self.llm_table_prompt = """/no_think 
 You receive one JSON object containing "cells", each cell having:

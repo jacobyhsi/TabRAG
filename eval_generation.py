@@ -823,8 +823,8 @@ def main(args):
     llm = VLLMLLMClient('Qwen/Qwen3-8B', ip='localhost', port='1111')
 
     # llm = None
-    embedder = SentenceTransformerEmbedder('Qwen/Qwen3-Embedding-8B')
-    # embedder = VLLMEmbedder('Qwen/Qwen3-Embedding-8B', tensor_parallel_size=1, gpu_memory_utilization=0.6)
+    # embedder = SentenceTransformerEmbedder('Qwen/Qwen3-Embedding-8B')
+    embedder = VLLMEmbedder('Qwen/Qwen3-Embedding-8B', tensor_parallel_size=1, gpu_memory_utilization=0.6)
     # embedder = None
     if (model == 'tabrag'):
         if (dataset == 'tatdqa'):
@@ -1017,7 +1017,12 @@ def main(args):
             save_results(result, dataset, model)
         if (dataset == 'tablevqa_md'):
             gt_path = f'datasets/tablevqa/qa.json'
-            storage_dir =  f'/vol/bitbucket/js2723/PROJECTS/TabRAG_icl/storages/tablevqa_bench_processed/generation/tabrag/md'
+            storage_dir =  f'/vol/bitbucket/js2723/PROJECTS/TabRAG_icl/storages/tablevqa/generation/tabrag/md'
+            result = eval_TableVQA(gt_path, storage_dir, llm, embedder, metric)
+            save_results(result, dataset, model)
+        if (dataset == 'tablevqa_text'):
+            gt_path = f'datasets/tablevqa/qa.json'
+            storage_dir =  f'/vol/bitbucket/js2723/PROJECTS/TabRAG_icl/storages/tablevqa/generation/tabrag/text'
             result = eval_TableVQA(gt_path, storage_dir, llm, embedder, metric)
             save_results(result, dataset, model)
 
@@ -1051,7 +1056,26 @@ def main(args):
             storage_dir =  f'storages/comtqa/generation/tabrag/Qwen3-VL-8B-Instruct_xPageOverview/'
             result = eval_ComTQA(gt_path, storage_dir, llm, embedder, metric)
             save_results(result, dataset, model)
-
+        if (dataset == 'comtqa_md'):
+            gt_path = f'datasets/comtqa/qa3.json'
+            storage_dir =  f'/vol/bitbucket/js2723/PROJECTS/TabRAG_icl/storages/comtqa/generation/tabrag/md'
+            result = eval_ComTQA(gt_path, storage_dir, llm, embedder, metric)
+            save_results(result, dataset, model)
+        if (dataset == 'comtqa_text'):
+            gt_path = f'datasets/comtqa/qa3.json'
+            storage_dir =  f'/vol/bitbucket/js2723/PROJECTS/TabRAG_icl/storages/comtqa/generation/tabrag/text'
+            result = eval_ComTQA(gt_path, storage_dir, llm, embedder, metric)
+            save_results(result, dataset, model)
+        if (dataset == 'comtqa_pytesseract'):
+            gt_path = f'datasets/comtqa/qa3.json'
+            storage_dir =  f'/vol/bitbucket/mml324/TabRAG/storages/comtqa/generation/pytesseract/Qwen3-VL-8B-Instruct'
+            result = eval_ComTQA(gt_path, storage_dir, llm, embedder, metric)
+            save_results(result, dataset, model)
+        if (dataset == 'comtqa_tabrag9'):
+            gt_path = f'datasets/comtqa/qa3.json'
+            storage_dir =  f'/vol/bitbucket/mml324/TabRAG/storages/comtqa/generation/tabrag_9/Qwen3-VL-8B-Instruct'
+            result = eval_ComTQA(gt_path, storage_dir, llm, embedder, metric)
+            save_results(result, dataset, model)
 
         if (dataset == 'spiqa'):
             gt_path = f'datasets/spiqa/test-A/SPIQA_testA_wpage.json'
