@@ -1,4 +1,4 @@
-# TabRAG: Tabular Document Retrieval via Structured Language Representations
+# TabRAG: Improving Tabular Document Question Answering for Retrieval Augmented Generation via Structured Representations
 <div align="center">
 <div>
     <a href="https://jacobyhsi.github.io/" target="_blank">Jacob Si</a><sup>1*</sup> | 
