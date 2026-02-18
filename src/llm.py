@@ -66,6 +66,37 @@ class VLLMLLMClient(BaseLLMEngine):
         return extracted_output
 
 
+class OpenAILLMClient(BaseLLMEngine):
+    def __init__(self, model):
+        super().__init__()
+        self.model = model
+        self.temperature = 1.0
+        self.client = OpenAI()
+
+    def generate(self, system_message, user_message, seed=42, max_tokens=8192):
+        # Append tag instruction to user message
+        user_message_with_instruction = (
+            user_message.strip() + "\n\nPLEASE ENCLOSE YOUR OUTPUT IN <output> </output> TAGS"
+        )
+
+        # Call chat API
+        response = self.client.chat.completions.create(
+            model=self.model,
+            messages=[
+                {"role": "system", "content": system_message},
+                {"role": "user", "content": user_message_with_instruction}
+            ],
+            seed=seed,
+            temperature=self.temperature
+        )
+
+        # Extract content between <output> ... </output>
+        full_output = response.choices[0].message.content
+        match = re.search(r"<output>(.*?)</output>", full_output, re.DOTALL)
+        extracted_output = match.group(1).strip() if match else full_output
+
+        return extracted_output
+
 class VLLMVLMClient(BaseVLMEngine):
     def __init__(self, model, ip, port, timeout=1800):
         super().__init__()
