@@ -188,6 +188,18 @@ python process_comtqa.py
 python process_qa.py
 ```
 
+Note that for new datasets, please convert all PDFs into single-page images then organize them as follows:
+
+```
+datasets/
+├── retrieval/
+│   ├── page0.jpg
+│   ├── page1.jpg
+│   ├── ......
+```
+
+See TAT-DQA as reference.
+
 ### Build Ragstore
 Before running TabRAG, please serve a VLM. For example:
 
