@@ -56,7 +56,8 @@ pip install sentence_transformers
 pip install numpy==1.26.4
 ```
 
-### Installing Tesseract OCR and PyTesseract (Optional - Baseline). 
+<details>
+<summary>Installing Tesseract OCR and PyTesseract (Optional - Baseline).</summary>
 
 This guide explains how to install Tesseract OCR and use it in Python via PyTesseract by building from source. Official build guide: https://tesseract-ocr.github.io/tessdoc/Compiling.html
 
@@ -121,6 +122,7 @@ mkdir -p $HOME/tesseract_build/install/share/tessdata
 cd $HOME/tesseract_build/install/share/tessdata
 wget https://github.com/tesseract-ocr/tessdata_best/raw/main/eng.traineddata
 ```
+</details>
 
 ### Layout Model 
 
