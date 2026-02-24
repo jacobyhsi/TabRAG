@@ -59,8 +59,8 @@ class LayoutProcessor:
     def preprocess(self, file_path, threshold=0.3, visualize=True):
         """
         Convert one provided PDF or image file to layout-segmented images.
-        PDF mode → loops over pages.
-        Image mode → single page only.
+        PDF mode -> loops over pages.
+        Image mode -> single page only.
         """
         ext = os.path.splitext(file_path)[1].lower()
         layout_components = {}

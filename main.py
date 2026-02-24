@@ -67,11 +67,6 @@ def main(args):
             relative_path = os.path.relpath(root, data_dir)
             save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}", relative_path)
 
-            # save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_xLayout", relative_path)
-            # save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_xStructureICL", relative_path)
-            # save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_xPageOverview", relative_path)
-            # save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_xICL", relative_path)
-
             rs = Ragstore(
                 lp=lp,
                 embedder=embedder,
@@ -90,21 +85,13 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model", type=str, default="tabrag", help="e.g. tabrag, pymupdf, pytesseract, vlm")
+    parser.add_argument("--model", type=str, default="vlm", help="e.g. tabrag, pymupdf, pytesseract, vlm")
     parser.add_argument("--mode", type=str,  default="generation", help="generation or retrieval")
     parser.add_argument("--embedder", type=str, default="Qwen/Qwen3-Embedding-8B")
 
-    # parser.add_argument("--llm_model", type=str, default="Qwen/Qwen3-14B") # modify
-    # parser.add_argument("--llm_ip", type=str, default="146.169.1.68") # modify
-    # parser.add_argument("--llm_port", type=str, default="1707") # modify
-
-    # parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-32B-Instruct") # modify
-    # parser.add_argument("--vlm_ip", type=str, default="146.169.26.172") # modify
-    # parser.add_argument("--vlm_port", type=str, default="3232") # modify
-
     parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-8B-Instruct") # modify
-    parser.add_argument("--vlm_ip", type=str, default="146.169.26.172") # modify
-    parser.add_argument("--vlm_port", type=str, default="1111") # modify
+    parser.add_argument("--vlm_ip", type=str, default="localhost") # modify
+    parser.add_argument("--vlm_port", type=str, default="2222") # modify
 
     parser.add_argument("--dataset", type=str,  default="comtqa", help="tatdqa, mpdocvqa, wikitablequestions, spiqa, tablevqa, comtqa")
 

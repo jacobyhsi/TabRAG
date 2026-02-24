@@ -8,11 +8,11 @@ from collections import defaultdict
 # Config
 # --------------------------------------------------
 SEED = 42
-MAX_QA_PER_ENTRY = 2
+MAX_QA_PER_ENTRY = 3
 
-INPUT_JSON = "/data2/users/js2723/TabRAG/datasets/comtqa/annotated.json"
-GEN_DIR = "/data2/users/js2723/TabRAG/datasets/comtqa/generation"
-OUT_JSON = "/data2/users/js2723/TabRAG/datasets/comtqa/qa.json"
+INPUT_JSON = "datasets/comtqa/annotated.json"
+GEN_DIR = "datasets/comtqa/generation"
+OUT_JSON = "datasets/comtqa/qa2.json"
 
 random.seed(SEED)
 
@@ -63,10 +63,20 @@ for entry_id, qas in grouped.items():
         filtered.extend(random.sample(qas, MAX_QA_PER_ENTRY))
 
 # --------------------------------------------------
+# Assign qid (0, 1, 2, ...)
+# --------------------------------------------------
+output = []
+for qid, item in enumerate(filtered):
+    # ensure qid is the first key
+    new_item = {"qid": qid}
+    new_item.update(item)
+    output.append(new_item)
+
+# --------------------------------------------------
 # Write output
 # --------------------------------------------------
 with open(OUT_JSON, "w", encoding="utf-8") as f:
-    json.dump(filtered, f, indent=2)
+    json.dump(output, f, indent=2)
 
-print(f"[DONE] Wrote {len(filtered)} QA pairs to {OUT_JSON}")
-print(f"[INFO] Avg QAs per entry: {len(filtered) / max(len(grouped), 1):.2f}")
+print(f"[DONE] Wrote {len(output)} QA pairs to {OUT_JSON}")
+print(f"[INFO] Avg QAs per entry: {len(output) / max(len(grouped), 1):.2f}")

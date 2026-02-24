@@ -151,6 +151,8 @@ python process_tatdqa.py
 
 **MP-DocVQA**:
 ```
+mkdir mpdocvqa
+cd mpdocvqa
 wget https://datasets.cvc.uab.es/rrc/DocVQA/Task4/images.tar.gz --no-check-certificate
 tar -xvf images.tar.gz
 python process_mpdocvqa.py # get documents with tables # EDIT run this will do
@@ -158,34 +160,34 @@ python process_mpdocvqa.py # get documents with tables # EDIT run this will do
 # python indent_mpdocvqa.py # visibility of val.json
 ```
 
-**SPIQA**:
-```
-# mkdir/cd into datasets/SPIQA
-pip install arxiv
-
-# open python shell: python
-from huggingface_hub import snapshot_download
-snapshot_download(repo_id="google/spiqa", repo_type="dataset", local_dir='.') ### Mention the local directory path
-
-python process_spiqa.py
-```
-
 **WikiTableQuestions**:
 ```
+mkdir wikitablequestions
+cd wikitablequestions
 wget https://github.com/ppasupat/WikiTableQuestions/archive/refs/tags/v1.0.2.tar.gz
 tar -xvf v1.0.2.tar.gz
-mv WikiTableQuestions-1.0.2 wikitablequestions
 python process_wikitq.py
 ```
 
-**FinTabNet**:
+**TableVQA**:
 ```
-wget https://dax-cdn.cdn.appdomain.cloud/dax-fintabnet/1.0.0/fintabnet.tar.gz
-tar -xvf fintabnet.tar.gz
+mkdir tablevqa
+cd tablevqa
+python process_tablevqa.py
+```
+
+**ComTQA**:
+```
+mkdir comtqa
+cd comtqa
+download the dataset: https://huggingface.co/datasets/ByteDance/ComTQA/blob/main/README.md
+process the dataset:
+python process_comtqa.py
+python process_qa.py
 ```
 
 ### Run
-Before running TabRAG, please serve a VLM, and an LLM. For example:
+Before running TabRAG, please serve a VLM. For example:
 
 ```
 vllm serve "Qwen/Qwen3-VL-8B-Instruct" --dtype auto --tensor-parallel-size 1 --max_model_len 96000 --gpu-memory-utilization 0.95 --port 1707
@@ -193,5 +195,15 @@ vllm serve "Qwen/Qwen3-VL-8B-Instruct" --dtype auto --tensor-parallel-size 1 --m
 
 Once the LMs are served, the ragstore can be constructed:
 ```
-python main.py --model tabrag --mode generation --dataset tatdqa
+python main.py --model tabrag --mode generation --dataset tatdqa --vlm_port 1707
+```
+
+### Query Engine
+After constructing the ragstore, it can now be queried via a locally served LLM i.e.:
+```
+vllm serve "Qwen/Qwen3-8B" --dtype auto --tensor-parallel-size 1 --max_model_len 96000 --gpu-memory-utilization 0.95 --port 1707
+```
+or via OpenAI API (input API key). Run the query engine as follows:
+```
+python inference.py --data_path "storages/[path_to_ragstore]"
 ```

@@ -11,17 +11,17 @@ from PIL import Image
 # --------------------------------------------------
 TOP_K = 250
 
-QA_JSON = "/data2/users/js2723/TabRAG/datasets/comtqa/annotated.json"
+QA_JSON = "datasets/comtqa/annotated.json"
 
 # FinTabNet
-FINTABNET_JSONL = "/vol/bitbucket/mml324/TabRAG/datasets/fintabnet/FinTabNet_1.0.0_cell_test.jsonl"
-PDF_DIR = "/vol/bitbucket/mml324/TabRAG/datasets/fintabnet/pdf"
+FINTABNET_JSONL = "datasets/fintabnet/FinTabNet_1.0.0_cell_test.jsonl"
+PDF_DIR = "datasets/fintabnet/pdf"
 
 # PubTables-1M
-PUBTABLES_IMG_DIR = "/vol/bitbucket/mml324/TabRAG/datasets/pubtables-1m"
+PUBTABLES_IMG_DIR = "datasets/pubtables-1m"
 
 # Output
-OUT_PNG = "/data2/users/js2723/TabRAG/datasets/comtqa/generation"
+OUT_PNG = "datasets/comtqa/generation"
 os.makedirs(OUT_PNG, exist_ok=True)
 
 # --------------------------------------------------

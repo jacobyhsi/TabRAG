@@ -67,7 +67,7 @@ Answer:"""
 
 if __name__ == "__main__":
     argparser = argparse.ArgumentParser()
-    argparser.add_argument("--data_path", type=str, default="storages/tablevqa/retrieval-4b/gpt-5.2/folder0", help="Dataset name for retrieval")
+    argparser.add_argument("--data_path", type=str, default="storages/tablevqa/retrieval-4b/gpt-5.2/folder0", help="Retrieval storage path")
     argparser.add_argument("--openai_model", type=str, help="LLM model for chat")
     argparser.add_argument("--vllm_model", type=str, help="LLM model for chat")
     argparser.add_argument("--vllm_ip", type=str, help="IP address for VLLM server")
@@ -76,3 +76,4 @@ if __name__ == "__main__":
     args = argparser.parse_args()
 
     run_interactive_rag(args)
+    
