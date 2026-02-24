@@ -188,14 +188,18 @@ python process_comtqa.py
 python process_qa.py
 ```
 
-### Run
+### Build Ragstore
 Before running TabRAG, please serve a VLM. For example:
 
 ```
 vllm serve "Qwen/Qwen3-VL-8B-Instruct" --dtype auto --tensor-parallel-size 1 --max_model_len 96000 --gpu-memory-utilization 0.95 --port 1707
 ```
 
-Once the LMs are served, the ragstore can be constructed:
+Once the VLM is served, construct the Self-Generated ICL examples:
+```
+python generate_icl.py --model tabrag --mode generation --dataset tatdqa --vlm_port 1707
+```
+Construct the ragstore:
 ```
 python main.py --model tabrag --mode generation --dataset tatdqa --vlm_port 1707
 ```
