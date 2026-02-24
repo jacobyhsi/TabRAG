@@ -57,9 +57,9 @@ pip install numpy==1.26.4
 ```
 
 <details>
-<summary>Installing Tesseract OCR and PyTesseract (Optional - Baseline).</summary>
+<summary>Optional: Installing Tesseract OCR and PyTesseract</summary>
 
-This guide explains how to install Tesseract OCR and use it in Python via PyTesseract by building from source. Official build guide: https://tesseract-ocr.github.io/tessdoc/Compiling.html
+This guide explains how to install a baseline in our paper, Tesseract OCR, and use it in Python via PyTesseract by building from source. Official build guide: https://tesseract-ocr.github.io/tessdoc/Compiling.html
 
 1. Install Python OCR dependencies inside your project environment
 ```bash
