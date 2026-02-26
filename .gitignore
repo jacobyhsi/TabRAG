@@ -36,3 +36,5 @@ datasets/tablevqa/*
 datasets/comtqa/*
 !datasets/comtqa/process_comtqa.py
 !datasets/comtqa/process_qa.py
+
+icl/

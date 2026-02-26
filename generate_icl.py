@@ -14,7 +14,7 @@ random.seed(1)
 # Add object_detection to path so src.layout works
 sys.path.append(os.path.abspath("object_detection"))
 
-from src.llm import VLLMVLMClient
+from src.llm import VLLMVLMClient, HFVLMClient
 from src.prompts import VLMPrompts
 from src.layout import LayoutProcessor
 
@@ -48,12 +48,18 @@ def main(args):
     # ----------------------------
     print("Initializing models...")
     try:
-        vlm = VLLMVLMClient(args.vlm_model, ip=args.vlm_ip, port=args.vlm_port)
         lp = LayoutProcessor()
         vlmp = VLMPrompts()
-
+        model = args.model
+        if args.use_vllm is None and args.use_hf is None and args.use_openai is None:
+            print("Error: You must use one of HuggingFace or VLLM as a VLM inference provider.")
+            return
+        if args.use_hf:
+            vlm = HFVLMClient(model)
+        elif args.use_vllm:
+            vlm = VLLMVLMClient(model, ip=args.vllm_ip, port=args.vllm_port)
         tokenizer = AutoTokenizer.from_pretrained(
-            args.vlm_model,
+            model,
             trust_remote_code=True
         )
     except Exception as e:
@@ -207,10 +213,10 @@ def main(args):
     # ----------------------------
     # Save to disk
     # ----------------------------
-    save_dir = f"icl/{args.dataset}/{args.num_icl}"
+    save_dir = f"icl/{args.dataset}"
     os.makedirs(save_dir, exist_ok=True)
 
-    vlm_name = args.vlm_model.split("/")[-1]
+    vlm_name = model.split("/")[-1]
     save_path = f"{save_dir}/{vlm_name}.json"
 
     with open(save_path, "w") as f:
@@ -226,14 +232,13 @@ if __name__ == "__main__":
 
     parser.add_argument("--dataset", type=str, default="tatdqa", help="Dataset name") 
     # tatdqa, tablevqa, mpdocvqa, wikitablequestions, spiqa, comtqa
+    parser.add_argument("--model", type=str, default="Qwen/Qwen3-VL-2B-Instruct")
 
-    # parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-32B-Instruct") # modify
-    # parser.add_argument("--vlm_ip", type=str, default="146.169.26.172") # modify
-    # parser.add_argument("--vlm_port", type=str, default="3232") # modify
+    parser.add_argument("--use_hf", action='store_true')
 
-    parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-8B-Instruct") # modify
-    parser.add_argument("--vlm_ip", type=str, default="146.169.26.172") # modify
-    parser.add_argument("--vlm_port", type=str, default="1111") # modify
+    parser.add_argument("--use_vllm", action='store_true')
+    parser.add_argument("--vllm_ip", type=str, default="146.169.26.172") # modify
+    parser.add_argument("--vllm_port", type=str, default="1111") # modify
 
     args = parser.parse_args()
     main(args)

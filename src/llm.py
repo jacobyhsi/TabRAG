@@ -5,7 +5,7 @@ import base64
 import httpx
 
 from openai import OpenAI
-from transformers import Qwen2_5_VLForConditionalGeneration, AutoModelForCausalLM, AutoTokenizer, AutoProcessor
+from transformers import Qwen2_5_VLForConditionalGeneration, Qwen3VLForConditionalGeneration, AutoModelForCausalLM, AutoTokenizer, AutoProcessor
 from qwen_vl_utils import process_vision_info
 from io import BytesIO
 from PIL import Image
@@ -161,9 +161,17 @@ class VLLMVLMClient(BaseVLMEngine):
 class HFVLMClient(BaseVLMEngine):
     def __init__(self, model):
         super().__init__()
-        self.vlm = Qwen2_5_VLForConditionalGeneration.from_pretrained(
-            model, dtype="auto", device_map="auto"
-        )
+        qwen_model_type = model.split('/')[1].split('-')[0]
+        if not qwen_model_type.startswith('Qwen'):
+            raise NameError("Invalid model name. Only Qwen2.5 and Qwen3 models are currently supported.")
+        if qwen_model_type == 'Qwen2.5':
+            self.vlm = Qwen2_5_VLForConditionalGeneration.from_pretrained(
+                model, dtype="auto", device_map="auto"
+            )
+        elif qwen_model_type == 'Qwen3':
+            self.vlm = Qwen3VLForConditionalGeneration.from_pretrained(
+                model, dtype="auto", device_map="auto"
+            )
         self.vlm_processor = AutoProcessor.from_pretrained(model)
 
     def generate(self, message, image_path, seed=42, max_tokens=16384):

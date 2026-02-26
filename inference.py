@@ -1,9 +1,9 @@
 import argparse
 import os
 import numpy as np
-from src.embedder import SentenceTransformerEmbedder
+from src.embedder import SentenceTransformerEmbedder, VLLMEmbedder
 from src.vector_store import VectorStore
-from src.llm import OpenAILLMClient
+from src.llm import VLLMLLMClient, HFLLMClient, OpenAILLMClient
 
 def run_interactive_rag(args):
     print_retrieved = args.print_retrieved
@@ -11,14 +11,22 @@ def run_interactive_rag(args):
 
     storage_path = os.path.join(args.data_path, "docstore")
     index = VectorStore.load(storage_path)
-    if args.openai_model is None:
-        print(f'Using VLLM model: {args.vllm_model} at {args.vllm_ip}:{args.vllm_port}')
-        model = VLLMLLMClient(model=args.vllm_model, ip=args.vllm_ip, port=args.vllm_port)
+    if args.use_vllm:
+        print(f'Using VLLM model: {args.model} at {args.vllm_ip}:{args.vllm_port}')
+        model = VLLMLLMClient(model=args.model, ip=args.vllm_ip, port=args.vllm_port)
+        embedder = VLLMEmbedder(args.embedder, tensor_parallel_size=1, gpu_memory_utilization=0.6)
+    elif args.use_hf:
+        print(f"Using HuggingFace model: {args.model}")
+        model = HFLLMClient(model=args.model)
+        embedder = SentenceTransformerEmbedder(args.embedder)
+    elif args.use_openai:
+        print(f"Using OpenAI model: {args.model}")
+        model = OpenAILLMClient(model=args.model)
+        embedder = SentenceTransformerEmbedder(args.embedder)
     else:
-        print(f"Using OpenAI model: {args.openai_model}")
-        model = OpenAILLMClient(model=args.openai_model)
+        print("Error: You must use one of HuggingFace or VLLM as a VLM inference provider.")
+        return
 
-    embedder = SentenceTransformerEmbedder('Qwen/Qwen3-Embedding-4B')
     
     print("\n" + "="*50)
     print("TABRAG INTERACTIVE RAG (ICL ENABLED)")
@@ -67,11 +75,18 @@ Answer:"""
 
 if __name__ == "__main__":
     argparser = argparse.ArgumentParser()
-    argparser.add_argument("--data_path", type=str, default="storages/tablevqa/retrieval-4b/gpt-5.2/folder0", help="Retrieval storage path")
-    argparser.add_argument("--openai_model", type=str, help="LLM model for chat")
-    argparser.add_argument("--vllm_model", type=str, help="LLM model for chat")
+    argparser.add_argument("--data_path", type=str, required=True, help="Retrieval storage path")
+    argparser.add_argument("--embedder", type=str, required=True, default="Qwen/Qwen3-Embedding-0.6B")
+    argparser.add_argument("--model", type=str, required=True, default="Qwen/Qwen3-1.7B")
+
+    argparser.add_argument("--use_openai", action='store_true')
+
+    argparser.add_argument("--use_hf", action='store_true')
+
+    argparser.add_argument("--use_vllm", action='store_true')
     argparser.add_argument("--vllm_ip", type=str, help="IP address for VLLM server")
     argparser.add_argument("--vllm_port", type=str, help="Port for VLLM server")
+
     argparser.add_argument("--print_retrieved", action='store_true', help="Whether to print retrieved context snippets")
     args = argparser.parse_args()
 

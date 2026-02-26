@@ -24,26 +24,17 @@ def main(args):
     # -----------------------------
 
     # Embedder
-    embedder = VLLMEmbedder(args.embedder, tensor_parallel_size=1, gpu_memory_utilization=0.6)
-    # embedder = HFEmbedder('Qwen/Qwen3-Embedding-8B')
-    # embedder = SentenceTransformerEmbedder('Qwen/Qwen3-Embedding-8B')
-    # embedder = SentenceTransformerEmbedder('Qwen/Qwen3-Embedding-4B')
-
-    # VLLM
-    vlm = VLLMVLMClient(args.vlm_model, ip=args.vlm_ip, port=args.vlm_port)
-    # vlm = VLLMVLMClient('Qwen/Qwen3-VL-32B-Instruct', ip='localhost', port='3232')
-    # llm = VLLMLLMClient(args.llm_model, ip=args.llm_ip, port=args.llm_port)
-
-    # HuggingFace
-    # llm = HFLLMClient('Qwen/Qwen3-8B')
-    # vlm = HFVLMClient('Qwen/Qwen2.5-VL-7B-Instruct')
+    if args.use_vllm:
+        embedder = VLLMEmbedder(args.embedder, tensor_parallel_size=1, gpu_memory_utilization=0.6)
+        vlm = VLLMVLMClient(args.vlm, ip=args.vllm_ip, port=args.vllm_port)
+    if args.use_hf:
+        embedder = HFEmbedder(args.embedder)
+        vlm = HFVLMClient(args.vlm)
 
     # Initialize Model
     vlmp = VLMPrompts()
-    # llmp = LLMPrompts()
     lp = LayoutProcessor()
-
-    vlm_name = args.vlm_model.split('/')[-1]
+    vlm_name = args.vlm.split('/')[-1]
 
     icl_path = f"icl/{args.dataset}/{vlm_name}.json"
     with open(icl_path, "r") as f:
@@ -71,29 +62,29 @@ def main(args):
                 lp=lp,
                 embedder=embedder,
                 vlm=vlm,
-                # llm=llm,
                 vlm_prompts=vlmp,
-                # llm_prompts=llmp,
                 icl=icl,
                 model=model,
                 data_dir=root,
                 save_dir=save_dir
             )
-            # rs.build_index_per_file()
             rs.build_index_per_folder()
             print("Saved to:", save_dir)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model", type=str, default="vlm", help="e.g. tabrag, pymupdf, pytesseract, vlm")
+    parser.add_argument("--model", type=str, default="tabrag", help="e.g. tabrag, pymupdf, pytesseract, vlm")
     parser.add_argument("--mode", type=str,  default="generation", help="generation or retrieval")
     parser.add_argument("--embedder", type=str, default="Qwen/Qwen3-Embedding-8B")
+    parser.add_argument("--vlm", type=str, default="Qwen/Qwen3-VL-8B-Instruct") # modify
 
-    parser.add_argument("--vlm_model", type=str, default="Qwen/Qwen3-VL-8B-Instruct") # modify
-    parser.add_argument("--vlm_ip", type=str, default="localhost") # modify
-    parser.add_argument("--vlm_port", type=str, default="2222") # modify
+    parser.add_argument("--use_hf", action='store_true')
 
-    parser.add_argument("--dataset", type=str,  default="comtqa", help="tatdqa, mpdocvqa, wikitablequestions, spiqa, tablevqa, comtqa")
+    parser.add_argument("--use_vllm", action='store_true')
+    parser.add_argument("--vllm_ip", type=str, default="localhost") # modify
+    parser.add_argument("--vllm_port", type=str, default="2222") # modify
+
+    parser.add_argument("--dataset", type=str,  default="tatdqa", help="tatdqa, mpdocvqa, wikitablequestions, spiqa, tablevqa, comtqa")
 
     args = parser.parse_args()
     main(args)

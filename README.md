@@ -54,6 +54,7 @@ pip install datasets
 pip install vllm
 pip install sentence_transformers
 pip install numpy==1.26.4
+pip install accelerate
 ```
 
 <details>
@@ -126,10 +127,10 @@ wget https://github.com/tesseract-ocr/tessdata_best/raw/main/eng.traineddata
 
 ### Layout Model 
 
-Microsoft's DIT model (Document Image Transformer) is used for layout extraction: https://github.com/microsoft/unilm/tree/master/dit
+Microsoft's DiT model (Document Image Transformer) is used for layout extraction: https://github.com/microsoft/unilm/tree/master/dit
 
-Download this checkpoint: 
-https://mail2sysueducn-my.sharepoint.com/:u:/g/personal/huangyp28_mail2_sysu_edu_cn/ESKnk2I_O09Em52V1xb2Ux0BrO_Z-7cuzL3H1KQRxipb7Q?e=iqTfGc
+Download the DiT-Large checkpoint pretrained on the Publaynet Dataset: 
+https://huggingface.co/HYPJUDY/dit/resolve/main/dit-fts/icdar19modern_dit-l_cascade.pth
 
 Move it to the project directory.
 
@@ -192,36 +193,56 @@ Note that for new datasets, please convert all PDFs into single-page images then
 
 ```
 datasets/
-├── retrieval/
-│   ├── page0.jpg
-│   ├── page1.jpg
-│   ├── ......
+├── {dataset_name}/
+│   ├── retrieval
+|   |   ├── {folder1_name} # all page images in this folder are treated as the same "document"
+|   |   |   ├── page0.jpg
+|   |   |   ├── page1.jpg
+|   |   |   ├── ......
 ```
 
 See TAT-DQA as reference.
 
 ### Build Ragstore
-Before running TabRAG, please serve a VLM. For example:
+To build a Ragstore, we can choose between using an externally-served VLM using VLLM, or using a provider like HuggingFace directly.
 
+To serve a VLM externally:
 ```
 vllm serve "Qwen/Qwen3-VL-8B-Instruct" --dtype auto --tensor-parallel-size 1 --max_model_len 96000 --gpu-memory-utilization 0.95 --port 1707
 ```
 
-Once the VLM is served, construct the Self-Generated ICL examples:
+The first step involves construct the Self-Generated ICL examples. Depending on whether you choose to use HuggingFace or VLLM:
 ```
-python generate_icl.py --model tabrag --mode generation --dataset tatdqa --vlm_port 1707
+python generate_icl.py --model Qwen/Qwen3-VL-2B-Instruct --dataset tatdqa --use_hf
 ```
-Construct the ragstore:
 ```
-python main.py --model tabrag --mode generation --dataset tatdqa --vlm_port 1707
+python generate_icl.py --model Qwen/Qwen3-VL-2B-Instruct --dataset tatdqa --use_vllm --vllm_ip localhost --vllm_port 2222
+```
+
+Afterwards, we can generate the TabRAG rationales and build the vector databases for downstream retrieval:
+```
+python main.py --model tabrag --mode generation --dataset tatdqa --vlm Qwen/Qwen3-VL-2B-Instruct --embedder Qwen/Qwen3-Embedding-0.6B --use_hf
+```
+```
+python main.py --model tabrag --mode generation --dataset tatdqa --vlm Qwen/Qwen3-VL-2B-Instruct --embedder Qwen/Qwen3-Embedding-0.6B --use_vllm --vllm_ip localhost --vllm_port 2222
 ```
 
 ### Query Engine
-After constructing the ragstore, it can now be queried via a locally served LLM i.e.:
+After constructing the vector database, we can perform queries to receive responses grounded in retrieved documents.
+
+For inference, we can choose between using an externally-served VLM using VLLM, OpenAI's models, or a provider like HuggingFace directly.
+
+To serve a LLM externally:
 ```
 vllm serve "Qwen/Qwen3-8B" --dtype auto --tensor-parallel-size 1 --max_model_len 96000 --gpu-memory-utilization 0.95 --port 1707
 ```
-or via OpenAI API (input API key). Run the query engine as follows:
+Now, we can perform queries using the below commands, depending on the LLM inference provider
 ```
-python inference.py --data_path "storages/[path_to_ragstore]"
+python inference.py --data_path "storages/[path_to_ragstore]" --embedder Qwen/Qwen3-Embedding-4B --model gpt-5-mini --use_openai
+```
+```
+python inference.py --data_path "storages/[path_to_ragstore]" --embedder Qwen/Qwen3-Embedding-4B --model Qwen/Qwen3-8B --use_hf
+```
+```
+python inference.py --data_path "storages/[path_to_ragstore]" --embedder Qwen/Qwen3-Embedding-4B --model Qwen/Qwen3-8B --use_hf --vllm_ip localhost --vllm_port 2222
 ```
