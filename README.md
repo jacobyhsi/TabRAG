@@ -143,7 +143,6 @@ cd datasets
 
 **TAT-DQA**:
 ```
-mkdir tatdqa
 cd tatdqa
 gdown https://drive.google.com/uc?id=1iqe5r-qgQZLhGtM4G6LkNp9S6OCwOF2L
 # unzip the folder
@@ -154,7 +153,6 @@ python process_tatdqa.py
 
 **MP-DocVQA**:
 ```
-mkdir mpdocvqa
 cd mpdocvqa
 wget https://datasets.cvc.uab.es/rrc/DocVQA/Task4/images.tar.gz --no-check-certificate
 tar -xvf images.tar.gz
@@ -165,7 +163,6 @@ python process_mpdocvqa.py # get documents with tables # EDIT run this will do
 
 **WikiTableQuestions**:
 ```
-mkdir wikitablequestions
 cd wikitablequestions
 wget https://github.com/ppasupat/WikiTableQuestions/archive/refs/tags/v1.0.2.tar.gz
 tar -xvf v1.0.2.tar.gz
@@ -174,14 +171,12 @@ python process_wikitq.py
 
 **TableVQA**:
 ```
-mkdir tablevqa
 cd tablevqa
 python process_tablevqa.py
 ```
 
 **ComTQA**:
 ```
-mkdir comtqa
 cd comtqa
 download the dataset: https://huggingface.co/datasets/ByteDance/ComTQA/blob/main/README.md
 process the dataset:
