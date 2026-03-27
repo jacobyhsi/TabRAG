@@ -203,15 +203,15 @@ To build a Ragstore, we can choose between using an externally-served VLM using 
 
 To serve a VLM externally:
 ```
-vllm serve "Qwen/Qwen3-VL-8B-Instruct" --dtype auto --tensor-parallel-size 1 --max_model_len 96000 --gpu-memory-utilization 0.95 --port 1707
+vllm serve "Qwen/Qwen3-VL-8B-Instruct" --dtype auto --tensor-parallel-size 1 --max_model_len 96000 --gpu-memory-utilization 0.95 --port 2222
 ```
 
 The first step involves construct the Self-Generated ICL examples. Depending on whether you choose to use HuggingFace or VLLM:
 ```
-python generate_icl.py --model Qwen/Qwen3-VL-2B-Instruct --dataset tatdqa --use_hf
+python generate_icl.py --model Qwen/Qwen3-VL-8B-Instruct --dataset tatdqa --use_hf
 ```
 ```
-python generate_icl.py --model Qwen/Qwen3-VL-2B-Instruct --dataset tatdqa --use_vllm --vllm_ip localhost --vllm_port 2222
+python generate_icl.py --model Qwen/Qwen3-VL-8B-Instruct --dataset tatdqa --use_vllm --vllm_ip localhost --vllm_port 2222
 ```
 
 Afterwards, we can generate the TabRAG rationales and build the vector databases for downstream retrieval:
@@ -229,7 +229,7 @@ For inference, we can choose between using an externally-served VLM using VLLM, 
 
 To serve a LLM externally:
 ```
-vllm serve "Qwen/Qwen3-8B" --dtype auto --tensor-parallel-size 1 --max_model_len 96000 --gpu-memory-utilization 0.95 --port 1707
+vllm serve "Qwen/Qwen3-8B" --dtype auto --tensor-parallel-size 1 --max_model_len 96000 --gpu-memory-utilization 0.95 --port 2222
 ```
 Now, we can perform queries using the below commands, depending on the LLM inference provider
 ```
