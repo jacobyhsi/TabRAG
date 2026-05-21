@@ -3,7 +3,7 @@
 <div>
     <a href="https://jacobyhsi.github.io/" target="_blank">Jacob Si</a><sup>1*</sup> | 
     <a href="https://mikequ1.github.io/" target="_blank">Mike Qu</a><sup>2*</sup> | 
-    <a href="https://www.linkedin.com/in/michelle-lee-9a796712b/" target="_blank">Michelle Lee</a><sup>1</sup> | 
+    <a href="https://www.linkedin.com/in/michelle-lee-9a796718B/" target="_blank">Michelle Lee</a><sup>1</sup> | 
     <a href="https://www.marekrei.com/about/" target="_blank">Marek Rei</a><sup>1</sup> |
     <a href="http://yingzhenli.net/home/en/" target="_blank">Yingzhen Li</a><sup>1</sup>
 </div>
@@ -216,10 +216,10 @@ python generate_icl.py --model Qwen/Qwen3-VL-8B-Instruct --dataset tatdqa --use_
 
 Afterwards, we can generate the TabRAG rationales and build the vector databases for downstream retrieval:
 ```
-python main.py --model tabrag --mode generation --dataset tatdqa --vlm Qwen/Qwen3-VL-2B-Instruct --embedder Qwen/Qwen3-Embedding-0.6B --use_hf
+python main.py --model tabrag --mode generation --dataset tatdqa --vlm Qwen/Qwen3-VL-8B-Instruct --embedder Qwen/Qwen3-Embedding-8B --use_hf
 ```
 ```
-python main.py --model tabrag --mode generation --dataset tatdqa --vlm Qwen/Qwen3-VL-2B-Instruct --embedder Qwen/Qwen3-Embedding-0.6B --use_vllm --vllm_ip localhost --vllm_port 2222
+python main.py --model tabrag --mode generation --dataset tatdqa --vlm Qwen/Qwen3-VL-8B-Instruct --embedder Qwen/Qwen3-Embedding-8B --use_vllm --vllm_ip localhost --vllm_port 2222
 ```
 
 ### Query Engine
