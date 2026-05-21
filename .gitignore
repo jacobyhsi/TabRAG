@@ -37,4 +37,7 @@ datasets/comtqa/*
 !datasets/comtqa/process_comtqa.py
 !datasets/comtqa/process_qa.py
 
+datasets/finqa/*
+!datasets/finqa/metadata.jsonl
+
 icl/

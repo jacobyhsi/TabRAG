@@ -254,11 +254,27 @@ class Ragstore:
         return output_data, output_meta, output_emb
     
     def build_index_per_folder(self):
-        # Collect all image files in the folder
-        files = sorted([
-            f for f in os.listdir(self.data_dir)
-            if f.lower().endswith(('.jpg', '.jpeg', '.png', '.pdf')) and os.path.isfile(os.path.join(self.data_dir, f))
-        ])
+        files_by_stem = {}
+        ext_priority = {'.jpg': 0, '.jpeg': 0, '.png': 0, '.pdf': 1}
+
+        for f in os.listdir(self.data_dir):
+            file_path = os.path.join(self.data_dir, f)
+            stem, ext = os.path.splitext(f)
+            ext = ext.lower()
+
+            if ext not in ext_priority or not os.path.isfile(file_path):
+                continue
+
+            current = files_by_stem.get(stem)
+            if current is None:
+                files_by_stem[stem] = f
+                continue
+
+            current_ext = os.path.splitext(current)[1].lower()
+            if ext_priority[ext] < ext_priority[current_ext]:
+                files_by_stem[stem] = f
+
+        files = sorted(files_by_stem.values())
 
         # Create a single VectorStore for the entire folder
         emb_dim = self.embedder.get_dims()
@@ -268,8 +284,8 @@ class Ragstore:
             file_path = os.path.join(self.data_dir, f)
 
             if self.model == "tabrag":
-                output_data, output_meta, output_emb = self.process_one_file(file_path=file_path, file_name=f)
-                # output_data, output_meta, output_emb = self.process_one_file_xLayout(file_path=file_path, file_name=f)
+                # output_data, output_meta, output_emb = self.process_one_file(file_path=file_path, file_name=f)
+                output_data, output_meta, output_emb = self.process_one_file_xLayout(file_path=file_path, file_name=f)
             elif self.model == "pymupdf":
                 output_data, output_meta, output_emb = self.process_one_file_pymupdf(file_path=file_path, file_name=f)
             elif self.model == "pytesseract":

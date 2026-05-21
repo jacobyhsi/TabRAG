@@ -231,14 +231,14 @@ if __name__ == "__main__":
     parser.add_argument("--num_icl", type=int, default=3, help="Number of ICL examples to generate")
 
     parser.add_argument("--dataset", type=str, default="tatdqa", help="Dataset name") 
-    # tatdqa, tablevqa, mpdocvqa, wikitablequestions, spiqa, comtqa
-    parser.add_argument("--model", type=str, default="Qwen/Qwen3-VL-2B-Instruct")
+    # tatdqa, tablevqa, mpdocvqa, wikitablequestions, spiqa, comtqa, finqa
+    parser.add_argument("--model", type=str, default="Qwen/Qwen3-VL-8B-Instruct") # modify
 
     parser.add_argument("--use_hf", action='store_true')
 
     parser.add_argument("--use_vllm", action='store_true')
-    parser.add_argument("--vllm_ip", type=str, default="146.169.26.172") # modify
-    parser.add_argument("--vllm_port", type=str, default="1111") # modify
+    parser.add_argument("--vllm_ip", type=str, default="localhost") # modify
+    parser.add_argument("--vllm_port", type=str, default="2222") # modify
 
     args = parser.parse_args()
     main(args)
