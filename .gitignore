@@ -5,11 +5,7 @@ storages/
 .env
 **/__pycache__/
 *.pth
-visrag/
-unused/
-interactive.py
 eval.sh
-run.sh
 
 visualizations/
 
