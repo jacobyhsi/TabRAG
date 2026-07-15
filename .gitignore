@@ -24,7 +24,10 @@ datasets/**
 !datasets/*.jsonl
 
 datasets/tatdqa/test/
+datasets/comtqa/annotated.json
 
 eval/eval_backups/
+
+datasets/comtqa/annotated.json
 
 torchinductor_js2723/
