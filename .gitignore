@@ -27,6 +27,10 @@ datasets/tatdqa/test/
 datasets/comtqa/annotated.json
 
 eval/
+generate_icl_markdown.py
+generate_icl_text.py
+retrieval_to_gen.py
+transform.py
 
 datasets/comtqa/annotated.json
 
