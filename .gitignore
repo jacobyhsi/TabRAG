@@ -22,9 +22,9 @@ datasets/spiqa/*
 datasets/mpdocvqa/*
 !datasets/mpdocvqa/process_mpdocvqa.py
 
-datasets/wikitablequestions/*
-!datasets/wikitablequestions/process_wikitableqa.py
-!datasets/wikitablequestions/process_wikitq.py
+datasets/wikitq/*
+!datasets/wikitq/process_wikitableqa.py
+!datasets/wikitq/process_wikitq.py
 
 datasets/tablevqa/*
 !datasets/tablevqa/process_tablevqa.py
@@ -35,7 +35,5 @@ datasets/comtqa/*
 
 datasets/finqa/*
 !datasets/finqa/metadata.jsonl
-
-icl/
 
 torchinductor_js2723/

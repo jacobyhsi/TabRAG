@@ -330,20 +330,21 @@ python3 eval/eval_generation_image.py --dataset tablevqa --vlm_model Qwen3-VL-32
 
 
 # 
-python main.py --model vlm --mode generation --dataset comtqa --vlm Qwen/Qwen3-VL-8B-Instruct --prompt_type complex_comtqa --use_hf
-python main.py --model vlm --mode generation --dataset finqa --vlm Qwen/Qwen3-VL-8B-Instruct --prompt_type complex_finqa --use_hf
-python main.py --model vlm --mode generation --dataset tablevqa --vlm Qwen/Qwen3-VL-8B-Instruct --prompt_type complex_tablevqa --use_hf
-python main.py --model vlm --mode generation --dataset tatdqa --vlm Qwen/Qwen3-VL-8B-Instruct --prompt_type complex_tatdqa --use_hf
-python main.py --model vlm --mode generation --dataset wikitablequestions --vlm Qwen/Qwen3-VL-8B-Instruct --prompt_type complex_wikitq --use_hf
+CUDA_VISIBLE_DEVICES=0 python main.py --model vlm --mode generation --dataset comtqa --vlm Qwen/Qwen3-VL-8B-Instruct --prompt_type complex_comtqa --use_hf
+CUDA_VISIBLE_DEVICES=1 python main.py --model vlm --mode generation --dataset finqa --vlm Qwen/Qwen3-VL-8B-Instruct --prompt_type complex_finqa --use_hf
+CUDA_VISIBLE_DEVICES=2 python main.py --model vlm --mode generation --dataset tablevqa --vlm Qwen/Qwen3-VL-8B-Instruct --prompt_type complex_tablevqa --use_hf
+CUDA_VISIBLE_DEVICES=3 python main.py --model vlm --mode generation --dataset tatdqa --vlm Qwen/Qwen3-VL-8B-Instruct --prompt_type complex_tatdqa --use_hf
+CUDA_VISIBLE_DEVICES=4 python main.py --model vlm --mode generation --dataset wikitq --vlm Qwen/Qwen3-VL-8B-Instruct --prompt_type complex_wikitq --use_hf
+CUDA_VISIBLE_DEVICES=5 python main.py --model vlm --mode generation --dataset mpdocvqa --vlm Qwen/Qwen3-VL-8B-Instruct --prompt_type complex_mpdocvqa --use_hf
 
 # not ready still processing the mpdocvqa dataset
 python process_mpdocvqa.py
 cd ../..
 python main.py --model vlm --mode generation --dataset mpdocvqa --vlm Qwen/Qwen3-VL-8B-Instruct --prompt_type complex_wikitq --use_hf
 
-python3 eval/eval_generation.py --dataset tablevqa --method vlm --vlm_model Qwen3-VL-8B-Instruct_Complex_Comtqa
-python3 eval/eval_generation.py --dataset tablevqa --method vlm --vlm_model Qwen3-VL-8B-Instruct_Complex_FinQA
-python3 eval/eval_generation.py --dataset tablevqa --method vlm --vlm_model Qwen3-VL-8B-Instruct_Complex_TableVQA
-python3 eval/eval_generation.py --dataset tablevqa --method vlm --vlm_model Qwen3-VL-8B-Instruct_Complex_TATDQA
-python3 eval/eval_generation.py --dataset tablevqa --method vlm --vlm_model Qwen3-VL-8B-Instruct_Complex_Wikitq
+python3 eval/eval_generation.py --dataset tablevqa --method vlm --vlm_model Qwen3-VL-8B-Instruct_complex_comtqa
+python3 eval/eval_generation.py --dataset tablevqa --method vlm --vlm_model Qwen3-VL-8B-Instruct_complex_finqa
+python3 eval/eval_generation.py --dataset tablevqa --method vlm --vlm_model Qwen3-VL-8B-Instruct_complex_tablevqa
+python3 eval/eval_generation.py --dataset tablevqa --method vlm --vlm_model Qwen3-VL-8B-Instruct_complex_tatdqa
+python3 eval/eval_generation.py --dataset tablevqa --method vlm --vlm_model Qwen3-VL-8B-Instruct_complex_wikitq
 

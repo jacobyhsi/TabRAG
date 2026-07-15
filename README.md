@@ -55,6 +55,7 @@ pip install vllm
 pip install sentence_transformers
 pip install numpy==1.26.4
 pip install accelerate
+pip uninstall torchcodec
 ```
 
 <details>
@@ -130,7 +131,7 @@ wget https://github.com/tesseract-ocr/tessdata_best/raw/main/eng.traineddata
 Microsoft's DiT model (Document Image Transformer) is used for layout extraction: https://github.com/microsoft/unilm/tree/master/dit
 
 Download the DiT-Large checkpoint pretrained on the Publaynet Dataset: 
-https://huggingface.co/HYPJUDY/dit/resolve/main/dit-fts/icdar19modern_dit-l_cascade.pth
+wget --continue -O publaynet_dit-l_cascade.pth "https://huggingface.co/HYPJUDY/dit/resolve/main/dit-fts/publaynet_dit-l_cascade.pth"
 
 Move it to the project directory.
 

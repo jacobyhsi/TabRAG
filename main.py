@@ -58,17 +58,17 @@ def main(args):
 
             relative_path = os.path.relpath(root, data_dir)
             if args.prompt_type == "complex":
-                save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_Complex", relative_path)
+                save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_complex", relative_path)
             elif args.prompt_type == "complex_comtqa":
-                save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_Complex_Comtqa", relative_path)
+                save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_complex_comtqa", relative_path)
             elif args.prompt_type == "complex_finqa":
-                save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_Complex_FinQA", relative_path)
+                save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_complex_finqa", relative_path)
             elif args.prompt_type == "complex_tablevqa":
-                save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_Complex_TableVQA", relative_path)
+                save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_complex_tablevqa", relative_path)
             elif args.prompt_type == "complex_tatdqa":
-                save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_Complex_TATDQA", relative_path)
+                save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_complex_tatdqa", relative_path)
             elif args.prompt_type == "complex_wikitq":
-                save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_Complex_WikiTQ", relative_path)
+                save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_complex_wikitq", relative_path)
             else:
                 save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}", relative_path)
 
@@ -100,7 +100,7 @@ if __name__ == "__main__":
     parser.add_argument("--vllm_ip", type=str, default="localhost") # modify
     parser.add_argument("--vllm_port", type=str, default="2222") # modify
 
-    parser.add_argument("--dataset", type=str,  default="tatdqa", help="tatdqa, mpdocvqa, wikitablequestions, spiqa, tablevqa, comtqa")
+    parser.add_argument("--dataset", type=str,  default="tatdqa", help="tatdqa, mpdocvqa, wikitq, spiqa, tablevqa, comtqa")
     parser.add_argument("--prompt_type", type=str, default="default", help="vlm prompt type: default, complex, complex_comtqa, complex_finqa, complex_tablevqa, complex_tatdqa, complex_wikitq")
 
     args = parser.parse_args()

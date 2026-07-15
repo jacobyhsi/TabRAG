@@ -51,8 +51,10 @@ def process_one(html_path: Path, in_root: Path, out_pdf: Path, out_png: Path):
         return
 
     out_leaf = f"{group_dir}_p{stem}"
-    pdf_path = out_pdf / group_dir / out_leaf / f"{out_leaf}.pdf"
-    png_path = out_png / group_dir / out_leaf / f"{out_leaf}.png"
+    # Store the PDF and PNG together under the same per-page directory.
+    page_dir = out_png / group_dir / out_leaf
+    pdf_path = page_dir / f"{out_leaf}.pdf"
+    png_path = page_dir / f"{out_leaf}.png"
 
     # Always rebuild to ensure consistency
     html_to_pdf(html_path, pdf_path)
@@ -69,7 +71,12 @@ def run_conversion_pipeline(root):
     parser = argparse.ArgumentParser(description="Convert WikiTableQuestions HTMLs to PDF & PNG.")
     parser.add_argument("--in-root", type=Path, default=os.path.join(root, "datasets/wikitablequestions/WikiTableQuestions-1.0.2/csv"))
     parser.add_argument("--out-png", type=Path, default=os.path.join(root, "datasets/wikitablequestions/generation"))
-    parser.add_argument("--out-pdf", type=Path, default=os.path.join(root, "datasets/wikitablequestions/generation_pdf"))
+    parser.add_argument(
+        "--out-pdf",
+        type=Path,
+        default=os.path.join(root, "datasets/wikitablequestions/generation"),
+        help="Output root for PDFs; PDFs share each page folder with its PNG.",
+    )
     args = parser.parse_args()
 
     if not args.in_root.exists():
@@ -109,9 +116,10 @@ def build_retrieval_folders(root, base_dir="wikitablequestions"):
 
     base_dir = os.path.join(root, "datasets", "wikitablequestions")
 
+    # PNGs and PDFs are stored together in generation/<group>/<page>/.
     src_map = {
         "png": os.path.join(base_dir, "generation"),
-        "pdf": os.path.join(base_dir, "generation_pdf"),
+        "pdf": os.path.join(base_dir, "generation"),
     }
 
     dst_map = {
