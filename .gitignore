@@ -11,29 +11,20 @@ visualizations/
 
 results/
 
-datasets/fintabnet/
+# Ignore dataset contents by default.
+datasets/**
 
-datasets/tatdqa/*
-!datasets/tatdqa/process_tatdqa.py
+# Allow Git to traverse dataset directories.
+!datasets/**/
 
-datasets/spiqa/*
-!datasets/spiqa/process_spiqa.py
+# Track only JSON and JSONL dataset metadata/annotations.
+!datasets/**/*.json
+!datasets/**/*.jsonl
+!datasets/*.json
+!datasets/*.jsonl
 
-datasets/mpdocvqa/*
-!datasets/mpdocvqa/process_mpdocvqa.py
+datasets/tatdqa/test/
 
-datasets/wikitq/*
-!datasets/wikitq/process_wikitableqa.py
-!datasets/wikitq/process_wikitq.py
-
-datasets/tablevqa/*
-!datasets/tablevqa/process_tablevqa.py
-
-datasets/comtqa/*
-!datasets/comtqa/process_comtqa.py
-!datasets/comtqa/process_qa.py
-
-datasets/finqa/*
-!datasets/finqa/metadata.jsonl
+eval/eval_backups/
 
 torchinductor_js2723/

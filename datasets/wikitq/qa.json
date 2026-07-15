@@ -1,0 +1,4134 @@
+[
+  {
+    "context": "csv/201-csv/21.csv",
+    "id": "nt-18",
+    "utterance": "how many movies have links to other wikipedia pages about them?",
+    "targetValue": [
+      "20"
+    ]
+  },
+  {
+    "context": "csv/202-csv/184.csv",
+    "id": "nt-20",
+    "utterance": "which album released by the band schnell fenster produced the most singles appearing on the australian peak chart?",
+    "targetValue": [
+      "The Sound Of Trees"
+    ]
+  },
+  {
+    "context": "csv/202-csv/73.csv",
+    "id": "nt-43",
+    "utterance": "which division three team also played in the division two season during the 1980s?",
+    "targetValue": [
+      "Seaford Town"
+    ]
+  },
+  {
+    "context": "csv/202-csv/178.csv",
+    "id": "nt-173",
+    "utterance": "when was bobbie phillips first role in tv?",
+    "targetValue": [
+      "1991"
+    ]
+  },
+  {
+    "context": "csv/202-csv/250.csv",
+    "id": "nt-177",
+    "utterance": "which is the most recent source for the name?",
+    "targetValue": [
+      "Clavijo"
+    ]
+  },
+  {
+    "context": "csv/202-csv/76.csv",
+    "id": "nt-180",
+    "utterance": "how long did ian armstrong serve?",
+    "targetValue": [
+      "26 years"
+    ]
+  },
+  {
+    "context": "csv/201-csv/27.csv",
+    "id": "nt-208",
+    "utterance": "which secretary of state came after jack pkckersgill?",
+    "targetValue": [
+      "Roch Pinard"
+    ]
+  },
+  {
+    "context": "csv/202-csv/231.csv",
+    "id": "nt-214",
+    "utterance": "which party finished last in the election?",
+    "targetValue": [
+      "Sweden Democrats"
+    ]
+  },
+  {
+    "context": "csv/200-csv/31.csv",
+    "id": "nt-220",
+    "utterance": "who was the only person that scheider lost against?",
+    "targetValue": [
+      "Myron Greenberg"
+    ]
+  },
+  {
+    "context": "csv/202-csv/294.csv",
+    "id": "nt-223",
+    "utterance": "when was the benetton b198 chassis used?",
+    "targetValue": [
+      "1998"
+    ]
+  },
+  {
+    "context": "csv/200-csv/1.csv",
+    "id": "nt-245",
+    "utterance": "what role did mischa barton play in the movie \\\"octane\\\"?",
+    "targetValue": [
+      "Natasha 'Nat' Wilson"
+    ]
+  },
+  {
+    "context": "csv/201-csv/3.csv",
+    "id": "nt-262",
+    "utterance": "does december or january have more snow days?",
+    "targetValue": [
+      "January"
+    ]
+  },
+  {
+    "context": "csv/202-csv/54.csv",
+    "id": "nt-307",
+    "utterance": "how many songs were on the mtv taiwan top 20 chart?",
+    "targetValue": [
+      "3"
+    ]
+  },
+  {
+    "context": "csv/200-csv/38.csv",
+    "id": "nt-414",
+    "utterance": "is tripoli still considered a municipality in arcadia since its 2011 reformation?",
+    "targetValue": [
+      "Yes"
+    ]
+  },
+  {
+    "context": "csv/202-csv/279.csv",
+    "id": "nt-448",
+    "utterance": "what movies was morrison involved with in 2007?",
+    "targetValue": [
+      "Music and Lyrics",
+      "Dan in Real Life",
+      "I Think I Love My Wife"
+    ]
+  },
+  {
+    "context": "csv/200-csv/20.csv",
+    "id": "nt-478",
+    "utterance": "which victim was missing the longest?",
+    "targetValue": [
+      "Rebecca \\\"Becky\\\" Marrero"
+    ]
+  },
+  {
+    "context": "csv/201-csv/1.csv",
+    "id": "nt-484",
+    "utterance": "which person had the position of a farmer?",
+    "targetValue": [
+      "Michel Deuzet"
+    ]
+  },
+  {
+    "context": "csv/200-csv/35.csv",
+    "id": "nt-487",
+    "utterance": "as of october 25, 2005, how many active voters are there?",
+    "targetValue": [
+      "9717"
+    ]
+  },
+  {
+    "context": "csv/202-csv/85.csv",
+    "id": "nt-529",
+    "utterance": "how many current teams have been in existence for 25 years or greater?",
+    "targetValue": [
+      "4"
+    ]
+  },
+  {
+    "context": "csv/201-csv/10.csv",
+    "id": "nt-605",
+    "utterance": "which political party party has had the most mayors of austevoll?",
+    "targetValue": [
+      "Conservative Party"
+    ]
+  },
+  {
+    "context": "csv/202-csv/200.csv",
+    "id": "nt-635",
+    "utterance": "what were the first and last movies greenstreet acted in?",
+    "targetValue": [
+      "The Maltese Falcon",
+      "Malaya"
+    ]
+  },
+  {
+    "context": "csv/201-csv/21.csv",
+    "id": "nt-641",
+    "utterance": "which film came out in 2002 and also had the role of vindici?",
+    "targetValue": [
+      "Revengers Tragedy"
+    ]
+  },
+  {
+    "context": "csv/201-csv/36.csv",
+    "id": "nt-667",
+    "utterance": "which film aired in 1994 and has marika as the role?",
+    "targetValue": [
+      "Embrace of the Vampire"
+    ]
+  },
+  {
+    "context": "csv/202-csv/179.csv",
+    "id": "nt-672",
+    "utterance": "who were the top 3 finishers in the 2005 belgian grand prix?",
+    "targetValue": [
+      "Kimi Räikkönen",
+      "Fernando Alonso",
+      "Jenson Button"
+    ]
+  },
+  {
+    "context": "csv/201-csv/10.csv",
+    "id": "nt-718",
+    "utterance": "which mayor is in the conservative party and was a bank manager?",
+    "targetValue": [
+      "Inge Bjarne Storebø"
+    ]
+  },
+  {
+    "context": "csv/200-csv/32.csv",
+    "id": "nt-730",
+    "utterance": "how many years did earl ball coach the muncie flyers?",
+    "targetValue": [
+      "6"
+    ]
+  },
+  {
+    "context": "csv/202-csv/269.csv",
+    "id": "nt-761",
+    "utterance": "which year has a crude birth rate of 29.1 with a population of 22,860?",
+    "targetValue": [
+      "1928"
+    ]
+  },
+  {
+    "context": "csv/202-csv/173.csv",
+    "id": "nt-798",
+    "utterance": "which track was composed by jacques brel and gaby wagenheim?",
+    "targetValue": [
+      "\\\"Le colonel\\\""
+    ]
+  },
+  {
+    "context": "csv/202-csv/253.csv",
+    "id": "nt-822",
+    "utterance": "name all winners of the caribbean cup",
+    "targetValue": [
+      "Trinidad and Tobago",
+      "Jamaica",
+      "Cuba",
+      "Martinique",
+      "Haiti"
+    ]
+  },
+  {
+    "context": "csv/202-csv/161.csv",
+    "id": "nt-828",
+    "utterance": "which electoral districts hold 15 or more seats?",
+    "targetValue": [
+      "Antwerp",
+      "East Flanders",
+      "Flemish Brabant",
+      "West Flanders",
+      "Hainaut",
+      "Liège"
+    ]
+  },
+  {
+    "context": "csv/202-csv/173.csv",
+    "id": "nt-835",
+    "utterance": "how many tracks are in this album?",
+    "targetValue": [
+      "13"
+    ]
+  },
+  {
+    "context": "csv/201-csv/25.csv",
+    "id": "nt-861",
+    "utterance": "compare the scottish national party to the conservative and determine which party had their leaders in office for a longer time.",
+    "targetValue": [
+      "Conservative"
+    ]
+  },
+  {
+    "context": "csv/202-csv/295.csv",
+    "id": "nt-870",
+    "utterance": "how long did gall play for carlisle united?",
+    "targetValue": [
+      "3 years"
+    ]
+  },
+  {
+    "context": "csv/201-csv/19.csv",
+    "id": "nt-917",
+    "utterance": "which is the least successful film?",
+    "targetValue": [
+      "The Train"
+    ]
+  },
+  {
+    "context": "csv/200-csv/1.csv",
+    "id": "nt-969",
+    "utterance": "what is the name of the movie where mischa barton plays the role of ms. monica?",
+    "targetValue": [
+      "Gutsy Frog"
+    ]
+  },
+  {
+    "context": "csv/201-csv/1.csv",
+    "id": "nt-974",
+    "utterance": "how long was stanislas le tourneur d'ison in office?",
+    "targetValue": [
+      "34 years"
+    ]
+  },
+  {
+    "context": "csv/200-csv/41.csv",
+    "id": "nt-975",
+    "utterance": "list the encoding binaries for the first five integers in elias gamma encoding.",
+    "targetValue": [
+      "1",
+      "010",
+      "011",
+      "00100",
+      "00101"
+    ]
+  },
+  {
+    "context": "csv/201-csv/7.csv",
+    "id": "nt-976",
+    "utterance": "which year has the most per capita income (as % of usa)?",
+    "targetValue": [
+      "1980"
+    ]
+  },
+  {
+    "context": "csv/202-csv/192.csv",
+    "id": "nt-977",
+    "utterance": "how many regions had a release date after march 10, 2011?",
+    "targetValue": [
+      "4"
+    ]
+  },
+  {
+    "context": "csv/202-csv/161.csv",
+    "id": "nt-1006",
+    "utterance": "which electoral district in the dutch language group has the most seats allotted to it?",
+    "targetValue": [
+      "Antwerp"
+    ]
+  },
+  {
+    "context": "csv/200-csv/32.csv",
+    "id": "nt-1015",
+    "utterance": "in what year did the muncie flyers have an undefeated record?",
+    "targetValue": [
+      "1910"
+    ]
+  },
+  {
+    "context": "csv/202-csv/200.csv",
+    "id": "nt-1028",
+    "utterance": "what movies did greenstreet act for in 1946?",
+    "targetValue": [
+      "Three Strangers",
+      "Devotion",
+      "The Verdict"
+    ]
+  },
+  {
+    "context": "csv/202-csv/99.csv",
+    "id": "nt-1128",
+    "utterance": "how many months saw record lows below freezing?",
+    "targetValue": [
+      "7"
+    ]
+  },
+  {
+    "context": "csv/201-csv/42.csv",
+    "id": "nt-1215",
+    "utterance": "how many titles include \\\"jeff daniels\\\" as their episode title?",
+    "targetValue": [
+      "2"
+    ]
+  },
+  {
+    "context": "csv/202-csv/262.csv",
+    "id": "nt-1232",
+    "utterance": "which facility hold the most inmates?",
+    "targetValue": [
+      "Spring Hill Corrections Facility"
+    ]
+  },
+  {
+    "context": "csv/200-csv/35.csv",
+    "id": "nt-1252",
+    "utterance": "as of october 25, 2005, how many active voters does the republican party have?",
+    "targetValue": [
+      "1322"
+    ]
+  },
+  {
+    "context": "csv/200-csv/7.csv",
+    "id": "nt-1261",
+    "utterance": "how do you say 'do you speak afrikaans?' in afrikaans?",
+    "targetValue": [
+      "Praat jy Afrikaans?"
+    ]
+  },
+  {
+    "context": "csv/202-csv/24.csv",
+    "id": "nt-1305",
+    "utterance": "which solid base single peaked highest on the finnish singles chart?",
+    "targetValue": [
+      "Come'n Get Me"
+    ]
+  },
+  {
+    "context": "csv/201-csv/48.csv",
+    "id": "nt-1344",
+    "utterance": "how many times did the single \\\"butterfly\\\" rank as 1 in the chart?",
+    "targetValue": [
+      "5"
+    ]
+  },
+  {
+    "context": "csv/202-csv/26.csv",
+    "id": "nt-1348",
+    "utterance": "what is the most number of goals scored by elvir rahimic in a single season?",
+    "targetValue": [
+      "3"
+    ]
+  },
+  {
+    "context": "csv/202-csv/287.csv",
+    "id": "nt-1349",
+    "utterance": "which parameter has the most number of doors per car per side?",
+    "targetValue": [
+      "EW58"
+    ]
+  },
+  {
+    "context": "csv/202-csv/28.csv",
+    "id": "nt-1384",
+    "utterance": "were the highest unemployment rates in japan before or after the year 2000?",
+    "targetValue": [
+      "after"
+    ]
+  },
+  {
+    "context": "csv/202-csv/239.csv",
+    "id": "nt-1404",
+    "utterance": "which group has the most derivation?",
+    "targetValue": [
+      "Eskimo"
+    ]
+  },
+  {
+    "context": "csv/201-csv/36.csv",
+    "id": "nt-1421",
+    "utterance": "which year had the most credits?",
+    "targetValue": [
+      "2004"
+    ]
+  },
+  {
+    "context": "csv/202-csv/76.csv",
+    "id": "nt-1433",
+    "utterance": "which member of the second incarnation of the lachlan was also a nationalist?",
+    "targetValue": [
+      "Ernest Buttenshaw"
+    ]
+  },
+  {
+    "context": "csv/202-csv/196.csv",
+    "id": "nt-1499",
+    "utterance": "how many russian-lipovan's were there in 1966?",
+    "targetValue": [
+      "30,509"
+    ]
+  },
+  {
+    "context": "csv/202-csv/85.csv",
+    "id": "nt-1500",
+    "utterance": "when were the madison mallards established?",
+    "targetValue": [
+      "2001"
+    ]
+  },
+  {
+    "context": "csv/202-csv/204.csv",
+    "id": "nt-1508",
+    "utterance": "name the first and last states to secede.",
+    "targetValue": [
+      "S. Carolina",
+      "Kentucky"
+    ]
+  },
+  {
+    "context": "csv/200-csv/7.csv",
+    "id": "nt-1539",
+    "utterance": "how do you say 'i love you' in afrikaans?",
+    "targetValue": [
+      "Ek is lief vir jou."
+    ]
+  },
+  {
+    "context": "csv/202-csv/160.csv",
+    "id": "nt-1563",
+    "utterance": "besides 1997, which year was the team also relegated?",
+    "targetValue": [
+      "2008"
+    ]
+  },
+  {
+    "context": "csv/202-csv/44.csv",
+    "id": "nt-1566",
+    "utterance": "what was the world's most populous continent in 1965?",
+    "targetValue": [
+      "Asia"
+    ]
+  },
+  {
+    "context": "csv/202-csv/205.csv",
+    "id": "nt-1585",
+    "utterance": "which year did he play the role of mac harper and also pat trammell?",
+    "targetValue": [
+      "1984"
+    ]
+  },
+  {
+    "context": "csv/202-csv/211.csv",
+    "id": "nt-1588",
+    "utterance": "which venue hosted the standard result immediately after berlin in the 1990s?",
+    "targetValue": [
+      "Kishinev"
+    ]
+  },
+  {
+    "context": "csv/202-csv/286.csv",
+    "id": "nt-1638",
+    "utterance": "which surface has the most winners?",
+    "targetValue": [
+      "Hard"
+    ]
+  },
+  {
+    "context": "csv/201-csv/7.csv",
+    "id": "nt-1654",
+    "utterance": "what year did the kuwaiti dinar have the highest us dollar exchange?",
+    "targetValue": [
+      "2000"
+    ]
+  },
+  {
+    "context": "csv/202-csv/269.csv",
+    "id": "nt-1700",
+    "utterance": "in which year did spain show the highest number of live births over deaths?",
+    "targetValue": [
+      "1964"
+    ]
+  },
+  {
+    "context": "csv/201-csv/14.csv",
+    "id": "nt-1790",
+    "utterance": "which bridge has their location in summit, delaware?",
+    "targetValue": [
+      "Summit Bridge"
+    ]
+  },
+  {
+    "context": "csv/202-csv/11.csv",
+    "id": "nt-1829",
+    "utterance": "how many films did irwin allen direct, produce and write?",
+    "targetValue": [
+      "6"
+    ]
+  },
+  {
+    "context": "csv/201-csv/19.csv",
+    "id": "nt-1834",
+    "utterance": "how many movies did 20th century fox create that were in the top 10 grossing films of 1965?",
+    "targetValue": [
+      "3"
+    ]
+  },
+  {
+    "context": "csv/202-csv/279.csv",
+    "id": "nt-1836",
+    "utterance": "how many movies has morrison acted in after 2010?",
+    "targetValue": [
+      "2"
+    ]
+  },
+  {
+    "context": "csv/200-csv/14.csv",
+    "id": "nt-1847",
+    "utterance": "what year did machine gun kelly sign with bad boy records?",
+    "targetValue": [
+      "2011"
+    ]
+  },
+  {
+    "context": "csv/202-csv/45.csv",
+    "id": "nt-1867",
+    "utterance": "which professional wrestler has had the most number of reigns as nwa world heavyweight champion?",
+    "targetValue": [
+      "Ric Flair"
+    ]
+  },
+  {
+    "context": "csv/202-csv/257.csv",
+    "id": "nt-1878",
+    "utterance": "how many of the singles are under the chart of pop singles?",
+    "targetValue": [
+      "3"
+    ]
+  },
+  {
+    "context": "csv/202-csv/63.csv",
+    "id": "nt-1888",
+    "utterance": "who was the highest leading goalkicker from the year 1997-2014?",
+    "targetValue": [
+      "Warren Tredrea"
+    ]
+  },
+  {
+    "context": "csv/202-csv/28.csv",
+    "id": "nt-1904",
+    "utterance": "when in the 1990's did the inflation rate first become negative?",
+    "targetValue": [
+      "1995"
+    ]
+  },
+  {
+    "context": "csv/202-csv/191.csv",
+    "id": "nt-1905",
+    "utterance": "how many votes were counted as invalid or blank votes?",
+    "targetValue": [
+      "0"
+    ]
+  },
+  {
+    "context": "csv/200-csv/7.csv",
+    "id": "nt-1938",
+    "utterance": "translate the following into german: die kinders praat afrikaans.",
+    "targetValue": [
+      "Die Kinder sprechen Afrikaans."
+    ]
+  },
+  {
+    "context": "csv/202-csv/195.csv",
+    "id": "nt-1966",
+    "utterance": "when was the first time elizabeth dawn appeared in her role as vera duckworth?",
+    "targetValue": [
+      "1997"
+    ]
+  },
+  {
+    "context": "csv/202-csv/63.csv",
+    "id": "nt-1975",
+    "utterance": "which afl captain was also considered the best and fairest during the '04 premiers?",
+    "targetValue": [
+      "Warren Tredrea"
+    ]
+  },
+  {
+    "context": "csv/200-csv/7.csv",
+    "id": "nt-1978",
+    "utterance": "how do you say 'yes' in afrikaans?",
+    "targetValue": [
+      "Ja."
+    ]
+  },
+  {
+    "context": "csv/202-csv/276.csv",
+    "id": "nt-1988",
+    "utterance": "which year is the most episodes he played in shows?",
+    "targetValue": [
+      "1979"
+    ]
+  },
+  {
+    "context": "csv/202-csv/224.csv",
+    "id": "nt-2004",
+    "utterance": "did the snp or the conservative party get a greater percentage of the vote in the 2001 general election in ochil?",
+    "targetValue": [
+      "SNP"
+    ]
+  },
+  {
+    "context": "csv/202-csv/215.csv",
+    "id": "nt-2015",
+    "utterance": "how many of the subspecies of p. ponderosa have a foliate length on branch in excess of 25.0?",
+    "targetValue": [
+      "3"
+    ]
+  },
+  {
+    "context": "csv/201-csv/31.csv",
+    "id": "nt-2040",
+    "utterance": "which author wrote \\\"two loves i have, of comfort and despair\\\", and \\\"on a day (alack the day)\\\"?",
+    "targetValue": [
+      "William Shakespeare"
+    ]
+  },
+  {
+    "context": "csv/201-csv/11.csv",
+    "id": "nt-2057",
+    "utterance": "how many many regions make up the swedish part?",
+    "targetValue": [
+      "3"
+    ]
+  },
+  {
+    "context": "csv/202-csv/200.csv",
+    "id": "nt-2074",
+    "utterance": "how long did sydney greenstreet's acting career last?",
+    "targetValue": [
+      "9 years"
+    ]
+  },
+  {
+    "context": "csv/202-csv/32.csv",
+    "id": "nt-2125",
+    "utterance": "how many recordings of nabucco have been made?",
+    "targetValue": [
+      "9"
+    ]
+  },
+  {
+    "context": "csv/202-csv/240.csv",
+    "id": "nt-2192",
+    "utterance": "how many singles from \\\"dosage\\\" appeared on the modern rock tracks charts?",
+    "targetValue": [
+      "3"
+    ]
+  },
+  {
+    "context": "csv/202-csv/32.csv",
+    "id": "nt-2208",
+    "utterance": "when was the recording of nabucco made in the metropolitan opera?",
+    "targetValue": [
+      "2002"
+    ]
+  },
+  {
+    "context": "csv/201-csv/39.csv",
+    "id": "nt-2214",
+    "utterance": "which year is the year with the most titles?",
+    "targetValue": [
+      "1974"
+    ]
+  },
+  {
+    "context": "csv/202-csv/135.csv",
+    "id": "nt-2221",
+    "utterance": "which year(s) saw the greatest average audience share?",
+    "targetValue": [
+      "1997-1998"
+    ]
+  },
+  {
+    "context": "csv/202-csv/281.csv",
+    "id": "nt-2223",
+    "utterance": "how many additional total goals did italy score compared to the republic of ireland in the 1994 fifa world cup match?",
+    "targetValue": [
+      "2"
+    ]
+  },
+  {
+    "context": "csv/202-csv/160.csv",
+    "id": "nt-2265",
+    "utterance": "how many movements (up or down) did the team experience?",
+    "targetValue": [
+      "10"
+    ]
+  },
+  {
+    "context": "csv/201-csv/1.csv",
+    "id": "nt-2268",
+    "utterance": "which mayor was elected immediately after michel deuzet?",
+    "targetValue": [
+      "Patrice Martin"
+    ]
+  },
+  {
+    "context": "csv/201-csv/42.csv",
+    "id": "nt-2283",
+    "utterance": "in what program was daniels in after planet sheen?",
+    "targetValue": [
+      "The Newsroom"
+    ]
+  },
+  {
+    "context": "csv/202-csv/197.csv",
+    "id": "nt-2304",
+    "utterance": "what was the largest gf in team history in the arab nations cup?",
+    "targetValue": [
+      "20"
+    ]
+  },
+  {
+    "context": "csv/201-csv/1.csv",
+    "id": "nt-2392",
+    "utterance": "how many mayors of airan were in office for over a decade?",
+    "targetValue": [
+      "4"
+    ]
+  },
+  {
+    "context": "csv/201-csv/21.csv",
+    "id": "nt-2414",
+    "utterance": "which role is the most common from all the titles?",
+    "targetValue": [
+      "Salesman"
+    ]
+  },
+  {
+    "context": "csv/201-csv/48.csv",
+    "id": "nt-2419",
+    "utterance": "which single ranks 1 in us and 1 in us alt?",
+    "targetValue": [
+      "\\\"Butterfly\\\""
+    ]
+  },
+  {
+    "context": "csv/200-csv/35.csv",
+    "id": "nt-2472",
+    "utterance": "as of october 25, 2005, what percentage of voters were unaffiliated?",
+    "targetValue": [
+      "49.90%"
+    ]
+  },
+  {
+    "context": "csv/202-csv/244.csv",
+    "id": "nt-2492",
+    "utterance": "besides heroes, which 1977 film also featured sally field?",
+    "targetValue": [
+      "Smokey and the Bandit"
+    ]
+  },
+  {
+    "context": "csv/201-csv/39.csv",
+    "id": "nt-2582",
+    "utterance": "what was the last title that sid marcus directed?",
+    "targetValue": [
+      "Mesa Trouble"
+    ]
+  },
+  {
+    "context": "csv/200-csv/48.csv",
+    "id": "nt-2634",
+    "utterance": "what is the average high temperature for fayetteville, arkansas in june?",
+    "targetValue": [
+      "83.5"
+    ]
+  },
+  {
+    "context": "csv/200-csv/10.csv",
+    "id": "nt-2669",
+    "utterance": "how many plan accidents were there in 2008?",
+    "targetValue": [
+      "156"
+    ]
+  },
+  {
+    "context": "csv/202-csv/161.csv",
+    "id": "nt-2687",
+    "utterance": "how many seats in the belgian parliament are reserved for the electoral district of luxembourg?",
+    "targetValue": [
+      "4"
+    ]
+  },
+  {
+    "context": "csv/202-csv/289.csv",
+    "id": "nt-2715",
+    "utterance": "which nation has the most order of st. olaf recipients?",
+    "targetValue": [
+      "Norway"
+    ]
+  },
+  {
+    "context": "csv/202-csv/200.csv",
+    "id": "nt-2742",
+    "utterance": "which movie did he get nominated for an oscar for?",
+    "targetValue": [
+      "The Maltese Falcon"
+    ]
+  },
+  {
+    "context": "csv/201-csv/39.csv",
+    "id": "nt-2767",
+    "utterance": "which person has directed most of the titles?",
+    "targetValue": [
+      "Gerry Chiniquy"
+    ]
+  },
+  {
+    "context": "csv/201-csv/44.csv",
+    "id": "nt-2777",
+    "utterance": "which film is under the year of 1999 and has the role of mandy murphy?",
+    "targetValue": [
+      "Any Given Sunday"
+    ]
+  },
+  {
+    "context": "csv/202-csv/114.csv",
+    "id": "nt-2842",
+    "utterance": "which buses are the newest in the current fleet?",
+    "targetValue": [
+      "800-829"
+    ]
+  },
+  {
+    "context": "csv/202-csv/127.csv",
+    "id": "nt-2872",
+    "utterance": "which director has the most titles accredited to them?",
+    "targetValue": [
+      "Patrick Norris"
+    ]
+  },
+  {
+    "context": "csv/200-csv/48.csv",
+    "id": "nt-2896",
+    "utterance": "which month had the average highest in temperature?",
+    "targetValue": [
+      "August"
+    ]
+  },
+  {
+    "context": "csv/202-csv/279.csv",
+    "id": "nt-2943",
+    "utterance": "which year had the most matthew j. morrison films released?",
+    "targetValue": [
+      "2007"
+    ]
+  },
+  {
+    "context": "csv/202-csv/15.csv",
+    "id": "nt-3007",
+    "utterance": "what films did mandy patinkin star in in 1998?",
+    "targetValue": [
+      "Lulu On The Bridge",
+      "Men with Guns"
+    ]
+  },
+  {
+    "context": "csv/202-csv/173.csv",
+    "id": "nt-3027",
+    "utterance": "which track was recorded before all the others?",
+    "targetValue": [
+      "\\\"Dites, si c'était vrai\\\" (poème)"
+    ]
+  },
+  {
+    "context": "csv/202-csv/159.csv",
+    "id": "nt-3038",
+    "utterance": "by how much does the macintosh cyrillic encoding differ in decimals between the small letter em and the capital letter em?",
+    "targetValue": [
+      "96"
+    ]
+  },
+  {
+    "context": "csv/200-csv/1.csv",
+    "id": "nt-3074",
+    "utterance": "in what movie was barton also the producer?",
+    "targetValue": [
+      "A Resurrection"
+    ]
+  },
+  {
+    "context": "csv/202-csv/75.csv",
+    "id": "nt-3076",
+    "utterance": "which category did both warren beatty and jeremy pikser each won together?",
+    "targetValue": [
+      "Best Screenplay (1998)"
+    ]
+  },
+  {
+    "context": "csv/201-csv/19.csv",
+    "id": "nt-3089",
+    "utterance": "how many films were made by 20th century fox studios?",
+    "targetValue": [
+      "5"
+    ]
+  },
+  {
+    "context": "csv/201-csv/29.csv",
+    "id": "nt-3112",
+    "utterance": "which president who was an independent also had the longest reign for an independent?",
+    "targetValue": [
+      "Fred Ramdat Misier"
+    ]
+  },
+  {
+    "context": "csv/201-csv/10.csv",
+    "id": "nt-3124",
+    "utterance": "how many conservative party mayors were elected after peder kalve?",
+    "targetValue": [
+      "2"
+    ]
+  },
+  {
+    "context": "csv/200-csv/14.csv",
+    "id": "nt-3131",
+    "utterance": "what year was cassie signed to bad boy?",
+    "targetValue": [
+      "2006"
+    ]
+  },
+  {
+    "context": "csv/200-csv/22.csv",
+    "id": "nt-3178",
+    "utterance": "what album was \\\"hard woman\\\" from?",
+    "targetValue": [
+      "She's the Boss"
+    ]
+  },
+  {
+    "context": "csv/202-csv/287.csv",
+    "id": "nt-3191",
+    "utterance": "how many more kw of power does the en71 use than the en57?",
+    "targetValue": [
+      "740"
+    ]
+  },
+  {
+    "context": "csv/202-csv/102.csv",
+    "id": "nt-3267",
+    "utterance": "how many battles resulted between 3,000 and 4,200 estimated americans killed?",
+    "targetValue": [
+      "6"
+    ]
+  },
+  {
+    "context": "csv/202-csv/76.csv",
+    "id": "nt-3269",
+    "utterance": "of the members of the third incarnation of the lachlan, who served the longest?",
+    "targetValue": [
+      "Ernest Buttenshaw"
+    ]
+  },
+  {
+    "context": "csv/200-csv/30.csv",
+    "id": "nt-3323",
+    "utterance": "in what year did they win them?",
+    "targetValue": [
+      "2005"
+    ]
+  },
+  {
+    "context": "csv/201-csv/19.csv",
+    "id": "nt-3409",
+    "utterance": "which movie starring burt lancaster, paul scofield, jeanne moreau and michel simon was also produced by united artists?",
+    "targetValue": [
+      "The Train"
+    ]
+  },
+  {
+    "context": "csv/202-csv/286.csv",
+    "id": "nt-3422",
+    "utterance": "in what year did dibley not win a double final?",
+    "targetValue": [
+      "1972"
+    ]
+  },
+  {
+    "context": "csv/201-csv/31.csv",
+    "id": "nt-3432",
+    "utterance": "which author had a poem on this list with the first line \\\"as it fell upon day\\\" and also a poem that starts with \\\"if music and sweet poetry agree\\\".",
+    "targetValue": [
+      "Richard Barnfield"
+    ]
+  },
+  {
+    "context": "csv/202-csv/294.csv",
+    "id": "nt-3436",
+    "utterance": "in what year did the highest number of points occur?",
+    "targetValue": [
+      "1998"
+    ]
+  },
+  {
+    "context": "csv/201-csv/42.csv",
+    "id": "nt-3492",
+    "utterance": "for which television show was jeff daniels nominated for both an emmy and golden globe award?",
+    "targetValue": [
+      "The Newsroom"
+    ]
+  },
+  {
+    "context": "csv/200-csv/44.csv",
+    "id": "nt-3507",
+    "utterance": "when did pier ruggero piccio's term start?",
+    "targetValue": [
+      "1 January 1926"
+    ]
+  },
+  {
+    "context": "csv/201-csv/39.csv",
+    "id": "nt-3530",
+    "utterance": "who directed the most cartoons?",
+    "targetValue": [
+      "Gerry Chiniquy"
+    ]
+  },
+  {
+    "context": "csv/202-csv/157.csv",
+    "id": "nt-3584",
+    "utterance": "did the liberal party of canada have more or less members after the dissolution of the 37th parliament of canada in the senate?",
+    "targetValue": [
+      "less"
+    ]
+  },
+  {
+    "context": "csv/202-csv/271.csv",
+    "id": "nt-3587",
+    "utterance": "how many votes did both the conservative party and the rainbow dream ticket party receive?",
+    "targetValue": [
+      "6634"
+    ]
+  },
+  {
+    "context": "csv/202-csv/219.csv",
+    "id": "nt-3616",
+    "utterance": "what was the highest ranking in the singles chart \\\"holding out for a hero\\\" achieved outside of europe.",
+    "targetValue": [
+      "19"
+    ]
+  },
+  {
+    "context": "csv/202-csv/7.csv",
+    "id": "nt-3617",
+    "utterance": "in what year did jon stewart have the highest number of roles?",
+    "targetValue": [
+      "1997"
+    ]
+  },
+  {
+    "context": "csv/201-csv/49.csv",
+    "id": "nt-3702",
+    "utterance": "during what month are the highest temperature records at bari karol wojtyla airport?",
+    "targetValue": [
+      "August"
+    ]
+  },
+  {
+    "context": "csv/201-csv/25.csv",
+    "id": "nt-3707",
+    "utterance": "what is the total number of years gordon wallace and robert cunning spent in office.",
+    "targetValue": [
+      "6"
+    ]
+  },
+  {
+    "context": "csv/202-csv/15.csv",
+    "id": "nt-3715",
+    "utterance": "how many film roles did mandy patinkin play in 1991?",
+    "targetValue": [
+      "3"
+    ]
+  },
+  {
+    "context": "csv/200-csv/12.csv",
+    "id": "nt-3751",
+    "utterance": "what play was wanamaker nominated for best actress in a revival in 1984?",
+    "targetValue": [
+      "Twelfth Night"
+    ]
+  },
+  {
+    "context": "csv/201-csv/19.csv",
+    "id": "nt-3757",
+    "utterance": "how many films have united artists as their studio?",
+    "targetValue": [
+      "7"
+    ]
+  },
+  {
+    "context": "csv/201-csv/45.csv",
+    "id": "nt-3774",
+    "utterance": "which month had the most snowfall?",
+    "targetValue": [
+      "Feb"
+    ]
+  },
+  {
+    "context": "csv/202-csv/192.csv",
+    "id": "nt-3783",
+    "utterance": "how many regions was the album released in?",
+    "targetValue": [
+      "9"
+    ]
+  },
+  {
+    "context": "csv/202-csv/72.csv",
+    "id": "nt-3801",
+    "utterance": "which singles each appear at position 22?",
+    "targetValue": [
+      "Dreams",
+      "Love Walks In"
+    ]
+  },
+  {
+    "context": "csv/202-csv/31.csv",
+    "id": "nt-3817",
+    "utterance": "when was the last album of this band recorded?",
+    "targetValue": [
+      "Penny Black"
+    ]
+  },
+  {
+    "context": "csv/202-csv/31.csv",
+    "id": "nt-3837",
+    "utterance": "how many albums has this band released?",
+    "targetValue": [
+      "4"
+    ]
+  },
+  {
+    "context": "csv/202-csv/135.csv",
+    "id": "nt-3896",
+    "utterance": "how many years did heartbeat series run in total?",
+    "targetValue": [
+      "18"
+    ]
+  },
+  {
+    "context": "csv/201-csv/9.csv",
+    "id": "nt-3902",
+    "utterance": "list the films that had a collaboration with b. dziworski.",
+    "targetValue": [
+      "Sceny Narciarskie z Franzem Klammeren (Ski Scenes with Franz Klammer)",
+      "Wdech-Wydech (Inhale-Exhale)"
+    ]
+  },
+  {
+    "context": "csv/201-csv/11.csv",
+    "id": "nt-3922",
+    "utterance": "which region has the most population?",
+    "targetValue": [
+      "Danish Capital Region"
+    ]
+  },
+  {
+    "context": "csv/202-csv/244.csv",
+    "id": "nt-3932",
+    "utterance": "name the second highest grossing film of 1977.",
+    "targetValue": [
+      "Smokey and the Bandit"
+    ]
+  },
+  {
+    "context": "csv/200-csv/1.csv",
+    "id": "nt-3933",
+    "utterance": "in what year did barton appear in the most films?",
+    "targetValue": [
+      "2013"
+    ]
+  },
+  {
+    "context": "csv/202-csv/7.csv",
+    "id": "nt-3987",
+    "utterance": "how many more roles did jon stewart have in 1997 compared to 2007?",
+    "targetValue": [
+      "4"
+    ]
+  },
+  {
+    "context": "csv/200-csv/32.csv",
+    "id": "nt-3994",
+    "utterance": "how many years did cooney checkaye coach the muncie flyers?",
+    "targetValue": [
+      "6"
+    ]
+  },
+  {
+    "context": "csv/201-csv/24.csv",
+    "id": "nt-4105",
+    "utterance": "how many episodes aired in february?",
+    "targetValue": [
+      "4"
+    ]
+  },
+  {
+    "context": "csv/202-csv/131.csv",
+    "id": "nt-4110",
+    "utterance": "which touchstone energy 300 top 10 driver also came in first at the auto club 300?",
+    "targetValue": [
+      "Matt Kenseth"
+    ]
+  },
+  {
+    "context": "csv/201-csv/38.csv",
+    "id": "nt-4175",
+    "utterance": "which team has the highest number of consecutive calder memorial trophy winners?",
+    "targetValue": [
+      "Toronto Maple Leafs"
+    ]
+  },
+  {
+    "context": "csv/201-csv/48.csv",
+    "id": "nt-4200",
+    "utterance": "by how many chart positions higher did \\\"revolving door\\\" peak in the uk compared to the peak position of \\\"drowning\\\" in the uk?",
+    "targetValue": [
+      "27"
+    ]
+  },
+  {
+    "context": "csv/202-csv/43.csv",
+    "id": "nt-4234",
+    "utterance": "from where did 'stayin' alive' receive the most accolades?",
+    "targetValue": [
+      "Rolling Stone"
+    ]
+  },
+  {
+    "context": "csv/202-csv/44.csv",
+    "id": "nt-4282",
+    "utterance": "what continent had the highest population in 1970?",
+    "targetValue": [
+      "Asia"
+    ]
+  },
+  {
+    "context": "csv/201-csv/37.csv",
+    "id": "nt-4287",
+    "utterance": "between january, october and december which month had the most rainfall?",
+    "targetValue": [
+      "October"
+    ]
+  },
+  {
+    "context": "csv/200-csv/1.csv",
+    "id": "nt-4290",
+    "utterance": "what year was the film polio water released?",
+    "targetValue": [
+      "1995"
+    ]
+  },
+  {
+    "context": "csv/201-csv/22.csv",
+    "id": "nt-4302",
+    "utterance": "how many months had a record high of 111 degrees?",
+    "targetValue": [
+      "3"
+    ]
+  },
+  {
+    "context": "csv/202-csv/80.csv",
+    "id": "nt-4317",
+    "utterance": "how much higher, in feet, is marmolada than vernel?",
+    "targetValue": [
+      "649"
+    ]
+  },
+  {
+    "context": "csv/200-csv/15.csv",
+    "id": "nt-4333",
+    "utterance": "what was the name of paul reubens's character in the popular t.v. show \\\"murphy brown?\\\"",
+    "targetValue": [
+      "Andrew J. Lansing III"
+    ]
+  },
+  {
+    "context": "csv/201-csv/7.csv",
+    "id": "nt-4394",
+    "utterance": "which is the year that has a gross domestic product more than 8,114 but less than 21,783 in gross domestic product?",
+    "targetValue": [
+      "2000"
+    ]
+  },
+  {
+    "context": "csv/202-csv/68.csv",
+    "id": "nt-4438",
+    "utterance": "what is on the obverse side of each coin?",
+    "targetValue": [
+      "State arms"
+    ]
+  },
+  {
+    "context": "csv/201-csv/10.csv",
+    "id": "nt-4439",
+    "utterance": "which political party has had the most elected mayors?",
+    "targetValue": [
+      "Conservative Party"
+    ]
+  },
+  {
+    "context": "csv/202-csv/191.csv",
+    "id": "nt-4461",
+    "utterance": "how many more votes did the liberal democratic league win over the free-thinking democratic league?",
+    "targetValue": [
+      "112,781"
+    ]
+  },
+  {
+    "context": "csv/202-csv/285.csv",
+    "id": "nt-4511",
+    "utterance": "how many more votes did athens receive than stockholm in round 1?",
+    "targetValue": [
+      "12"
+    ]
+  },
+  {
+    "context": "csv/201-csv/35.csv",
+    "id": "nt-4526",
+    "utterance": "which unesco goodwill ambassador is most known for the promotion of the chernobyl program?",
+    "targetValue": [
+      "Pierre Cardin"
+    ]
+  },
+  {
+    "context": "csv/201-csv/7.csv",
+    "id": "nt-4573",
+    "utterance": "how many times is the us dollar exchange 0.29 kuwaiti dinars?",
+    "targetValue": [
+      "4"
+    ]
+  },
+  {
+    "context": "csv/201-csv/37.csv",
+    "id": "nt-4607",
+    "utterance": "how many months had a record high of over 15.0 degrees?",
+    "targetValue": [
+      "11"
+    ]
+  },
+  {
+    "context": "csv/202-csv/157.csv",
+    "id": "nt-4622",
+    "utterance": "after the dissolution of the 37th parliament of canada how many more house members did the new democratic party have?",
+    "targetValue": [
+      "1"
+    ]
+  },
+  {
+    "context": "csv/201-csv/33.csv",
+    "id": "nt-4629",
+    "utterance": "which month averages the least precipitation in kindersley?",
+    "targetValue": [
+      "Feb"
+    ]
+  },
+  {
+    "context": "csv/202-csv/231.csv",
+    "id": "nt-4633",
+    "utterance": "which party has the most seats in parliament?",
+    "targetValue": [
+      "Swedish Social Democratic Party"
+    ]
+  },
+  {
+    "context": "csv/201-csv/14.csv",
+    "id": "nt-4660",
+    "utterance": "which crossing carries the most routes (e.g., de 1)?",
+    "targetValue": [
+      "Summit Bridge"
+    ]
+  },
+  {
+    "context": "csv/202-csv/38.csv",
+    "id": "nt-4688",
+    "utterance": "how many times has mary j. blige played characters other than herself since her role as mrs. butler?",
+    "targetValue": [
+      "6"
+    ]
+  },
+  {
+    "context": "csv/202-csv/161.csv",
+    "id": "nt-4700",
+    "utterance": "which dutch language electoral district of belgium has the most seats in parliament?",
+    "targetValue": [
+      "Antwerp"
+    ]
+  },
+  {
+    "context": "csv/201-csv/25.csv",
+    "id": "nt-4720",
+    "utterance": "which party had its first leader in 1974 and last leader in 1980?",
+    "targetValue": [
+      "Scottish National Party"
+    ]
+  },
+  {
+    "context": "csv/202-csv/31.csv",
+    "id": "nt-4758",
+    "utterance": "which album is the best performing on the us charts?",
+    "targetValue": [
+      "How to Start a Fire"
+    ]
+  },
+  {
+    "context": "csv/201-csv/42.csv",
+    "id": "nt-4762",
+    "utterance": "how many times did daniels host saturday night live?",
+    "targetValue": [
+      "2"
+    ]
+  },
+  {
+    "context": "csv/202-csv/198.csv",
+    "id": "nt-4796",
+    "utterance": "which tv show did this actress star in the most episodes?",
+    "targetValue": [
+      "Downton Abbey"
+    ]
+  },
+  {
+    "context": "csv/202-csv/159.csv",
+    "id": "nt-4804",
+    "utterance": "how many encodings have a decimal above 200 for the capital letter em?",
+    "targetValue": [
+      "6"
+    ]
+  },
+  {
+    "context": "csv/201-csv/10.csv",
+    "id": "nt-4833",
+    "utterance": "which 2 mayors were fisherman?",
+    "targetValue": [
+      "Peder Olai Kleppe",
+      "Salomon O. Fagerbakke"
+    ]
+  },
+  {
+    "context": "csv/202-csv/44.csv",
+    "id": "nt-4860",
+    "utterance": "how many areas achieved more than 250,000,000 people in 1970?",
+    "targetValue": [
+      "4"
+    ]
+  },
+  {
+    "context": "csv/201-csv/13.csv",
+    "id": "nt-4918",
+    "utterance": "which city in wisconsin is the most populous, based on the 2010 census?",
+    "targetValue": [
+      "Milwaukee"
+    ]
+  },
+  {
+    "context": "csv/201-csv/27.csv",
+    "id": "nt-4960",
+    "utterance": "was macdonald prime minister before or after bowell?",
+    "targetValue": [
+      "Before"
+    ]
+  },
+  {
+    "context": "csv/202-csv/85.csv",
+    "id": "nt-4990",
+    "utterance": "which team has the most championships?",
+    "targetValue": [
+      "Edgewood Eagles"
+    ]
+  },
+  {
+    "context": "csv/202-csv/191.csv",
+    "id": "nt-5021",
+    "utterance": "name the top three parties?",
+    "targetValue": [
+      "Liberal Democratic League",
+      "Anti Revolutionary Party",
+      "General League of Roman Catholic Caucuses"
+    ]
+  },
+  {
+    "context": "csv/200-csv/14.csv",
+    "id": "nt-5035",
+    "utterance": "what year was machine gun kelly signed?",
+    "targetValue": [
+      "2011"
+    ]
+  },
+  {
+    "context": "csv/202-csv/137.csv",
+    "id": "nt-5064",
+    "utterance": "when was morgenstern's film debut?",
+    "targetValue": [
+      "1983"
+    ]
+  },
+  {
+    "context": "csv/201-csv/11.csv",
+    "id": "nt-5154",
+    "utterance": "which region in the danish part has the highest population?",
+    "targetValue": [
+      "Danish Capital Region"
+    ]
+  },
+  {
+    "context": "csv/202-csv/205.csv",
+    "id": "nt-5186",
+    "utterance": "in how many titles on this list did he not play the role of phineas bogg?",
+    "targetValue": [
+      "4"
+    ]
+  },
+  {
+    "context": "csv/200-csv/33.csv",
+    "id": "nt-5223",
+    "utterance": "what is the combined area size of the yamato flat inland plain and the yamato highland?",
+    "targetValue": [
+      "1344.16"
+    ]
+  },
+  {
+    "context": "csv/201-csv/7.csv",
+    "id": "nt-5234",
+    "utterance": "how many years have an inflation index above 90?",
+    "targetValue": [
+      "3"
+    ]
+  },
+  {
+    "context": "csv/201-csv/36.csv",
+    "id": "nt-5252",
+    "utterance": "which film has their role under igiyook?",
+    "targetValue": [
+      "Shadow of the Wolf"
+    ]
+  },
+  {
+    "context": "csv/201-csv/36.csv",
+    "id": "nt-5292",
+    "utterance": "how many films does jennifer tilly do a voice over role in?",
+    "targetValue": [
+      "5"
+    ]
+  },
+  {
+    "context": "csv/201-csv/44.csv",
+    "id": "nt-5316",
+    "utterance": "how many of the films listed were a television movie?",
+    "targetValue": [
+      "10"
+    ]
+  },
+  {
+    "context": "csv/202-csv/80.csv",
+    "id": "nt-5317",
+    "utterance": "which peaks in the dolomites start with the letter c and are under 3,000 meters?",
+    "targetValue": [
+      "10"
+    ]
+  },
+  {
+    "context": "csv/202-csv/233.csv",
+    "id": "nt-5318",
+    "utterance": "which opponent did kindley have the most victories against?",
+    "targetValue": [
+      "Fokker D.VII"
+    ]
+  },
+  {
+    "context": "csv/201-csv/33.csv",
+    "id": "nt-5323",
+    "utterance": "which month had 15.6 inches in rainfall and also 9.5 inches in snowfall?",
+    "targetValue": [
+      "Apr"
+    ]
+  },
+  {
+    "context": "csv/200-csv/12.csv",
+    "id": "nt-5331",
+    "utterance": "what award did once in a lifetime win?",
+    "targetValue": [
+      "Best Actress in a Revival"
+    ]
+  },
+  {
+    "context": "csv/201-csv/34.csv",
+    "id": "nt-5339",
+    "utterance": "which film has their role as regina?",
+    "targetValue": [
+      "Unser stiller Mann"
+    ]
+  },
+  {
+    "context": "csv/201-csv/17.csv",
+    "id": "nt-5367",
+    "utterance": "what construction company built most of these landmarks?",
+    "targetValue": [
+      "Del E. Webb Construction Company"
+    ]
+  },
+  {
+    "context": "csv/201-csv/17.csv",
+    "id": "nt-5411",
+    "utterance": "which landmark was built del e., webb construction company and was also designed to resemble an enlisted aviator badge?",
+    "targetValue": [
+      "Demountable Hangar"
+    ]
+  },
+  {
+    "context": "csv/202-csv/118.csv",
+    "id": "nt-5432",
+    "utterance": "which woman had the best time?",
+    "targetValue": [
+      "Anna Meares"
+    ]
+  },
+  {
+    "context": "csv/202-csv/45.csv",
+    "id": "nt-5433",
+    "utterance": "who has spent more time as nwa world heavyyweight champion, gene kiniski or ric flair?",
+    "targetValue": [
+      "Ric Flair"
+    ]
+  },
+  {
+    "context": "csv/202-csv/198.csv",
+    "id": "nt-5617",
+    "utterance": "how many episodes did this actress involve herself in three moons over milford?",
+    "targetValue": [
+      "8"
+    ]
+  },
+  {
+    "context": "csv/201-csv/46.csv",
+    "id": "nt-5621",
+    "utterance": "which river is positioned right, with a drainage area for 11.8",
+    "targetValue": [
+      "Ilse"
+    ]
+  },
+  {
+    "context": "csv/202-csv/54.csv",
+    "id": "nt-5626",
+    "utterance": "which song has the longest weeks on global asia's top 15 chart?",
+    "targetValue": [
+      "Super Star"
+    ]
+  },
+  {
+    "context": "csv/201-csv/39.csv",
+    "id": "nt-5658",
+    "utterance": "how many titles did bob balsar direct?",
+    "targetValue": [
+      "3"
+    ]
+  },
+  {
+    "context": "csv/202-csv/150.csv",
+    "id": "nt-5682",
+    "utterance": "how many years after sir carne rasch's election was john macnamara elected?",
+    "targetValue": [
+      "35"
+    ]
+  },
+  {
+    "context": "csv/202-csv/76.csv",
+    "id": "nt-5683",
+    "utterance": "how many years of service do the members of the second incarnation have combined?",
+    "targetValue": [
+      "26"
+    ]
+  },
+  {
+    "context": "csv/200-csv/25.csv",
+    "id": "nt-5695",
+    "utterance": "which bbc station had cost the most to run in 2012/13?",
+    "targetValue": [
+      "BBC Local Radio"
+    ]
+  },
+  {
+    "context": "csv/202-csv/287.csv",
+    "id": "nt-5699",
+    "utterance": "how many cars in a unit will the en71 accommodate?",
+    "targetValue": [
+      "4"
+    ]
+  },
+  {
+    "context": "csv/202-csv/253.csv",
+    "id": "nt-5713",
+    "utterance": "how many titles has jamaica won since trinidad and tobago's last title?",
+    "targetValue": [
+      "3"
+    ]
+  },
+  {
+    "context": "csv/201-csv/45.csv",
+    "id": "nt-5727",
+    "utterance": "how many months in the year had their average high f(c) degrees in the range of 80s?",
+    "targetValue": [
+      "3"
+    ]
+  },
+  {
+    "context": "csv/202-csv/28.csv",
+    "id": "nt-5736",
+    "utterance": "in what years, between 1990 and 2004, did japan's unemployment rate reach 5% or higher?",
+    "targetValue": [
+      "4"
+    ]
+  },
+  {
+    "context": "csv/202-csv/76.csv",
+    "id": "nt-5746",
+    "utterance": "how long did the fourth incarnation of the lachlan exist?",
+    "targetValue": [
+      "1981-2007"
+    ]
+  },
+  {
+    "context": "csv/200-csv/38.csv",
+    "id": "nt-5752",
+    "utterance": "how many old municipalities were in tripoli?",
+    "targetValue": [
+      "8"
+    ]
+  },
+  {
+    "context": "csv/202-csv/45.csv",
+    "id": "nt-5792",
+    "utterance": "how long did orville brown remain nwa world heavyweight champion?",
+    "targetValue": [
+      "692 days"
+    ]
+  },
+  {
+    "context": "csv/201-csv/19.csv",
+    "id": "nt-5802",
+    "utterance": "which film was the best in terms of profit for walt disney productions?",
+    "targetValue": [
+      "That Darn Cat!"
+    ]
+  },
+  {
+    "context": "csv/200-csv/10.csv",
+    "id": "nt-5816",
+    "utterance": "which year was responsible for 4,140 deaths?",
+    "targetValue": [
+      "2001"
+    ]
+  },
+  {
+    "context": "csv/202-csv/222.csv",
+    "id": "nt-5852",
+    "utterance": "which qualifying driver has the largest gap?",
+    "targetValue": [
+      "Jimmy Jackson"
+    ]
+  },
+  {
+    "context": "csv/202-csv/200.csv",
+    "id": "nt-5924",
+    "utterance": "how many movies has he been from 1941-1949.",
+    "targetValue": [
+      "23"
+    ]
+  },
+  {
+    "context": "csv/202-csv/28.csv",
+    "id": "nt-5961",
+    "utterance": "what year had the highest unemployment rate?",
+    "targetValue": [
+      "2002"
+    ]
+  },
+  {
+    "context": "csv/201-csv/10.csv",
+    "id": "nt-5989",
+    "utterance": "how many mayors were either fisherman or farmers?",
+    "targetValue": [
+      "5"
+    ]
+  },
+  {
+    "context": "csv/202-csv/85.csv",
+    "id": "nt-6021",
+    "utterance": "which of the madison sports teams was established first?",
+    "targetValue": [
+      "Wisconsin Badgers"
+    ]
+  },
+  {
+    "context": "csv/202-csv/285.csv",
+    "id": "nt-6023",
+    "utterance": "did athens or rome receive more votes in round 3?",
+    "targetValue": [
+      "Athens"
+    ]
+  },
+  {
+    "context": "csv/202-csv/137.csv",
+    "id": "nt-6037",
+    "utterance": "what language has the most films?",
+    "targetValue": [
+      "Romanian"
+    ]
+  },
+  {
+    "context": "csv/201-csv/11.csv",
+    "id": "nt-6059",
+    "utterance": "which regions have over one million in population?",
+    "targetValue": [
+      "1"
+    ]
+  },
+  {
+    "context": "csv/202-csv/67.csv",
+    "id": "nt-6103",
+    "utterance": "when did morgan begin hosting scare tactics?",
+    "targetValue": [
+      "2008"
+    ]
+  },
+  {
+    "context": "csv/200-csv/42.csv",
+    "id": "nt-6133",
+    "utterance": "what is the month with the lowest average low in haifa?",
+    "targetValue": [
+      "January"
+    ]
+  },
+  {
+    "context": "csv/202-csv/90.csv",
+    "id": "nt-6162",
+    "utterance": "which town name is the best if you want an area with the largest square miles?",
+    "targetValue": [
+      "Seattle"
+    ]
+  },
+  {
+    "context": "csv/202-csv/281.csv",
+    "id": "nt-6197",
+    "utterance": "which team is the most attended team?",
+    "targetValue": [
+      "Italy"
+    ]
+  },
+  {
+    "context": "csv/201-csv/2.csv",
+    "id": "nt-6204",
+    "utterance": "which of the following roller coasters is the oldest: star of lake tai, star of nanchang, melbourne star",
+    "targetValue": [
+      "Star of Nanchang"
+    ]
+  },
+  {
+    "context": "csv/201-csv/19.csv",
+    "id": "nt-6253",
+    "utterance": "which 1965 film starred actors elizabeth taylor and richard burton?",
+    "targetValue": [
+      "The Sandpiper"
+    ]
+  },
+  {
+    "context": "csv/202-csv/24.csv",
+    "id": "nt-6254",
+    "utterance": "which album achieved the highest peak chart position?",
+    "targetValue": [
+      "Finally"
+    ]
+  },
+  {
+    "context": "csv/202-csv/137.csv",
+    "id": "nt-6298",
+    "utterance": "how many films were filmed in romanian?",
+    "targetValue": [
+      "32"
+    ]
+  },
+  {
+    "context": "csv/202-csv/265.csv",
+    "id": "nt-6404",
+    "utterance": "how many bus routes are handled by trustybus?",
+    "targetValue": [
+      "2"
+    ]
+  },
+  {
+    "context": "csv/200-csv/10.csv",
+    "id": "nt-6474",
+    "utterance": "how many deaths were in year 2012 due to plan accidents?",
+    "targetValue": [
+      "794"
+    ]
+  },
+  {
+    "context": "csv/201-csv/42.csv",
+    "id": "nt-6627",
+    "utterance": "list the titles that include \\\"host\\\" as the role.",
+    "targetValue": [
+      "Saturday Night Live"
+    ]
+  },
+  {
+    "context": "csv/200-csv/47.csv",
+    "id": "nt-6638",
+    "utterance": "when did the third drop in the experiment fall?",
+    "targetValue": [
+      "April 1954"
+    ]
+  },
+  {
+    "context": "csv/202-csv/195.csv",
+    "id": "nt-6659",
+    "utterance": "how many awards has elizabeth dawn received, in total, for her work in the entertainment industry?",
+    "targetValue": [
+      "2"
+    ]
+  },
+  {
+    "context": "csv/202-csv/281.csv",
+    "id": "nt-6675",
+    "utterance": "which team won the 1994 fifa world cup match with the highest attendance?",
+    "targetValue": [
+      "Saudi Arabia"
+    ]
+  },
+  {
+    "context": "csv/202-csv/179.csv",
+    "id": "nt-6682",
+    "utterance": "how many laps did juan pablo montoya complete in the 2005 belgian grand prix?",
+    "targetValue": [
+      "40"
+    ]
+  },
+  {
+    "context": "csv/201-csv/24.csv",
+    "id": "nt-6687",
+    "utterance": "how many episodes are in series 7 (1983)?",
+    "targetValue": [
+      "6"
+    ]
+  },
+  {
+    "context": "csv/202-csv/59.csv",
+    "id": "nt-6715",
+    "utterance": "how many teams have the same amount of losses (l)?",
+    "targetValue": [
+      "4"
+    ]
+  },
+  {
+    "context": "csv/202-csv/295.csv",
+    "id": "nt-6724",
+    "utterance": "how many seasons did kevin gall play for yeovil town?",
+    "targetValue": [
+      "4"
+    ]
+  },
+  {
+    "context": "csv/201-csv/29.csv",
+    "id": "nt-6729",
+    "utterance": "which president had the shortest term without being deposed?",
+    "targetValue": [
+      "Johan Kraag"
+    ]
+  },
+  {
+    "context": "csv/201-csv/25.csv",
+    "id": "nt-6770",
+    "utterance": "which party has had the most group leaders?",
+    "targetValue": [
+      "Labour"
+    ]
+  },
+  {
+    "context": "csv/200-csv/7.csv",
+    "id": "nt-6829",
+    "utterance": "how do you say \\\"do you speak afrikaans?\\\" in afrikaans?",
+    "targetValue": [
+      "Praat jy Afrikaans?"
+    ]
+  },
+  {
+    "context": "csv/201-csv/25.csv",
+    "id": "nt-6831",
+    "utterance": "which party had only one leader and only a three year office term?",
+    "targetValue": [
+      "Independent"
+    ]
+  },
+  {
+    "context": "csv/200-csv/17.csv",
+    "id": "nt-6847",
+    "utterance": "what year was the single, \\\"superwoman\\\", released",
+    "targetValue": [
+      "1991"
+    ]
+  },
+  {
+    "context": "csv/201-csv/27.csv",
+    "id": "nt-6857",
+    "utterance": "how many secretaries of state had the last name bouchard?",
+    "targetValue": [
+      "2"
+    ]
+  },
+  {
+    "context": "csv/200-csv/1.csv",
+    "id": "nt-6886",
+    "utterance": "what was the name of the girl on sixth sense played by mischa barton?",
+    "targetValue": [
+      "Kyra Collins"
+    ]
+  },
+  {
+    "context": "csv/202-csv/7.csv",
+    "id": "nt-6894",
+    "utterance": "how many grammy awards did john stewart host?",
+    "targetValue": [
+      "2"
+    ]
+  },
+  {
+    "context": "csv/202-csv/63.csv",
+    "id": "nt-7059",
+    "utterance": "who had the leading amount of goals kicked in 2004?",
+    "targetValue": [
+      "Warren Tredrea"
+    ]
+  },
+  {
+    "context": "csv/200-csv/33.csv",
+    "id": "nt-7088",
+    "utterance": "which district has the highest population?",
+    "targetValue": [
+      "Yamato flat inland plain"
+    ]
+  },
+  {
+    "context": "csv/202-csv/244.csv",
+    "id": "nt-7145",
+    "utterance": "which diane keaton film ranked higher?",
+    "targetValue": [
+      "Annie Hall"
+    ]
+  },
+  {
+    "context": "csv/201-csv/15.csv",
+    "id": "nt-7156",
+    "utterance": "based on sales figures, what auryn album is the most popular?",
+    "targetValue": [
+      "Endless Road 7058"
+    ]
+  },
+  {
+    "context": "csv/202-csv/126.csv",
+    "id": "nt-7171",
+    "utterance": "which defendant was also the second-in-command to the gestapo?",
+    "targetValue": [
+      "Walter Schellenberg"
+    ]
+  },
+  {
+    "context": "csv/200-csv/48.csv",
+    "id": "nt-7210",
+    "utterance": "which month had the record high in temperature?",
+    "targetValue": [
+      "July"
+    ]
+  },
+  {
+    "context": "csv/202-csv/232.csv",
+    "id": "nt-7211",
+    "utterance": "how many of the institutions are located in london?",
+    "targetValue": [
+      "4"
+    ]
+  },
+  {
+    "context": "csv/202-csv/240.csv",
+    "id": "nt-7219",
+    "utterance": "how many different charts did \\\"run\\\" make?",
+    "targetValue": [
+      "3"
+    ]
+  },
+  {
+    "context": "csv/202-csv/202.csv",
+    "id": "nt-7231",
+    "utterance": "who was the first assistant secretary of the navy?",
+    "targetValue": [
+      "Gustavus Fox"
+    ]
+  },
+  {
+    "context": "csv/201-csv/3.csv",
+    "id": "nt-7232",
+    "utterance": "which month had a record high temperature of 100 degrees fahrenheit and also a record low temperature of 19 degrees fahrenheit?",
+    "targetValue": [
+      "January"
+    ]
+  },
+  {
+    "context": "csv/200-csv/44.csv",
+    "id": "nt-7253",
+    "utterance": "how many people had terms in the 1970s?",
+    "targetValue": [
+      "4"
+    ]
+  },
+  {
+    "context": "csv/202-csv/85.csv",
+    "id": "nt-7258",
+    "utterance": "which teams have won at least 20 championships?",
+    "targetValue": [
+      "Wisconsin Badgers",
+      "Edgewood Eagles",
+      "Madison College Wolfpack"
+    ]
+  },
+  {
+    "context": "csv/202-csv/43.csv",
+    "id": "nt-7303",
+    "utterance": "how many times has 'stayin' alive' been recognized as one of the rolling stone's \\\"500 greatest songs of all time\\\"?",
+    "targetValue": [
+      "2"
+    ]
+  },
+  {
+    "context": "csv/200-csv/15.csv",
+    "id": "nt-7315",
+    "utterance": "how many years did pee-wee's playhouse run on television?",
+    "targetValue": [
+      "4"
+    ]
+  },
+  {
+    "context": "csv/202-csv/7.csv",
+    "id": "nt-7361",
+    "utterance": "what show has john stewart had the longest tenure on?",
+    "targetValue": [
+      "The Daily Show"
+    ]
+  },
+  {
+    "context": "csv/201-csv/19.csv",
+    "id": "nt-7454",
+    "utterance": "how many times is 20th century fox on the top grossing films (u.s.) list?",
+    "targetValue": [
+      "5"
+    ]
+  },
+  {
+    "context": "csv/202-csv/29.csv",
+    "id": "nt-7508",
+    "utterance": "which year was joan rivers nominated for a tony award and what was the nominated work?",
+    "targetValue": [
+      "1994",
+      "Sally Marr...and her escorts"
+    ]
+  },
+  {
+    "context": "csv/201-csv/2.csv",
+    "id": "nt-7516",
+    "utterance": "where was the original tallest roller coster built?",
+    "targetValue": [
+      "Chicago"
+    ]
+  },
+  {
+    "context": "csv/200-csv/0.csv",
+    "id": "nt-7562",
+    "utterance": "what was the earliest album?",
+    "targetValue": [
+      "Renaissance"
+    ]
+  },
+  {
+    "context": "csv/201-csv/25.csv",
+    "id": "nt-7614",
+    "utterance": "which leader served more years, william leslie, or joyce shannon?",
+    "targetValue": [
+      "William Leslie"
+    ]
+  },
+  {
+    "context": "csv/202-csv/232.csv",
+    "id": "nt-7640",
+    "utterance": "what is the most recent institution to gain university status?",
+    "targetValue": [
+      "Loughborough University"
+    ]
+  },
+  {
+    "context": "csv/201-csv/17.csv",
+    "id": "nt-7653",
+    "utterance": "considering just the landmarks that have constructed dates, which is the oldest?",
+    "targetValue": [
+      "Demountable Hangar"
+    ]
+  },
+  {
+    "context": "csv/200-csv/17.csv",
+    "id": "nt-7720",
+    "utterance": "when was the single, \\\"am i too late\\\", released?",
+    "targetValue": [
+      "1979"
+    ]
+  },
+  {
+    "context": "csv/201-csv/6.csv",
+    "id": "nt-7724",
+    "utterance": "how many months had the same amount of average rainy days?",
+    "targetValue": [
+      "2"
+    ]
+  },
+  {
+    "context": "csv/202-csv/87.csv",
+    "id": "nt-7777",
+    "utterance": "in how many films is the role listed as \\\"herself\\\"?",
+    "targetValue": [
+      "10"
+    ]
+  },
+  {
+    "context": "csv/202-csv/52.csv",
+    "id": "nt-7782",
+    "utterance": "how many seasons has ott been the skip?",
+    "targetValue": [
+      "11"
+    ]
+  },
+  {
+    "context": "csv/202-csv/283.csv",
+    "id": "nt-7799",
+    "utterance": "mag ruffman's role as alice lawson, who she first played in anne of green gables in 1985, was renewed in what movie?",
+    "targetValue": [
+      "Anne of Avonlea"
+    ]
+  },
+  {
+    "context": "csv/201-csv/28.csv",
+    "id": "nt-7823",
+    "utterance": "which game is credited with a creative director and warner bros. interactive entertainment as their creative director?",
+    "targetValue": [
+      "Sesame Street: Once Upon a Monster"
+    ]
+  },
+  {
+    "context": "csv/202-csv/207.csv",
+    "id": "nt-7890",
+    "utterance": "which color of crayon in crayola's crayons with glitter set also includes ruby red glitter?",
+    "targetValue": [
+      "Royal Purple"
+    ]
+  },
+  {
+    "context": "csv/201-csv/19.csv",
+    "id": "nt-7899",
+    "utterance": "who starred in the 1965 film how to murder your wife?",
+    "targetValue": [
+      "Jack Lemmon"
+    ]
+  },
+  {
+    "context": "csv/200-csv/42.csv",
+    "id": "nt-7903",
+    "utterance": "which country is haifa in?",
+    "targetValue": [
+      "Israel"
+    ]
+  },
+  {
+    "context": "csv/202-csv/50.csv",
+    "id": "nt-7928",
+    "utterance": "which ritu has the most seasonal festivals?",
+    "targetValue": [
+      "Vasanta"
+    ]
+  },
+  {
+    "context": "csv/201-csv/10.csv",
+    "id": "nt-7940",
+    "utterance": "does the 15# mayor belong the conservative or progress party?",
+    "targetValue": [
+      "Progress Party"
+    ]
+  },
+  {
+    "context": "csv/201-csv/25.csv",
+    "id": "nt-7951",
+    "utterance": "which party has had the most leaders?",
+    "targetValue": [
+      "Labour"
+    ]
+  },
+  {
+    "context": "csv/201-csv/22.csv",
+    "id": "nt-7996",
+    "utterance": "which month had an average high of 89.0 degrees and an average low of 56.0 degrees?",
+    "targetValue": [
+      "July"
+    ]
+  },
+  {
+    "context": "csv/200-csv/12.csv",
+    "id": "nt-7999",
+    "utterance": "what year was prime suspects nominated for the bafta tv award?",
+    "targetValue": [
+      "1992"
+    ]
+  },
+  {
+    "context": "csv/202-csv/57.csv",
+    "id": "nt-8019",
+    "utterance": "which month is the most humid?",
+    "targetValue": [
+      "December"
+    ]
+  },
+  {
+    "context": "csv/202-csv/208.csv",
+    "id": "nt-8034",
+    "utterance": "which municipality has the most registered items?",
+    "targetValue": [
+      "Nett"
+    ]
+  },
+  {
+    "context": "csv/200-csv/7.csv",
+    "id": "nt-8069",
+    "utterance": "translate the following into english: 'n bietjie.",
+    "targetValue": [
+      "A bit."
+    ]
+  },
+  {
+    "context": "csv/200-csv/41.csv",
+    "id": "nt-8084",
+    "utterance": "what is the implied probability of 8 = 23 + 0?",
+    "targetValue": [
+      "1/128"
+    ]
+  },
+  {
+    "context": "csv/200-csv/32.csv",
+    "id": "nt-8088",
+    "utterance": "the muncie flyers played from 1910 to 1925 in all but one of those years. which year did the flyers not play?",
+    "targetValue": [
+      "1918"
+    ]
+  },
+  {
+    "context": "csv/202-csv/115.csv",
+    "id": "nt-8112",
+    "utterance": "how much higher is the takapu road station than the wellington station?",
+    "targetValue": [
+      "38.6m"
+    ]
+  },
+  {
+    "context": "csv/201-csv/1.csv",
+    "id": "nt-8118",
+    "utterance": "how many years was maurice lecoq a market gardener?",
+    "targetValue": [
+      "23 years"
+    ]
+  },
+  {
+    "context": "csv/201-csv/34.csv",
+    "id": "nt-8148",
+    "utterance": "how many times was nina hagan the evil queen?",
+    "targetValue": [
+      "2"
+    ]
+  },
+  {
+    "context": "csv/202-csv/140.csv",
+    "id": "nt-8169",
+    "utterance": "when was the auction involving a kelvinator washing machine?",
+    "targetValue": [
+      "18 June 2009"
+    ]
+  },
+  {
+    "context": "csv/202-csv/59.csv",
+    "id": "nt-8204",
+    "utterance": "which team has the most games behind (gb)?",
+    "targetValue": [
+      "Detroit Pistons"
+    ]
+  },
+  {
+    "context": "csv/200-csv/33.csv",
+    "id": "nt-8245",
+    "utterance": "what is the population of the yamato flat inland plain",
+    "targetValue": [
+      "1,282"
+    ]
+  },
+  {
+    "context": "csv/202-csv/82.csv",
+    "id": "nt-8276",
+    "utterance": "which katyusha launcher has the best range?",
+    "targetValue": [
+      "M-13DD"
+    ]
+  },
+  {
+    "context": "csv/201-csv/48.csv",
+    "id": "nt-8289",
+    "utterance": "when did \\\"drowning\\\" peak at 24 in the us alternate group?",
+    "targetValue": [
+      "2002"
+    ]
+  },
+  {
+    "context": "csv/202-csv/150.csv",
+    "id": "nt-8291",
+    "utterance": "how many members identified with the liberal party?",
+    "targetValue": [
+      "1"
+    ]
+  },
+  {
+    "context": "csv/201-csv/1.csv",
+    "id": "nt-8308",
+    "utterance": "which bank officer came after michel deuzet?",
+    "targetValue": [
+      "Patrice Martin"
+    ]
+  },
+  {
+    "context": "csv/202-csv/85.csv",
+    "id": "nt-8323",
+    "utterance": "how many madison sports teams have won at least 2 championships?",
+    "targetValue": [
+      "5"
+    ]
+  },
+  {
+    "context": "csv/202-csv/196.csv",
+    "id": "nt-8367",
+    "utterance": "what year was the highest population recorded in northern dobruja?",
+    "targetValue": [
+      "1992"
+    ]
+  },
+  {
+    "context": "csv/201-csv/10.csv",
+    "id": "nt-8371",
+    "utterance": "how many mayors were in office for a total of 9 years?",
+    "targetValue": [
+      "2"
+    ]
+  },
+  {
+    "context": "csv/202-csv/226.csv",
+    "id": "nt-8444",
+    "utterance": "which network has the most satellite stations?",
+    "targetValue": [
+      "CTV"
+    ]
+  },
+  {
+    "context": "csv/202-csv/116.csv",
+    "id": "nt-8453",
+    "utterance": "what is the first age in which t waves are measured?",
+    "targetValue": [
+      "1 week"
+    ]
+  },
+  {
+    "context": "csv/201-csv/11.csv",
+    "id": "nt-8493",
+    "utterance": "does the swedish part or the danish part have a higher population?",
+    "targetValue": [
+      "Danish"
+    ]
+  },
+  {
+    "context": "csv/202-csv/65.csv",
+    "id": "nt-8500",
+    "utterance": "who is the most team with wins?",
+    "targetValue": [
+      "Cleveland"
+    ]
+  },
+  {
+    "context": "csv/201-csv/27.csv",
+    "id": "nt-8535",
+    "utterance": "who was thompson's secretary of state?",
+    "targetValue": [
+      "John Costigan"
+    ]
+  },
+  {
+    "context": "csv/201-csv/43.csv",
+    "id": "nt-8538",
+    "utterance": "how many luxembourg cities had a date of law of feb 24, 1843?",
+    "targetValue": [
+      "7"
+    ]
+  },
+  {
+    "context": "csv/201-csv/24.csv",
+    "id": "nt-8543",
+    "utterance": "which character is mentioned the most in the episode summaries?",
+    "targetValue": [
+      "Clegg"
+    ]
+  },
+  {
+    "context": "csv/200-csv/14.csv",
+    "id": "nt-8558",
+    "utterance": "what year did both diddy and the notorious b.i.g. sign with bad boy records?",
+    "targetValue": [
+      "1993"
+    ]
+  },
+  {
+    "context": "csv/200-csv/3.csv",
+    "id": "nt-8599",
+    "utterance": "who rode secretariat in 1973?",
+    "targetValue": [
+      "Ron Turcotte"
+    ]
+  },
+  {
+    "context": "csv/202-csv/203.csv",
+    "id": "nt-8654",
+    "utterance": "how many epiodes are in series 1-3 combined?",
+    "targetValue": [
+      "40"
+    ]
+  },
+  {
+    "context": "csv/202-csv/218.csv",
+    "id": "nt-8662",
+    "utterance": "what is the name of the cable television station that broadcast games after ontv?",
+    "targetValue": [
+      "Dodgervision"
+    ]
+  },
+  {
+    "context": "csv/202-csv/251.csv",
+    "id": "nt-8686",
+    "utterance": "how long did michael jackson hold the top spot?",
+    "targetValue": [
+      "15 weeks"
+    ]
+  },
+  {
+    "context": "csv/202-csv/250.csv",
+    "id": "nt-8708",
+    "utterance": "what was the nation called before the book of esther called it hodu?",
+    "targetValue": [
+      "Hidush"
+    ]
+  },
+  {
+    "context": "csv/201-csv/33.csv",
+    "id": "nt-8724",
+    "utterance": "which month had the most rainfall?",
+    "targetValue": [
+      "June"
+    ]
+  },
+  {
+    "context": "csv/201-csv/5.csv",
+    "id": "nt-8741",
+    "utterance": "when did the album hallelujah - live volume 2 come out?",
+    "targetValue": [
+      "2009"
+    ]
+  },
+  {
+    "context": "csv/200-csv/26.csv",
+    "id": "nt-8748",
+    "utterance": "what cities are served by the nîmes-alès-camargue-cévennes airport?",
+    "targetValue": [
+      "Nîmes / Garons"
+    ]
+  },
+  {
+    "context": "csv/202-csv/184.csv",
+    "id": "nt-8749",
+    "utterance": "which single by schnell fenster reached the band's highest position on the new zealand peak chart?",
+    "targetValue": [
+      "\\\"Whisper\\\""
+    ]
+  },
+  {
+    "context": "csv/201-csv/1.csv",
+    "id": "nt-8765",
+    "utterance": "how many different mayors served between 1970 and 2010?",
+    "targetValue": [
+      "3"
+    ]
+  },
+  {
+    "context": "csv/201-csv/14.csv",
+    "id": "nt-8778",
+    "utterance": "how many crossings are in maryland?",
+    "targetValue": [
+      "1"
+    ]
+  },
+  {
+    "context": "csv/202-csv/202.csv",
+    "id": "nt-8800",
+    "utterance": "when did raymond h. fogler leave the office of assistant secretary of the navy?",
+    "targetValue": [
+      "October 4, 1954"
+    ]
+  },
+  {
+    "context": "csv/202-csv/157.csv",
+    "id": "nt-8849",
+    "utterance": "which party had the highest number of house members in 2000?",
+    "targetValue": [
+      "Liberal Party of Canada"
+    ]
+  },
+  {
+    "context": "csv/202-csv/38.csv",
+    "id": "nt-9195",
+    "utterance": "how many times has she played herself?",
+    "targetValue": [
+      "6"
+    ]
+  },
+  {
+    "context": "csv/202-csv/15.csv",
+    "id": "nt-9217",
+    "utterance": "when was mandy patinkin nominated for the saturn award for best supporting actor?",
+    "targetValue": [
+      "1988"
+    ]
+  },
+  {
+    "context": "csv/201-csv/36.csv",
+    "id": "nt-9222",
+    "utterance": "how many rolls did jennifer tilly play in the 1980s?",
+    "targetValue": [
+      "11"
+    ]
+  },
+  {
+    "context": "csv/200-csv/1.csv",
+    "id": "nt-9242",
+    "utterance": "what year was mischa barton's first film role?",
+    "targetValue": [
+      "1995"
+    ]
+  },
+  {
+    "context": "csv/202-csv/160.csv",
+    "id": "nt-9290",
+    "utterance": "what division was the team most commonly found in?",
+    "targetValue": [
+      "Superettan"
+    ]
+  },
+  {
+    "context": "csv/202-csv/87.csv",
+    "id": "nt-9292",
+    "utterance": "how many movies was she in after the film \\\"rent-a-cop\\\"?",
+    "targetValue": [
+      "9"
+    ]
+  },
+  {
+    "context": "csv/201-csv/33.csv",
+    "id": "nt-9296",
+    "utterance": "which month is the best for someone who enjoys the rain?",
+    "targetValue": [
+      "June"
+    ]
+  },
+  {
+    "context": "csv/201-csv/33.csv",
+    "id": "nt-9308",
+    "utterance": "how many months experienced a daily mean temperature above 10 degrees fahrenheit?",
+    "targetValue": [
+      "11"
+    ]
+  },
+  {
+    "context": "csv/202-csv/24.csv",
+    "id": "nt-9312",
+    "utterance": "which solid base album had the most charting singles?",
+    "targetValue": [
+      "Finally"
+    ]
+  },
+  {
+    "context": "csv/201-csv/28.csv",
+    "id": "nt-9314",
+    "utterance": "how many games were credited with a creative director?",
+    "targetValue": [
+      "11"
+    ]
+  },
+  {
+    "context": "csv/200-csv/44.csv",
+    "id": "nt-9327",
+    "utterance": "when did armando armani's term end?",
+    "targetValue": [
+      "13 October 1928"
+    ]
+  },
+  {
+    "context": "csv/201-csv/9.csv",
+    "id": "nt-9339",
+    "utterance": "how many films were shot in smff se-ma-for &#321;ód&#378;, poland?",
+    "targetValue": [
+      "10"
+    ]
+  },
+  {
+    "context": "csv/202-csv/166.csv",
+    "id": "nt-9388",
+    "utterance": "compare religious affiliation in 2001 to 2011. percentage wise, by how much did \\\"no religion\\\" increase from 2001 to 2011",
+    "targetValue": [
+      "9%"
+    ]
+  },
+  {
+    "context": "csv/200-csv/35.csv",
+    "id": "nt-9400",
+    "utterance": "as of october 25, 2005, how many voters are either democratic or republican?",
+    "targetValue": [
+      "5334"
+    ]
+  },
+  {
+    "context": "csv/202-csv/85.csv",
+    "id": "nt-9410",
+    "utterance": "how many current ncaa teams exist?",
+    "targetValue": [
+      "2"
+    ]
+  },
+  {
+    "context": "csv/201-csv/17.csv",
+    "id": "nt-9424",
+    "utterance": "how many of the landmarks are defined as bunkers?",
+    "targetValue": [
+      "2"
+    ]
+  },
+  {
+    "context": "csv/201-csv/10.csv",
+    "id": "nt-9433",
+    "utterance": "after what year were austevoll mayors affiliated with political parties?",
+    "targetValue": [
+      "1959"
+    ]
+  },
+  {
+    "context": "csv/202-csv/208.csv",
+    "id": "nt-9473",
+    "utterance": "how many sites on the register are cemeteries?",
+    "targetValue": [
+      "2"
+    ]
+  },
+  {
+    "context": "csv/200-csv/38.csv",
+    "id": "nt-9505",
+    "utterance": "when arcadia was reformed in 2011, how many municipalities were created?",
+    "targetValue": [
+      "5"
+    ]
+  },
+  {
+    "context": "csv/200-csv/41.csv",
+    "id": "nt-9513",
+    "utterance": "the first five implied probabilities of elias gamma coding.",
+    "targetValue": [
+      "1/2",
+      "1/8",
+      "1/8",
+      "1/32",
+      "1/32"
+    ]
+  },
+  {
+    "context": "csv/201-csv/18.csv",
+    "id": "nt-9557",
+    "utterance": "how many performances occurred in the month of june?",
+    "targetValue": [
+      "17"
+    ]
+  },
+  {
+    "context": "csv/202-csv/217.csv",
+    "id": "nt-9567",
+    "utterance": "which church, in addition to gildeskal church, was also built in the 1800s?",
+    "targetValue": [
+      "Saura Church"
+    ]
+  },
+  {
+    "context": "csv/201-csv/36.csv",
+    "id": "nt-9571",
+    "utterance": "how many movies does jennifer tilly play herself?",
+    "targetValue": [
+      "4"
+    ]
+  },
+  {
+    "context": "csv/201-csv/22.csv",
+    "id": "nt-9591",
+    "utterance": "how many months how a record low below 25 degrees?",
+    "targetValue": [
+      "6"
+    ]
+  },
+  {
+    "context": "csv/202-csv/197.csv",
+    "id": "nt-9598",
+    "utterance": "how many years was the team banned from the arab nations cup?",
+    "targetValue": [
+      "10 years"
+    ]
+  },
+  {
+    "context": "csv/200-csv/22.csv",
+    "id": "nt-9605",
+    "utterance": "name three singles from the album \\\"wandering spirit.\\\"",
+    "targetValue": [
+      "Sweet Thing",
+      "Wired All Night",
+      "Out of Focus"
+    ]
+  },
+  {
+    "context": "csv/200-csv/32.csv",
+    "id": "nt-9608",
+    "utterance": "who coached the muncie flyers to an indiana state championship?",
+    "targetValue": [
+      "Earl Ball"
+    ]
+  },
+  {
+    "context": "csv/202-csv/82.csv",
+    "id": "nt-9648",
+    "utterance": "which three weapons have the highest caliber?",
+    "targetValue": [
+      "M-30",
+      "M-31",
+      "M-31UK"
+    ]
+  },
+  {
+    "context": "csv/200-csv/4.csv",
+    "id": "nt-9723",
+    "utterance": "what team had the worst win/tie/loss record?",
+    "targetValue": [
+      "Portugal"
+    ]
+  },
+  {
+    "context": "csv/201-csv/18.csv",
+    "id": "nt-9750",
+    "utterance": "which event is the most recurring on this list?",
+    "targetValue": [
+      "Move Festival"
+    ]
+  },
+  {
+    "context": "csv/202-csv/236.csv",
+    "id": "nt-9771",
+    "utterance": "which bank has four times as many assets at taib yatirim bank?",
+    "targetValue": [
+      "Credit Agricole"
+    ]
+  },
+  {
+    "context": "csv/202-csv/276.csv",
+    "id": "nt-9790",
+    "utterance": "which role did victor buono play in surfside 6?",
+    "targetValue": [
+      "Mr. Beamish"
+    ]
+  },
+  {
+    "context": "csv/200-csv/47.csv",
+    "id": "nt-9840",
+    "utterance": "when did the second drop in the experiment fall?",
+    "targetValue": [
+      "February 1947"
+    ]
+  },
+  {
+    "context": "csv/201-csv/36.csv",
+    "id": "nt-9850",
+    "utterance": "which movie was also a film debut?",
+    "targetValue": [
+      "No Small Affair"
+    ]
+  },
+  {
+    "context": "csv/201-csv/31.csv",
+    "id": "nt-9851",
+    "utterance": "what percentage of the poems are by unknown authors?",
+    "targetValue": [
+      "50%"
+    ]
+  },
+  {
+    "context": "csv/202-csv/74.csv",
+    "id": "nt-9862",
+    "utterance": "what was the first character she played in her first movie?",
+    "targetValue": [
+      "Tamar"
+    ]
+  },
+  {
+    "context": "csv/201-csv/48.csv",
+    "id": "nt-9888",
+    "utterance": "how many singles have a ranking of 1 under ger?",
+    "targetValue": [
+      "1"
+    ]
+  },
+  {
+    "context": "csv/202-csv/122.csv",
+    "id": "nt-9893",
+    "utterance": "how many films star eddie murphy?",
+    "targetValue": [
+      "2"
+    ]
+  },
+  {
+    "context": "csv/202-csv/224.csv",
+    "id": "nt-9985",
+    "utterance": "please list the candidates that received over one thousand votes.",
+    "targetValue": [
+      "Martin O'Neill",
+      "Keith Brown",
+      "Alasdair Campbell",
+      "Paul Edie"
+    ]
+  },
+  {
+    "context": "csv/202-csv/176.csv",
+    "id": "nt-10056",
+    "utterance": "on game days, which line do you want to use?",
+    "targetValue": [
+      "S Castro Shuttle"
+    ]
+  },
+  {
+    "context": "csv/200-csv/3.csv",
+    "id": "nt-10068",
+    "utterance": "who was the breeder of the 1941 triple crown winner?",
+    "targetValue": [
+      "Calumet Farm"
+    ]
+  },
+  {
+    "context": "csv/202-csv/24.csv",
+    "id": "nt-10109",
+    "utterance": "how many solid base singles charted on the finnish singles chart?",
+    "targetValue": [
+      "3"
+    ]
+  },
+  {
+    "context": "csv/200-csv/31.csv",
+    "id": "nt-10153",
+    "utterance": "how many times did scheider appear in the golden gloves event?",
+    "targetValue": [
+      "5"
+    ]
+  },
+  {
+    "context": "csv/202-csv/13.csv",
+    "id": "nt-10206",
+    "utterance": "how many years ago did ne-yo play as mixx?",
+    "targetValue": [
+      "8"
+    ]
+  },
+  {
+    "context": "csv/202-csv/12.csv",
+    "id": "nt-10223",
+    "utterance": "niagara's regional police fleet consists of how many makes of vehicles?",
+    "targetValue": [
+      "14"
+    ]
+  },
+  {
+    "context": "csv/201-csv/21.csv",
+    "id": "nt-10267",
+    "utterance": "which year did he play the roles of gary ellis and vincent boyd?",
+    "targetValue": [
+      "1999"
+    ]
+  },
+  {
+    "context": "csv/202-csv/281.csv",
+    "id": "nt-10300",
+    "utterance": "how many matches were after june 28, 1994.",
+    "targetValue": [
+      "3"
+    ]
+  },
+  {
+    "context": "csv/202-csv/179.csv",
+    "id": "nt-10353",
+    "utterance": "how many competitors in the 2005 belgian grand prix did not finish the race?",
+    "targetValue": [
+      "5"
+    ]
+  },
+  {
+    "context": "csv/202-csv/28.csv",
+    "id": "nt-10374",
+    "utterance": "what year saw the highest output growth rate in japan between the years 1990 and 2004?",
+    "targetValue": [
+      "1990"
+    ]
+  },
+  {
+    "context": "csv/202-csv/253.csv",
+    "id": "nt-10459",
+    "utterance": "which team has best percentage of titles to runner up finishes?",
+    "targetValue": [
+      "Jamaica"
+    ]
+  },
+  {
+    "context": "csv/201-csv/27.csv",
+    "id": "nt-10492",
+    "utterance": "how many secretary of states were under prime minister macdonald?",
+    "targetValue": [
+      "6"
+    ]
+  },
+  {
+    "context": "csv/202-csv/74.csv",
+    "id": "nt-10494",
+    "utterance": "how many roles did gina bellman play where her character was named christine?",
+    "targetValue": [
+      "2"
+    ]
+  },
+  {
+    "context": "csv/202-csv/85.csv",
+    "id": "nt-10498",
+    "utterance": "how long has it been since the madison college wolfpack was established?",
+    "targetValue": [
+      "102 years"
+    ]
+  },
+  {
+    "context": "csv/202-csv/157.csv",
+    "id": "nt-10533",
+    "utterance": "which party has the most house members?",
+    "targetValue": [
+      "Liberal Party of Canada"
+    ]
+  },
+  {
+    "context": "csv/201-csv/2.csv",
+    "id": "nt-10550",
+    "utterance": "which country had the most roller coasters over 80 feet in height in 2008?",
+    "targetValue": [
+      "China"
+    ]
+  },
+  {
+    "context": "csv/201-csv/49.csv",
+    "id": "nt-10564",
+    "utterance": "how many months have precipitation above 55 inches?",
+    "targetValue": [
+      "5"
+    ]
+  },
+  {
+    "context": "csv/200-csv/4.csv",
+    "id": "nt-10572",
+    "utterance": "how many points did portugal score in the 1994 europeans men's handball championship preliminary round?",
+    "targetValue": [
+      "0"
+    ]
+  },
+  {
+    "context": "csv/202-csv/207.csv",
+    "id": "nt-10607",
+    "utterance": "how many crayons in crayola's crayons with glitter set include twinkling turquoise glitter?",
+    "targetValue": [
+      "3"
+    ]
+  },
+  {
+    "context": "csv/202-csv/125.csv",
+    "id": "nt-10621",
+    "utterance": "which candidate had the most votes?",
+    "targetValue": [
+      "Joe Daniel"
+    ]
+  },
+  {
+    "context": "csv/200-csv/33.csv",
+    "id": "nt-10622",
+    "utterance": "which district has the highest population density?",
+    "targetValue": [
+      "Yamato flat inland plain"
+    ]
+  },
+  {
+    "context": "csv/202-csv/242.csv",
+    "id": "nt-10624",
+    "utterance": "how many super bowls did dan reeves win?",
+    "targetValue": [
+      "0"
+    ]
+  },
+  {
+    "context": "csv/200-csv/4.csv",
+    "id": "nt-10635",
+    "utterance": "what team had the best gd?",
+    "targetValue": [
+      "Sweden"
+    ]
+  },
+  {
+    "context": "csv/201-csv/13.csv",
+    "id": "nt-10654",
+    "utterance": "how many cities are in wisconsin?",
+    "targetValue": [
+      "190"
+    ]
+  },
+  {
+    "context": "csv/202-csv/26.csv",
+    "id": "nt-10727",
+    "utterance": "did elvir rhimic score more goals during his time in the anxhi makhachkala club or the cska moscow club?",
+    "targetValue": [
+      "CSKA Moscow"
+    ]
+  },
+  {
+    "context": "csv/202-csv/57.csv",
+    "id": "nt-10773",
+    "utterance": "which month has the most precipitation?",
+    "targetValue": [
+      "June"
+    ]
+  },
+  {
+    "context": "csv/201-csv/38.csv",
+    "id": "nt-10798",
+    "utterance": "who was the first calder memorial trophy winner from the boston bruins?",
+    "targetValue": [
+      "Frank Brimsek"
+    ]
+  },
+  {
+    "context": "csv/200-csv/14.csv",
+    "id": "nt-10855",
+    "utterance": "how many albums has diddy released under bad boy records?",
+    "targetValue": [
+      "6"
+    ]
+  },
+  {
+    "context": "csv/200-csv/47.csv",
+    "id": "nt-10866",
+    "utterance": "when did the first drop in the experiment fall?",
+    "targetValue": [
+      "December 1938"
+    ]
+  },
+  {
+    "context": "csv/201-csv/25.csv",
+    "id": "nt-10951",
+    "utterance": "how many group leaders were from the conservative party?",
+    "targetValue": [
+      "2"
+    ]
+  },
+  {
+    "context": "csv/201-csv/25.csv",
+    "id": "nt-11084",
+    "utterance": "how many parties had the same leader in office twice?",
+    "targetValue": [
+      "1"
+    ]
+  },
+  {
+    "context": "csv/202-csv/147.csv",
+    "id": "nt-11131",
+    "utterance": "how many kants have coordinates over 10.0 degrees south and over 18.0 degrees east?",
+    "targetValue": [
+      "4"
+    ]
+  },
+  {
+    "context": "csv/201-csv/46.csv",
+    "id": "nt-11159",
+    "utterance": "which lahn that exceeds 300 m also has a length that exceeds 10 km?",
+    "targetValue": [
+      "Banfe"
+    ]
+  },
+  {
+    "context": "csv/200-csv/12.csv",
+    "id": "nt-11216",
+    "utterance": "what play was wanamaker nominated for best featured in a play in 1981?",
+    "targetValue": [
+      "Piaf!"
+    ]
+  },
+  {
+    "context": "csv/202-csv/283.csv",
+    "id": "nt-11254",
+    "utterance": "which tv series has the longest running time?",
+    "targetValue": [
+      "Road to Avonlea"
+    ]
+  },
+  {
+    "context": "csv/201-csv/24.csv",
+    "id": "nt-11305",
+    "utterance": "how many episodes had their original airdate in february?",
+    "targetValue": [
+      "4"
+    ]
+  },
+  {
+    "context": "csv/202-csv/279.csv",
+    "id": "nt-11324",
+    "utterance": "which movie did matthew j. morrison play a policeman and what year was it released?",
+    "targetValue": [
+      "Dan in Real Life",
+      "2007"
+    ]
+  },
+  {
+    "context": "csv/202-csv/211.csv",
+    "id": "nt-11329",
+    "utterance": "how many times was bremen the venue for the idsf world championships for the latin result?",
+    "targetValue": [
+      "2"
+    ]
+  },
+  {
+    "context": "csv/200-csv/14.csv",
+    "id": "nt-11367",
+    "utterance": "how many acts had no albums released under bad boy?",
+    "targetValue": [
+      "5"
+    ]
+  },
+  {
+    "context": "csv/200-csv/3.csv",
+    "id": "nt-11425",
+    "utterance": "what jockey won the triple crown in 1978?",
+    "targetValue": [
+      "Steve Cauthen"
+    ]
+  },
+  {
+    "context": "csv/200-csv/35.csv",
+    "id": "nt-11444",
+    "utterance": "as of october 25, 2005, how many active voters does the democratic party have?",
+    "targetValue": [
+      "3,683"
+    ]
+  },
+  {
+    "context": "csv/202-csv/104.csv",
+    "id": "nt-11472",
+    "utterance": "which group has the most seats won?",
+    "targetValue": [
+      "Baghdad"
+    ]
+  },
+  {
+    "context": "csv/201-csv/1.csv",
+    "id": "nt-11489",
+    "utterance": "which mayor of airan also held the position of first secretary for the minister of finance?",
+    "targetValue": [
+      "Jules Alfred Le Tourneur du Coudray"
+    ]
+  },
+  {
+    "context": "csv/202-csv/73.csv",
+    "id": "nt-11516",
+    "utterance": "which division two team played twice in the 2000s.",
+    "targetValue": [
+      "Rye & Iden United"
+    ]
+  },
+  {
+    "context": "csv/202-csv/191.csv",
+    "id": "nt-11542",
+    "utterance": "after the election, how many seats did the liberal democratic league win?",
+    "targetValue": [
+      "34"
+    ]
+  },
+  {
+    "context": "csv/202-csv/215.csv",
+    "id": "nt-11598",
+    "utterance": "which is the best area to find a pinus ponderosa with the longest needles?",
+    "targetValue": [
+      "Columbia"
+    ]
+  },
+  {
+    "context": "csv/202-csv/80.csv",
+    "id": "nt-11652",
+    "utterance": "how many peaks in the dolomites are above 10,000 feet?",
+    "targetValue": [
+      "18"
+    ]
+  },
+  {
+    "context": "csv/201-csv/34.csv",
+    "id": "nt-11666",
+    "utterance": "what did nina hagan perform in after cha-cha?",
+    "targetValue": [
+      "Pankow '95"
+    ]
+  },
+  {
+    "context": "csv/201-csv/40.csv",
+    "id": "nt-11681",
+    "utterance": "compare \\\"i can go deep\\\" with \\\"don't rush\\\". which was higher on the us and us r&b charts?",
+    "targetValue": [
+      "\\\"I Can Go Deep\\\""
+    ]
+  },
+  {
+    "context": "csv/201-csv/46.csv",
+    "id": "nt-11682",
+    "utterance": "which tributary has their position to the left with a length of 46.6 km?",
+    "targetValue": [
+      "Weil"
+    ]
+  },
+  {
+    "context": "csv/201-csv/17.csv",
+    "id": "nt-11690",
+    "utterance": "which landmark was the built the longest ago?",
+    "targetValue": [
+      "Demountable Hangar"
+    ]
+  },
+  {
+    "context": "csv/201-csv/13.csv",
+    "id": "nt-11724",
+    "utterance": "what was the first city to be incorporated into wisconsin?",
+    "targetValue": [
+      "Chippewa Falls"
+    ]
+  },
+  {
+    "context": "csv/201-csv/27.csv",
+    "id": "nt-11744",
+    "utterance": "what secretary of state served under both prime minister laurier and prime minister king?",
+    "targetValue": [
+      "Charles Murphy"
+    ]
+  },
+  {
+    "context": "csv/202-csv/173.csv",
+    "id": "nt-11804",
+    "utterance": "when month were most of the songs recorded on this album?",
+    "targetValue": [
+      "April"
+    ]
+  },
+  {
+    "context": "csv/200-csv/14.csv",
+    "id": "nt-11830",
+    "utterance": "when was the notorious b.i.g signed to bad boy?",
+    "targetValue": [
+      "1993"
+    ]
+  },
+  {
+    "context": "csv/201-csv/6.csv",
+    "id": "nt-11833",
+    "utterance": "comparing january and february, who had the least average rainy days?",
+    "targetValue": [
+      "January"
+    ]
+  },
+  {
+    "context": "csv/202-csv/276.csv",
+    "id": "nt-11873",
+    "utterance": "what year was he most featured in shows?",
+    "targetValue": [
+      "1979"
+    ]
+  },
+  {
+    "context": "csv/200-csv/14.csv",
+    "id": "nt-11884",
+    "utterance": "who has the most albums released under bad boy?",
+    "targetValue": [
+      "Diddy"
+    ]
+  },
+  {
+    "context": "csv/202-csv/285.csv",
+    "id": "nt-11886",
+    "utterance": "which cities made it to round 5?",
+    "targetValue": [
+      "Athens",
+      "Rome"
+    ]
+  },
+  {
+    "context": "csv/202-csv/135.csv",
+    "id": "nt-11971",
+    "utterance": "which year(s) received the lowest rank in the ratings?",
+    "targetValue": [
+      "2008-2010"
+    ]
+  },
+  {
+    "context": "csv/202-csv/167.csv",
+    "id": "nt-11977",
+    "utterance": "what is the difference between the highest average high temperature and the lowest average low temperature in burbank, california?",
+    "targetValue": [
+      "47"
+    ]
+  },
+  {
+    "context": "csv/201-csv/6.csv",
+    "id": "nt-11980",
+    "utterance": "which month had an average low of 53 degrees and an average high of 63 degrees?",
+    "targetValue": [
+      "March"
+    ]
+  },
+  {
+    "context": "csv/202-csv/22.csv",
+    "id": "nt-12007",
+    "utterance": "how many more points did erik zabel score than franciso ventoso?",
+    "targetValue": [
+      "71"
+    ]
+  },
+  {
+    "context": "csv/202-csv/87.csv",
+    "id": "nt-12008",
+    "utterance": "when was minelli's first film?",
+    "targetValue": [
+      "1949"
+    ]
+  },
+  {
+    "context": "csv/202-csv/232.csv",
+    "id": "nt-12055",
+    "utterance": "which institution has the most research funding?",
+    "targetValue": [
+      "Loughborough University"
+    ]
+  },
+  {
+    "context": "csv/202-csv/104.csv",
+    "id": "nt-12062",
+    "utterance": "how many groups have more than 32 total seats?",
+    "targetValue": [
+      "3"
+    ]
+  },
+  {
+    "context": "csv/202-csv/281.csv",
+    "id": "nt-12072",
+    "utterance": "what is the difference in number of spectators between the best attended match and least attended match (of all matches listed)?",
+    "targetValue": [
+      "5,292"
+    ]
+  },
+  {
+    "context": "csv/202-csv/75.csv",
+    "id": "nt-12099",
+    "utterance": "how many awards was warren beatty nominated for?",
+    "targetValue": [
+      "7"
+    ]
+  },
+  {
+    "context": "csv/201-csv/1.csv",
+    "id": "nt-12109",
+    "utterance": "how many mayors of airan had the surname d'ison?",
+    "targetValue": [
+      "3"
+    ]
+  },
+  {
+    "context": "csv/201-csv/31.csv",
+    "id": "nt-12115",
+    "utterance": "which author is the most prominent in the 1599 edition?",
+    "targetValue": [
+      "William Shakespeare"
+    ]
+  },
+  {
+    "context": "csv/201-csv/3.csv",
+    "id": "nt-12152",
+    "utterance": "which month had the most sunny days?",
+    "targetValue": [
+      "August"
+    ]
+  },
+  {
+    "context": "csv/200-csv/4.csv",
+    "id": "nt-12169",
+    "utterance": "which country won the 1994 europeans men's handball championship's preliminary round?",
+    "targetValue": [
+      "Sweden"
+    ]
+  },
+  {
+    "context": "csv/201-csv/13.csv",
+    "id": "nt-12171",
+    "utterance": "which city has the most population in the 2010 census?",
+    "targetValue": [
+      "Milwaukee"
+    ]
+  },
+  {
+    "context": "csv/201-csv/2.csv",
+    "id": "nt-12190",
+    "utterance": "which ferris wheel was completed in 2008 and has the height of 165?",
+    "targetValue": [
+      "Singapore Flyer"
+    ]
+  },
+  {
+    "context": "csv/201-csv/14.csv",
+    "id": "nt-12299",
+    "utterance": "which bridge is in delaware and carries de 9?",
+    "targetValue": [
+      "Reedy Point Bridge"
+    ]
+  },
+  {
+    "context": "csv/200-csv/42.csv",
+    "id": "nt-12304",
+    "utterance": "which month held the most precipitation?",
+    "targetValue": [
+      "January"
+    ]
+  },
+  {
+    "context": "csv/202-csv/122.csv",
+    "id": "nt-12344",
+    "utterance": "which top-grossing film from 1987 starred tom selleck, ted danson, and steve guttenberg?",
+    "targetValue": [
+      "Three Men and a Baby"
+    ]
+  },
+  {
+    "context": "csv/202-csv/244.csv",
+    "id": "nt-12345",
+    "utterance": "of the 26 top-grossing films of 1977, how many were released by 20th century fox?",
+    "targetValue": [
+      "6"
+    ]
+  },
+  {
+    "context": "csv/201-csv/13.csv",
+    "id": "nt-12397",
+    "utterance": "how many cities have 1926 as their incorporation date?",
+    "targetValue": [
+      "2"
+    ]
+  },
+  {
+    "context": "csv/202-csv/22.csv",
+    "id": "nt-12425",
+    "utterance": "how many points did robbie mcewen and cristian moreni score together?",
+    "targetValue": [
+      "404"
+    ]
+  },
+  {
+    "context": "csv/201-csv/42.csv",
+    "id": "nt-12432",
+    "utterance": "jeff daniels has appeared in several television shows. for which show has he appeared in the most number of episodes?",
+    "targetValue": [
+      "The Newsroom"
+    ]
+  },
+  {
+    "context": "csv/202-csv/7.csv",
+    "id": "nt-12435",
+    "utterance": "how many shows have given stewart writing credit?",
+    "targetValue": [
+      "2"
+    ]
+  },
+  {
+    "context": "csv/201-csv/33.csv",
+    "id": "nt-12516",
+    "utterance": "does kindersley average more snowfall in the month before or after february?",
+    "targetValue": [
+      "Before"
+    ]
+  },
+  {
+    "context": "csv/202-csv/158.csv",
+    "id": "nt-12532",
+    "utterance": "which element was observed or predicted in 1771 by w.scheele?",
+    "targetValue": [
+      "Oxygen"
+    ]
+  },
+  {
+    "context": "csv/202-csv/160.csv",
+    "id": "nt-12652",
+    "utterance": "how many different divisions has the team participated in?",
+    "targetValue": [
+      "4"
+    ]
+  },
+  {
+    "context": "csv/200-csv/3.csv",
+    "id": "nt-12683",
+    "utterance": "what is the first year there was a triple crown winner?",
+    "targetValue": [
+      "1919"
+    ]
+  },
+  {
+    "context": "csv/202-csv/54.csv",
+    "id": "nt-12760",
+    "utterance": "which song had the most weeks on the ufo radio top 15 chart?",
+    "targetValue": [
+      "Half-Sugarism"
+    ]
+  },
+  {
+    "context": "csv/201-csv/43.csv",
+    "id": "nt-12807",
+    "utterance": "what canton is the most populated?",
+    "targetValue": [
+      "Luxembourg"
+    ]
+  },
+  {
+    "context": "csv/200-csv/38.csv",
+    "id": "nt-12888",
+    "utterance": "what is the new municipality of tyros?",
+    "targetValue": [
+      "South Kynouria"
+    ]
+  },
+  {
+    "context": "csv/201-csv/13.csv",
+    "id": "nt-12907",
+    "utterance": "county has altoona and augusta?",
+    "targetValue": [
+      "Eau Claire"
+    ]
+  },
+  {
+    "context": "csv/202-csv/50.csv",
+    "id": "nt-12915",
+    "utterance": "how long does grishma last?",
+    "targetValue": [
+      "May to July"
+    ]
+  },
+  {
+    "context": "csv/202-csv/126.csv",
+    "id": "nt-12931",
+    "utterance": "how many defendants were acquitted, if any?",
+    "targetValue": [
+      "2"
+    ]
+  },
+  {
+    "context": "csv/200-csv/22.csv",
+    "id": "nt-12952",
+    "utterance": "what year was mick jagger's best of album released?",
+    "targetValue": [
+      "2008"
+    ]
+  },
+  {
+    "context": "csv/201-csv/43.csv",
+    "id": "nt-12980",
+    "utterance": "how many diekirch districts also have diekirch as their canton?",
+    "targetValue": [
+      "2"
+    ]
+  },
+  {
+    "context": "csv/200-csv/35.csv",
+    "id": "nt-13066",
+    "utterance": "which party, democratic or republican, has a better ratio of active to inactive voters?",
+    "targetValue": [
+      "Democratic"
+    ]
+  },
+  {
+    "context": "csv/201-csv/43.csv",
+    "id": "nt-13076",
+    "utterance": "which canton falls under the date of law of 24 february 1843 and has a population of 3,966?",
+    "targetValue": [
+      "Grevenmacher"
+    ]
+  },
+  {
+    "context": "csv/201-csv/40.csv",
+    "id": "nt-13134",
+    "utterance": "which single is the most in terms of how many times it charted?",
+    "targetValue": [
+      "\\\"Freak Me\\\""
+    ]
+  },
+  {
+    "context": "csv/202-csv/281.csv",
+    "id": "nt-13193",
+    "utterance": "which team was the first to beat italy",
+    "targetValue": [
+      "Republic of Ireland"
+    ]
+  },
+  {
+    "context": "csv/202-csv/72.csv",
+    "id": "nt-13196",
+    "utterance": "which is the most popular single on the album?",
+    "targetValue": [
+      "Why Can't This Be Love"
+    ]
+  },
+  {
+    "context": "csv/202-csv/265.csv",
+    "id": "nt-13222",
+    "utterance": "which route travels to broxbourne station and also essex road industrial estate?",
+    "targetValue": [
+      "323"
+    ]
+  },
+  {
+    "context": "csv/202-csv/54.csv",
+    "id": "nt-13228",
+    "utterance": "how many weeks was the song far away on the ufo top list?",
+    "targetValue": [
+      "2"
+    ]
+  },
+  {
+    "context": "csv/200-csv/3.csv",
+    "id": "nt-13241",
+    "utterance": "in which year did seattle slew win the triple crown?",
+    "targetValue": [
+      "1977"
+    ]
+  },
+  {
+    "context": "csv/202-csv/146.csv",
+    "id": "nt-13242",
+    "utterance": "how many trains on this graph do not mention alco or alco-brooks as its builder?",
+    "targetValue": [
+      "10"
+    ]
+  },
+  {
+    "context": "csv/201-csv/49.csv",
+    "id": "nt-13267",
+    "utterance": "how many months have record high temperatures over 100 degrees fahrenheit?",
+    "targetValue": [
+      "5"
+    ]
+  },
+  {
+    "context": "csv/202-csv/224.csv",
+    "id": "nt-13355",
+    "utterance": "a candidate with the name of flash gordon approaching of what satirical political party came in last place in the 2001 general election in ochil?",
+    "targetValue": [
+      "Monster Raving Loony"
+    ]
+  },
+  {
+    "context": "csv/201-csv/7.csv",
+    "id": "nt-13358",
+    "utterance": "how many years was the gross domestic product above 6,000?",
+    "targetValue": [
+      "5"
+    ]
+  },
+  {
+    "context": "csv/200-csv/22.csv",
+    "id": "nt-13376",
+    "utterance": "on what album did the single \\\"old habits die hard\\\" appear?",
+    "targetValue": [
+      "Alfie (soundtrack)"
+    ]
+  },
+  {
+    "context": "csv/202-csv/196.csv",
+    "id": "nt-13377",
+    "utterance": "which ethnicity has the biggest population in 1992?",
+    "targetValue": [
+      "Romanian"
+    ]
+  },
+  {
+    "context": "csv/202-csv/83.csv",
+    "id": "nt-13445",
+    "utterance": "how many seasons did webber average over 20 points per game (ppg)?",
+    "targetValue": [
+      "11"
+    ]
+  },
+  {
+    "context": "csv/202-csv/12.csv",
+    "id": "nt-13458",
+    "utterance": "how many makes origin from canada",
+    "targetValue": [
+      "6"
+    ]
+  },
+  {
+    "context": "csv/202-csv/257.csv",
+    "id": "nt-13463",
+    "utterance": "how many singles were under position 1?",
+    "targetValue": [
+      "2"
+    ]
+  },
+  {
+    "context": "csv/200-csv/22.csv",
+    "id": "nt-13480",
+    "utterance": "what chart position did the single with david bowie reach in the us?",
+    "targetValue": [
+      "7"
+    ]
+  },
+  {
+    "context": "csv/202-csv/207.csv",
+    "id": "nt-13522",
+    "utterance": "how many crayons in crayola's crayons with glitter set do not include glitzy gold glitter?",
+    "targetValue": [
+      "10"
+    ]
+  },
+  {
+    "context": "csv/202-csv/87.csv",
+    "id": "nt-13532",
+    "utterance": "which film did she receive the academy award for best actress and golden globe award for best actress-motion picture drama?",
+    "targetValue": [
+      "Cabaret"
+    ]
+  },
+  {
+    "context": "csv/202-csv/240.csv",
+    "id": "nt-13535",
+    "utterance": "which of the singles from \\\"dosage\\\" had the highest billboard hot 100 rating?",
+    "targetValue": [
+      "\\\"Heavy\\\""
+    ]
+  },
+  {
+    "context": "csv/201-csv/42.csv",
+    "id": "nt-13541",
+    "utterance": "in which year was jeff daniels nominated for both the satellite award for best actor in a tv series drama and for a screen actors guild award for outstanding performance by a male actor in a drama series?",
+    "targetValue": [
+      "2013",
+      "2014"
+    ]
+  },
+  {
+    "context": "csv/200-csv/48.csv",
+    "id": "nt-13543",
+    "utterance": "what is the average high temperature for fayetteville, arkansas in march?",
+    "targetValue": [
+      "59.1"
+    ]
+  },
+  {
+    "context": "csv/201-csv/37.csv",
+    "id": "nt-13544",
+    "utterance": "which month had an average high of 21.8 degrees and a record low of -1.1?",
+    "targetValue": [
+      "September"
+    ]
+  },
+  {
+    "context": "csv/202-csv/99.csv",
+    "id": "nt-13581",
+    "utterance": "how long was the monthly average temperature 100 degrees or more?",
+    "targetValue": [
+      "4 months"
+    ]
+  },
+  {
+    "context": "csv/201-csv/10.csv",
+    "id": "nt-13593",
+    "utterance": "who was the first mayor of austevoll?",
+    "targetValue": [
+      "Ole Olsen Strømme"
+    ]
+  },
+  {
+    "context": "csv/201-csv/10.csv",
+    "id": "nt-13596",
+    "utterance": "since 1886 how many austevoll mayors have had maritime related occupations?",
+    "targetValue": [
+      "6"
+    ]
+  },
+  {
+    "context": "csv/202-csv/143.csv",
+    "id": "nt-13638",
+    "utterance": "how long did it take michael schumacher to finish the race?",
+    "targetValue": [
+      "1:34:45.026"
+    ]
+  },
+  {
+    "context": "csv/202-csv/117.csv",
+    "id": "nt-13676",
+    "utterance": "who was sunk the most?",
+    "targetValue": [
+      "United Kingdom"
+    ]
+  },
+  {
+    "context": "csv/201-csv/18.csv",
+    "id": "nt-13677",
+    "utterance": "which month is the most popular month for concerts at the old trafford cricket ground?",
+    "targetValue": [
+      "June"
+    ]
+  },
+  {
+    "context": "csv/201-csv/44.csv",
+    "id": "nt-13694",
+    "utterance": "which of elizabeth berkley's films got her the most award nominations?",
+    "targetValue": [
+      "Showgirls"
+    ]
+  },
+  {
+    "context": "csv/202-csv/281.csv",
+    "id": "nt-13804",
+    "utterance": "which team did not win the match with 75,338 spectators",
+    "targetValue": [
+      "Italy"
+    ]
+  },
+  {
+    "context": "csv/202-csv/277.csv",
+    "id": "nt-13812",
+    "utterance": "how many german women won medals?",
+    "targetValue": [
+      "5"
+    ]
+  },
+  {
+    "context": "csv/200-csv/14.csv",
+    "id": "nt-13838",
+    "utterance": "how many albums did french montana release under bad boy?",
+    "targetValue": [
+      "1"
+    ]
+  },
+  {
+    "context": "csv/201-csv/9.csv",
+    "id": "nt-13885",
+    "utterance": "how many films had a duration below 5 minutes?",
+    "targetValue": [
+      "7"
+    ]
+  },
+  {
+    "context": "csv/202-csv/75.csv",
+    "id": "nt-13900",
+    "utterance": "which award show was the most nominations made?",
+    "targetValue": [
+      "56th Golden Globe Awards"
+    ]
+  },
+  {
+    "context": "csv/202-csv/215.csv",
+    "id": "nt-13948",
+    "utterance": "how many additional years will the rocky mountains (scopulorum) subspecies of p. ponderosa needles remain green compared to pacific (critchfieldiana)?",
+    "targetValue": [
+      "1.8 years"
+    ]
+  },
+  {
+    "context": "csv/201-csv/33.csv",
+    "id": "nt-13951",
+    "utterance": "which month had 12.9 as their record high temperature and a negative average high in temperature?",
+    "targetValue": [
+      "Dec"
+    ]
+  },
+  {
+    "context": "csv/202-csv/278.csv",
+    "id": "nt-13952",
+    "utterance": "how many years after \\\"i can't get no... edelweiss\\\" did the single \\\"bring me edelweiss\\\" (remix) appear?",
+    "targetValue": [
+      "12"
+    ]
+  },
+  {
+    "context": "csv/201-csv/38.csv",
+    "id": "nt-13954",
+    "utterance": "how many times did the toronto maple leaves win?",
+    "targetValue": [
+      "9"
+    ]
+  },
+  {
+    "context": "csv/202-csv/208.csv",
+    "id": "nt-13964",
+    "utterance": "how many years are spanned from the earliest listing to the latest listing?",
+    "targetValue": [
+      "6"
+    ]
+  },
+  {
+    "context": "csv/202-csv/131.csv",
+    "id": "nt-14010",
+    "utterance": "which driver came in first place during the bellsouth mobility 320 but last place in the carquest auto parts 300?",
+    "targetValue": [
+      "Jeff Green"
+    ]
+  },
+  {
+    "context": "csv/201-csv/19.csv",
+    "id": "nt-14100",
+    "utterance": "who is the most high-grossing director of 1965?",
+    "targetValue": [
+      "Robert Wise"
+    ]
+  },
+  {
+    "context": "csv/201-csv/3.csv",
+    "id": "nt-14117",
+    "utterance": "did march or april have more precipitation?",
+    "targetValue": [
+      "April"
+    ]
+  }
+]

@@ -2,7 +2,7 @@ import os
 import json
 import argparse
 from src.vector_store import VectorStore
-from src.embedder import SentenceTransformerEmbedder, HFEmbedder, VLLMEmbedder
+from src.embedder import HFEmbedder
 
 RETRIEVAL_DIR = '/vol/bitbucket/mml324/TabRAG/datasets/finqa/retrieval/'
 STORAGE_DIR = '/vol/bitbucket/mml324/TabRAG/storages/finqa/generation/tabrag/Qwen3-VL-8B-Instruct'
@@ -95,7 +95,7 @@ def embed_and_save(data, embedder, out_path):
     index.save(os.path.join(out_path, "docstore"))
 
 def extract_and_transform_generation_jsonl(ret_dir, storage_dir, out_dir, has_subgroup, from_storage=False):
-    embedder = VLLMEmbedder('Qwen/Qwen3-Embedding-8B', tensor_parallel_size=1, gpu_memory_utilization=0.8)
+    embedder = HFEmbedder('Qwen/Qwen3-Embedding-8B')
 
     all_data = []
     if from_storage:

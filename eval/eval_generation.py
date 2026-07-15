@@ -685,13 +685,8 @@ def main(args):
         result = eval_tablevqabench_baseline(gt_path, storage_dir, llm, embedder, metric, method=method)
     
     if (dataset == 'comtqa'):
-        gt_path = f'datasets/comtqa/qa3.json'
+        gt_path = f'datasets/comtqa/qa.json'
         storage_dir =  f'storages/comtqa/generation/{method}/{vlm_model}'
-        result = eval_comtqa_baseline(gt_path, storage_dir, llm, embedder, metric, method=method)
-
-    if (dataset == 'comtqa2'):
-        gt_path = f'datasets/comtqa/qa3.json'
-        storage_dir =  f'storages/comtqa/generation/{method}/{vlm_model}_2'
         result = eval_comtqa_baseline(gt_path, storage_dir, llm, embedder, metric, method=method)
 
     if (dataset == 'finqa'):

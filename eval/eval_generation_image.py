@@ -491,7 +491,7 @@ def main(args):
         result = eval_tablevqabench_image(gt_path, image_root, vlm, metric)
 
     if dataset == 'comtqa':
-        gt_path = 'datasets/comtqa/qa3.json'
+        gt_path = 'datasets/comtqa/qa.json'
         image_root = 'datasets/comtqa/generation'
         result = eval_comtqa_image(gt_path, image_root, vlm, metric)
 

@@ -182,7 +182,6 @@ cd comtqa
 download the dataset: https://huggingface.co/datasets/ByteDance/ComTQA/blob/main/README.md
 process the dataset:
 python process_comtqa.py
-python process_qa.py
 ```
 
 Note that for new datasets, please convert all PDFs into single-page images then organize them as follows:

@@ -22,7 +22,7 @@ DEFAULT_GT = {
     "tatdqa": "datasets/tatdqa/tatdqa_dataset_test_gold.json",
     "wikitq": "datasets/wikitablequestions/qa.json",
     "tablevqa": "datasets/tablevqa/qa.json",
-    "comtqa": "datasets/comtqa/qa3.json",
+    "comtqa": "datasets/comtqa/qa.json",
     "convfinqa": "datasets/finqa/metadata.jsonl",
     "finqa": "datasets/finqa/metadata.jsonl",
 }
