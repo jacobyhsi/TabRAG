@@ -36,26 +36,24 @@ conda create --name tabrag python=3.10
 conda activate tabrag
 ```
 
+or
+
+```
+uv venv --python 3.10
+source .venv/bin/activate
+```
+
 Installing Dependencies
 ```
-pip install torch
-pip install 'git+https://github.com/facebookresearch/detectron2.git' --no-build-isolation
-pip install pymupdf
-pip install faiss-gpu
-pip install timm
-pip install shapely
-pip install qwen_vl_utils
-pip install gdown
-pip install opencv-python
-pip install pypdf
-pip install arxiv
-pip install weasyprint
-pip install datasets
-pip install vllm
-pip install sentence_transformers
-pip install numpy==1.26.4
-pip install accelerate
+pip install -r requirements.txt
 pip uninstall torchcodec
+```
+
+or
+
+```
+uv pip install -r requirements.txt
+uv pip uninstall torchcodec
 ```
 
 <details>
@@ -64,12 +62,12 @@ pip uninstall torchcodec
 This guide explains how to install a baseline in our paper, Tesseract OCR, and use it in Python via PyTesseract by building from source. Official build guide: https://tesseract-ocr.github.io/tessdoc/Compiling.html
 
 1. Install Python OCR dependencies inside your project environment
-```bash
+```
 pip install pytesseract Pillow
 ```
 
 2. Create a build directory
-```bash
+```
 mkdir -p $HOME/tesseract_build
 cd $HOME/tesseract_build
 ```
@@ -77,17 +75,17 @@ cd $HOME/tesseract_build
 3. Download 
 
 Tesseract Source
-```bash
+```
 git clone https://github.com/tesseract-ocr/tesseract.git
 ```
 
 Leptonica Source
-```bash
+```
 git clone https://github.com/DanBloomberg/leptonica.git
 ```
 
 4. Build & install locally
-```bash
+```
 cd $HOME/tesseract_build/leptonica
 ./autobuild
 ./configure --prefix=$HOME/tesseract_build/install
@@ -104,12 +102,12 @@ make install
 ```
 
 5. Verify installation
-```bash
+```
 $HOME/tesseract_build/install/bin/tesseract --version
 ```
 
 6. Set environment variable for running any OCR script
-```bash
+```
 export PATH=$HOME/tesseract_build/install/bin:$PATH
 export LD_LIBRARY_PATH=$HOME/tesseract_build/install/lib:$LD_LIBRARY_PATH
 export TESSDATA_PREFIX=$HOME/tesseract_build/install/share/tessdata
@@ -119,7 +117,7 @@ tesseract --version
 ```
 
 7. Download language data for tesseract to perform OCR
-```bash
+```
 mkdir -p $HOME/tesseract_build/install/share/tessdata
 cd $HOME/tesseract_build/install/share/tessdata
 wget https://github.com/tesseract-ocr/tessdata_best/raw/main/eng.traineddata
@@ -130,58 +128,27 @@ wget https://github.com/tesseract-ocr/tessdata_best/raw/main/eng.traineddata
 
 Microsoft's DiT model (Document Image Transformer) is used for layout extraction: https://github.com/microsoft/unilm/tree/master/dit
 
-Download the DiT-Large checkpoint pretrained on the Publaynet Dataset: 
-wget --continue -O publaynet_dit-l_cascade.pth "https://huggingface.co/HYPJUDY/dit/resolve/main/dit-fts/publaynet_dit-l_cascade.pth"
+Download the DiT-Large checkpoint pretrained on the Publaynet Dataset:
 
-Move it to the project directory.
+```
+wget --continue -O publaynet_dit-l_cascade.pth "https://huggingface.co/HYPJUDY/dit/resolve/main/dit-fts/publaynet_dit-l_cascade.pth"
+```
+
+or
+
+```
+gdown "https://drive.google.com/uc?id=1whISKAO851EA0229cPCfo-eO5IVKzybT" -O publaynet_dit-l_cascade.pth
+```
+
+Move it to the project directory TabRAG/.
 
 ### Datasets
-Enter the datasets/ folder
+
+Download the dataset.zip from Google Drive then unzip it.
 
 ```
-cd datasets
-```
-
-**TAT-DQA**:
-```
-cd tatdqa
-gdown https://drive.google.com/uc?id=1iqe5r-qgQZLhGtM4G6LkNp9S6OCwOF2L
-# unzip the folder
-gdown https://drive.google.com/uc?id=1ZQjjIC0BB14l6t9b1Ryq0t-CNAP6iC2J
-
-python process_tatdqa.py
-```
-
-**MP-DocVQA**:
-```
-cd mpdocvqa
-wget https://datasets.cvc.uab.es/rrc/DocVQA/Task4/images.tar.gz --no-check-certificate
-tar -xvf images.tar.gz
-python process_mpdocvqa.py # get documents with tables # EDIT run this will do
-# python filter_mpdocvqa.py # select 500 pages based on qa:pages ratio
-# python indent_mpdocvqa.py # visibility of val.json
-```
-
-**WikiTableQuestions**:
-```
-cd wikitablequestions
-wget https://github.com/ppasupat/WikiTableQuestions/archive/refs/tags/v1.0.2.tar.gz
-tar -xvf v1.0.2.tar.gz
-python process_wikitq.py
-```
-
-**TableVQA**:
-```
-cd tablevqa
-python process_tablevqa.py
-```
-
-**ComTQA**:
-```
-cd comtqa
-download the dataset: https://huggingface.co/datasets/ByteDance/ComTQA/blob/main/README.md
-process the dataset:
-python process_comtqa.py
+gdown 
+gdown "https://drive.google.com/uc?id=1zAp8KZrtnMtZceUFdHG5yq64argd_uNF" -O datasets.zip
 ```
 
 Note that for new datasets, please convert all PDFs into single-page images then organize them as follows:
@@ -196,7 +163,6 @@ datasets/
 |   |   |   ├── ......
 ```
 
-See TAT-DQA as reference.
 
 ### Build Ragstore
 To build a Ragstore, we can choose between using an externally-served VLM using VLLM, or using a provider like HuggingFace directly.

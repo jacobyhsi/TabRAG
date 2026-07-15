@@ -26,8 +26,8 @@ datasets/**
 datasets/tatdqa/test/
 datasets/comtqa/annotated.json
 
-eval/eval_backups/
+eval/
 
 datasets/comtqa/annotated.json
 
-torchinductor_js2723/
+datasets.zip

@@ -3,6 +3,7 @@ import os
 import json
 import argparse
 import random
+import shutil
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -131,6 +132,7 @@ def main(args):
     )
 
     selected_examples = []
+    selected_images = []
     cursor = 0
 
     while cursor < len(candidate_tables) and len(selected_examples) < K:
@@ -182,6 +184,7 @@ def main(args):
 
             else:
                 selected_examples.append(combined_text)
+                selected_images.append(vlm_image)
                 print(
                     f"Accepted (md={md_tokens}, json={json_tokens}, "
                     f"total={total_tokens}, area={area})"
@@ -223,6 +226,16 @@ def main(args):
         json.dump(selected_examples, f, indent=2)
 
     print(f"\nSaved examples to {save_path}")
+
+    image_save_dir = os.path.join(save_dir, "imgs")
+    os.makedirs(image_save_dir, exist_ok=True)
+
+    for index, image_path in enumerate(selected_images, start=1):
+        extension = os.path.splitext(image_path)[1].lower() or ".png"
+        image_name = f"{vlm_name}_{index}{extension}"
+        shutil.copy2(image_path, os.path.join(image_save_dir, image_name))
+
+    print(f"Saved {len(selected_images)} ICL images to {image_save_dir}")
 
 
 if __name__ == "__main__":

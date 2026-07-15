@@ -24,11 +24,12 @@ def main(args):
     # -----------------------------
 
     # Embedder
+    embedder = HFEmbedder(args.embedder)
+
     if args.use_vllm:
-        embedder = VLLMEmbedder(args.embedder, tensor_parallel_size=1, gpu_memory_utilization=0.6)
+        # embedder = VLLMEmbedder(args.embedder, tensor_parallel_size=1, gpu_memory_utilization=0.6)
         vlm = VLLMVLMClient(args.vlm, ip=args.vllm_ip, port=args.vllm_port)
     if args.use_hf:
-        embedder = HFEmbedder(args.embedder)
         vlm = HFVLMClient(args.vlm)
 
     # Initialize Model
@@ -69,6 +70,8 @@ def main(args):
                 save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_complex_tatdqa", relative_path)
             elif args.prompt_type == "complex_wikitq":
                 save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_complex_wikitq", relative_path)
+            elif args.prompt_type == "complex_mpdocvqa":
+                save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_complex_mpdocvqa", relative_path)
             else:
                 save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}", relative_path)
 
@@ -101,7 +104,7 @@ if __name__ == "__main__":
     parser.add_argument("--vllm_port", type=str, default="2222") # modify
 
     parser.add_argument("--dataset", type=str,  default="tatdqa", help="tatdqa, mpdocvqa, wikitq, spiqa, tablevqa, comtqa")
-    parser.add_argument("--prompt_type", type=str, default="default", help="vlm prompt type: default, complex, complex_comtqa, complex_finqa, complex_tablevqa, complex_tatdqa, complex_wikitq")
+    parser.add_argument("--prompt_type", type=str, default="default", help="vlm prompt type: default, complex, complex_comtqa, complex_finqa, complex_tablevqa, complex_tatdqa, complex_wikitq, complex_mpdocvqa")
 
     args = parser.parse_args()
     main(args)

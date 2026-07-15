@@ -106,6 +106,8 @@ class Ragstore:
             vlm_prompt = self.vlm_baseline_prompts.complex_tatdqa
         elif self.prompt_type == "complex_wikitq":
             vlm_prompt = self.vlm_baseline_prompts.complex_wikitq
+        elif self.prompt_type == "complex_mpdocvqa":
+            vlm_prompt = self.vlm_baseline_prompts.complex_mpdocvqa
         else:
             vlm_prompt = self.vlm_baseline_prompts.baseline_vlm_prompt
 
