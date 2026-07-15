@@ -5,9 +5,8 @@ from src.layout import LayoutProcessor
 from src.embedder import BaseEmbedder
 from src.vector_store import VectorStore
 from src.llm import BaseVLMEngine, BaseLLMEngine
-from src.prompts import VLMPrompts
+from src.prompts import VLMPrompts, VLMBaselinePrompts
 from tqdm import tqdm
-import pymupdf
 import re
 import heapq
 from PIL import Image
@@ -23,16 +22,20 @@ class Ragstore:
                 vlm: BaseVLMEngine, 
                 # llm: BaseLLMEngine,
                 vlm_prompts: VLMPrompts,
+                vlm_baseline_prompts: VLMBaselinePrompts,
                 # llm_prompts: LLMPrompts,
                 icl,
                 model,
                 data_dir,
-                save_dir):
+                save_dir,
+                prompt_type="default"):
         self.lp = lp
         self.embedder = embedder
         self.vlm = vlm
         # self.llm = llm
         self.vlm_prompts = vlm_prompts
+        self.vlm_baseline_prompts = vlm_baseline_prompts
+        self.prompt_type = prompt_type
         # self.llm_prompts = llm_prompts
         self.icl = icl
         self.model = model
@@ -91,9 +94,20 @@ class Ragstore:
         match = re.search(r'_p(\d+)', file_name)
         logical_page = int(match.group(1)) if match else 0
 
-        vlm_prompt = """/no_think
-        Please parse everything in the attached image and output the parsed contents only without anything else.
-        """
+        if self.prompt_type == "complex":
+            vlm_prompt = self.vlm_baseline_prompts.baseline_vlm_gpt_complex_prompt
+        elif self.prompt_type == "complex_comtqa":
+            vlm_prompt = self.vlm_baseline_prompts.baseline_vlm_gpt_complex_comtqa_prompt
+        elif self.prompt_type == "complex_finqa":
+            vlm_prompt = self.vlm_baseline_prompts.complex_finqa
+        elif self.prompt_type == "complex_tablevqa":
+            vlm_prompt = self.vlm_baseline_prompts.complex_tablevqa
+        elif self.prompt_type == "complex_tatdqa":
+            vlm_prompt = self.vlm_baseline_prompts.complex_tatdqa
+        elif self.prompt_type == "complex_wikitq":
+            vlm_prompt = self.vlm_baseline_prompts.complex_wikitq
+        else:
+            vlm_prompt = self.vlm_baseline_prompts.baseline_vlm_prompt
 
         text = self.vlm.generate(vlm_prompt, file_path)
 
@@ -284,8 +298,8 @@ class Ragstore:
             file_path = os.path.join(self.data_dir, f)
 
             if self.model == "tabrag":
-                # output_data, output_meta, output_emb = self.process_one_file(file_path=file_path, file_name=f)
-                output_data, output_meta, output_emb = self.process_one_file_xLayout(file_path=file_path, file_name=f)
+                output_data, output_meta, output_emb = self.process_one_file(file_path=file_path, file_name=f)
+                # output_data, output_meta, output_emb = self.process_one_file_xLayout(file_path=file_path, file_name=f)
             elif self.model == "pymupdf":
                 output_data, output_meta, output_emb = self.process_one_file_pymupdf(file_path=file_path, file_name=f)
             elif self.model == "pytesseract":

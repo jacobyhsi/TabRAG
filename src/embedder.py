@@ -74,7 +74,7 @@ class HFEmbedder(BaseEmbedder):
             embeddings = self.last_token_pool(outputs.last_hidden_state, batch_dict['attention_mask'])
 
         normalized_embeddings = F.normalize(embeddings, p=2, dim=1)
-        return normalized_embeddings.cpu().numpy()
+        return normalized_embeddings.float().cpu().numpy()
 
 class VLLMEmbedder(BaseEmbedder):
     def __init__(self, model_name: str = "Qwen/Qwen3-Embedding-8B", **kwargs):

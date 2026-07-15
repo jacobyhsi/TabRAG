@@ -67,7 +67,7 @@ def process_one(html_path: Path, in_root: Path, out_pdf: Path, out_png: Path):
 # ============================================================
 def run_conversion_pipeline(root):
     parser = argparse.ArgumentParser(description="Convert WikiTableQuestions HTMLs to PDF & PNG.")
-    parser.add_argument("--in-root", type=Path, default=os.path.join(root, "datasets/wikitablequestions/csv"))
+    parser.add_argument("--in-root", type=Path, default=os.path.join(root, "datasets/wikitablequestions/WikiTableQuestions-1.0.2/csv"))
     parser.add_argument("--out-png", type=Path, default=os.path.join(root, "datasets/wikitablequestions/generation"))
     parser.add_argument("--out-pdf", type=Path, default=os.path.join(root, "datasets/wikitablequestions/generation_pdf"))
     args = parser.parse_args()
@@ -165,7 +165,7 @@ def build_retrieval_folders(root, base_dir="wikitablequestions"):
 # ============================================================
 def build_wtq_qa_json(
     root,
-    input_file="datasets/wikitablequestions/data/training.examples",
+    input_file="datasets/wikitablequestions/WikiTableQuestions-1.0.2/data/training.examples",
     output_file="datasets/wikitablequestions/qa.json"
 ):
 

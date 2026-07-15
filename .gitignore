@@ -41,3 +41,5 @@ datasets/finqa/*
 !datasets/finqa/metadata.jsonl
 
 icl/
+
+torchinductor_js2723/

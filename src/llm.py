@@ -3,14 +3,28 @@ import math
 import requests
 import base64
 import httpx
+import torch
 
 from openai import OpenAI
-from transformers import Qwen2_5_VLForConditionalGeneration, Qwen3VLForConditionalGeneration, AutoModelForCausalLM, AutoTokenizer, AutoProcessor
+from transformers import AutoModelForImageTextToText, AutoModelForCausalLM, AutoTokenizer, AutoProcessor
 from qwen_vl_utils import process_vision_info
 from io import BytesIO
 from PIL import Image
 
 from abc import ABC, abstractmethod
+
+# The cuDNN SDPA backend intermittently fails ("mha_graph.execute(...).is_good()
+# == false") on Qwen3.5/3.6's hybrid linear+full-attention layers with this
+# torch/cuDNN build. Disable it so SDPA falls back to flash/efficient/math.
+torch.backends.cuda.enable_cudnn_sdp(False)
+
+
+def _is_qwen35_reasoning_model(model: str) -> bool:
+    """Qwen3.5/3.6 checkpoints (e.g. Qwen3.5-9B, Qwen3.6-27B) are reasoning
+    models that need enable_thinking=False, otherwise every response is
+    prefixed with a <think>...</think> block."""
+    name = model.split('/')[-1]
+    return name.startswith('Qwen3.5') or name.startswith('Qwen3.6')
 
 class BaseLLMEngine(ABC):
     @abstractmethod
@@ -161,20 +175,17 @@ class VLLMVLMClient(BaseVLMEngine):
 class HFVLMClient(BaseVLMEngine):
     def __init__(self, model):
         super().__init__()
-        qwen_model_type = model.split('/')[1].split('-')[0]
-        if not qwen_model_type.startswith('Qwen'):
-            raise NameError("Invalid model name. Only Qwen2.5 and Qwen3 models are currently supported.")
-        if qwen_model_type == 'Qwen2.5':
-            self.vlm = Qwen2_5_VLForConditionalGeneration.from_pretrained(
-                model, dtype="auto", device_map="auto"
-            )
-        elif qwen_model_type == 'Qwen3':
-            self.vlm = Qwen3VLForConditionalGeneration.from_pretrained(
-                model, dtype="auto", device_map="auto"
-            )
+        self.model = model
+        self.is_qwen35_reasoning = _is_qwen35_reasoning_model(model)
+        self.vlm = AutoModelForImageTextToText.from_pretrained(
+            model, dtype="auto", device_map="auto"
+        )
         self.vlm_processor = AutoProcessor.from_pretrained(model)
 
     def generate(self, message, image_path, seed=42, max_tokens=16384):
+        if self.is_qwen35_reasoning and max_tokens == 16384:
+            max_tokens = 32768
+        torch.manual_seed(seed)
         messages=[{
             "role": "user",
             "content": [
@@ -182,9 +193,17 @@ class HFVLMClient(BaseVLMEngine):
                 {"type": "image_url", "image_url": image_path}
             ]
         }]
-        text = self.vlm_processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
-
         image_inputs, _ = process_vision_info(messages)
+
+        chat_template_kwargs = {}
+        if self.is_qwen35_reasoning:
+            chat_template_kwargs["enable_thinking"] = False
+        text = self.vlm_processor.apply_chat_template(
+            messages,
+            tokenize=False,
+            add_generation_prompt=True,
+            **chat_template_kwargs,
+        )
 
         inputs = self.vlm_processor(
             text=[text],
@@ -192,7 +211,17 @@ class HFVLMClient(BaseVLMEngine):
             padding=True,
             return_tensors="pt",
         ).to(self.vlm.device)
-        generated_ids = self.vlm.generate(**inputs, max_new_tokens=max_tokens)
+        generation_kwargs = {
+            "max_new_tokens": max_tokens,
+        }
+        if self.is_qwen35_reasoning:
+            generation_kwargs.update({
+                "do_sample": True,
+                "temperature": 0.7,
+                "top_p": 0.8,
+                "top_k": 20,
+            })
+        generated_ids = self.vlm.generate(**inputs, **generation_kwargs)
         generated_ids_trimmed = [
             out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
         ]
@@ -204,21 +233,42 @@ class HFVLMClient(BaseVLMEngine):
 class HFLLMClient(BaseLLMEngine):
     def __init__(self, model):
         super().__init__()
+        self.model = model
+        self.is_qwen35_reasoning = _is_qwen35_reasoning_model(model)
         self.llm = AutoModelForCausalLM.from_pretrained(
             model, dtype="auto", device_map="auto"
         )
         self.tokenizer = AutoTokenizer.from_pretrained(model)
 
     def generate(self, system_message, user_message, seed=42, max_tokens=8192):
+        if self.is_qwen35_reasoning and max_tokens == 8192:
+            max_tokens = 32768
+        torch.manual_seed(seed)
         messages=[
             {"role": "system", "content": system_message},
             {"role": "user", "content": user_message}
         ]
+        chat_template_kwargs = {}
+        if self.is_qwen35_reasoning:
+            chat_template_kwargs["enable_thinking"] = False
         text = self.tokenizer.apply_chat_template(
-            messages, tokenize=False, add_generation_prompt=True
+            messages,
+            tokenize=False,
+            add_generation_prompt=True,
+            **chat_template_kwargs,
         )
         inputs = self.tokenizer([text], return_tensors="pt").to(self.llm.device)
-        outputs = self.llm.generate(**inputs, max_new_tokens=max_tokens)
+        generation_kwargs = {
+            "max_new_tokens": max_tokens,
+        }
+        if self.is_qwen35_reasoning:
+            generation_kwargs.update({
+                "do_sample": True,
+                "temperature": 0.7,
+                "top_p": 0.8,
+                "top_k": 20,
+            })
+        outputs = self.llm.generate(**inputs, **generation_kwargs)
         outputs = [out[len(inp):] for inp, out in zip(inputs.input_ids, outputs)]
         response = self.tokenizer.batch_decode(outputs, skip_special_tokens=True)
         return response[0]

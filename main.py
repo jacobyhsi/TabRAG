@@ -6,7 +6,7 @@ from tqdm import tqdm
 sys.path.append(os.path.abspath("object_detection"))
 
 from src.llm import HFLLMClient, HFVLMClient, VLLMLLMClient, VLLMVLMClient
-from src.prompts import VLMPrompts, LLMPrompts
+from src.prompts import VLMPrompts, VLMBaselinePrompts, LLMPrompts
 from src.layout import LayoutProcessor
 from src.vector_store import VectorStore
 from src.embedder import SentenceTransformerEmbedder, HFEmbedder, VLLMEmbedder
@@ -33,6 +33,7 @@ def main(args):
 
     # Initialize Model
     vlmp = VLMPrompts()
+    vlm_baseline_prompts = VLMBaselinePrompts()
     lp = LayoutProcessor()
     vlm_name = args.vlm.split('/')[-1]
 
@@ -56,17 +57,32 @@ def main(args):
             print(f"Processing directory: {root}")
 
             relative_path = os.path.relpath(root, data_dir)
-            save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}", relative_path)
+            if args.prompt_type == "complex":
+                save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_Complex", relative_path)
+            elif args.prompt_type == "complex_comtqa":
+                save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_Complex_Comtqa", relative_path)
+            elif args.prompt_type == "complex_finqa":
+                save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_Complex_FinQA", relative_path)
+            elif args.prompt_type == "complex_tablevqa":
+                save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_Complex_TableVQA", relative_path)
+            elif args.prompt_type == "complex_tatdqa":
+                save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_Complex_TATDQA", relative_path)
+            elif args.prompt_type == "complex_wikitq":
+                save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}_Complex_WikiTQ", relative_path)
+            else:
+                save_dir = os.path.join(f"storages/{dataset}/{mode}/{model}/{vlm_name}", relative_path)
 
             rs = Ragstore(
                 lp=lp,
                 embedder=embedder,
                 vlm=vlm,
                 vlm_prompts=vlmp,
+                vlm_baseline_prompts=vlm_baseline_prompts,
                 icl=icl,
                 model=model,
                 data_dir=root,
-                save_dir=save_dir
+                save_dir=save_dir,
+                prompt_type=args.prompt_type
             )
             rs.build_index_per_folder()
             print("Saved to:", save_dir)
@@ -85,6 +101,7 @@ if __name__ == "__main__":
     parser.add_argument("--vllm_port", type=str, default="2222") # modify
 
     parser.add_argument("--dataset", type=str,  default="tatdqa", help="tatdqa, mpdocvqa, wikitablequestions, spiqa, tablevqa, comtqa")
+    parser.add_argument("--prompt_type", type=str, default="default", help="vlm prompt type: default, complex, complex_comtqa, complex_finqa, complex_tablevqa, complex_tatdqa, complex_wikitq")
 
     args = parser.parse_args()
     main(args)
